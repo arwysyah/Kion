@@ -1,11 +1,11 @@
-import React from 'react';
-import {View, Text,StyleSheet} from 'react-native';
+import React from 'react'
+import {View,Text,StyleSheet,TouchableOpacity} from 'react-native'
 
-export default function Profile() {
-  return (
+export default function Upload (){
+return(
 <View style={styles.container}>
    <TouchableOpacity onPress={()=>navigation.goBack()}>
-  <Text>HEllo world</Text>
+  <Text>Upload</Text>
   </TouchableOpacity>
 </View>
   )

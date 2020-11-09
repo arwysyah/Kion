@@ -16,7 +16,7 @@ const BACKDROPHEIGHT = height * 0.6;
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
 const BackgroundImage = ({data, scrollX}) => {
-    console.log(scrollX);
+
     return (
       <View style={{height: BACKDROPHEIGHT, position: 'absolute', width}}>
         <FlatList

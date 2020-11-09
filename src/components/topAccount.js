@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{memo} from 'react';
 import {
   View,
   Text,
@@ -18,8 +18,8 @@ const Spacer = (width - SIZE) / 2;
 const BACKDROPHEIGHT = height * 0.6;
 const TopAccount = ({navigation}) => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
-
-  const data = [{id: 21}, ...newData, {id: 22}];
+console.log('hahah')
+  const data = [{id: 29}, ...newData, {id: 22}];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -94,4 +94,4 @@ const styles = StyleSheet.create({
     // backgroundColor:"black"
   },
 });
-export default TopAccount;
+export default memo(TopAccount);

@@ -1,10 +1,13 @@
 import React from 'react'
-import HomeScreen from './src/navigations/StackNavigation'
+import {View,Text} from 'react-native'
+
 import { NavigationContainer } from '@react-navigation/native';
 import BottomNavigation from './src/navigations/BottomNavigation';
+
 const App =()=>{
   return(
 <NavigationContainer>
+
   <BottomNavigation/>
   </NavigationContainer>
 
