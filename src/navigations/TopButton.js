@@ -27,23 +27,22 @@ export default function TopButton() {
       //     scrollEnabled: true,
       //   })
       // }
-      
-       
-scrollEnabled={true}
-springConfig={{
-  restSpeedThreshold:60
-}}
-      tabBarOptions={{
-        labelStyle: {fontSize: 12, color: 'grey'},
-        tabStyle: {width: 110},
-        style: {backgroundColor: '#2b2929'},
 
-      },
-      {
-        lazy: true,
-           scrollEnabled: true,
-           
-         }}>
+      scrollEnabled={true}
+      springConfig={{
+        restSpeedThreshold: 60,
+      }}
+      tabBarOptions={
+        ({
+          labelStyle: {fontSize: 12, color: 'grey'},
+          tabStyle: {width: 110},
+          style: {backgroundColor: '#2b2929'},
+        },
+        {
+          lazy: true,
+          scrollEnabled: true,
+        })
+      }>
       <Tab.Screen name="University" component={University} />
       <Tab.Screen name="Story" component={Story} />
       <Tab.Screen name="Technology" component={Technology} />

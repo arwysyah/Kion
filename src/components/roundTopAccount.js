@@ -1,14 +1,12 @@
 import React,{memo} from 'react';
-import {View, Text, Image, FlatList} from 'react-native';
+import {View, Text, Image, FlatList,Animated} from 'react-native';
 import data from './data/data';
-const RoundTopAccount = () => {
+const RoundTopAccount = ({translateY}) => {
 
 
   return (
-    <View>
-      <Text style={{fontSize:16,color:'grey',paddingLeft:12,top:7}}>
-        Populer
-      </Text>
+  <View>
+    
       <FlatList
         data={data}
         keyExtractor={(item) => item.id.toString()}

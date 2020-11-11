@@ -1,9 +1,9 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
-import Home from '../screen/Home';
-import Profile from '../screen/Profile';
+import Home from '../screen/Home';;
 import Detail from '../screen/Detail';
-import TestNavigation from '../screen/testNavigation';
+import Chat from '../screen/Chat';
+import Test from '../screen/Test';
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
@@ -43,8 +43,8 @@ const HomeScreen = () => {
       />
 
       <Stack.Screen
-        name="TestNavigation"
-        component={TestNavigation}
+        name="Chat"
+        component={Chat}
         options={{
           transitionSpec: {
             open: config,
@@ -55,6 +55,7 @@ const HomeScreen = () => {
           ...TransitionPresets.ScaleFromCenterAndroid,
         }}
       />
+     
     </Stack.Navigator>
   );
 };

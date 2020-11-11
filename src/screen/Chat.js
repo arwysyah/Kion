@@ -5,7 +5,7 @@ const TestNavigation =()=>{
     return(
         <View style={{flex:1,backgroundColor:'black'}}>
             <Text>
-                Test Navigation
+            Chat 
             </Text>
         </View>
     )

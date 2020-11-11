@@ -1,13 +1,13 @@
 import React from 'react'
 import {View,Text,TouchableOpacity,StyleSheet} from 'react-native'
 
-export default function Content (){
+export default function History (){
     return(
         <View style={styles.container}>
-        <TouchableOpacity onPress={()=>navigation.goBack()}>
-       <Text>Content</Text>
-       </TouchableOpacity>
-     </View>
+      
+       <Text style={{color:'white'}}> History</Text>
+       </View>
+
        )
      }
      const styles = StyleSheet.create({

@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, Text,StyleSheet} from 'react-native';
+import {View, Text,StyleSheet,} from 'react-native';
 
 export default function Profile() {
   return (
 <View style={styles.container}>
-   <TouchableOpacity onPress={()=>navigation.goBack()}>
-  <Text>HEllo world</Text>
-  </TouchableOpacity>
+
+  <Text style={{color:'white'}}>Profile Page</Text>
+
 </View>
   )
 }
