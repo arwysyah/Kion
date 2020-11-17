@@ -3,15 +3,20 @@ import {View,Text} from 'react-native'
 
 import { NavigationContainer } from '@react-navigation/native';
 import BottomNavigation from './src/navigations/BottomNavigation';
-import SlideNavigation from './src/navigations/SlideNavigation'
+import Index from './src/navigations/index'
+import SplashScreen from './src/screen/SplashScreen'
 
 const App =()=>{
   return(
-<NavigationContainer>
+    <>
+ <NavigationContainer>
 
-  <SlideNavigation/>
+   <Index/>
   </NavigationContainer>
 
+  
+ 
+  </>
   )
 }
 export default App
