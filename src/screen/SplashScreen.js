@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -7,47 +7,68 @@ import {
   Dimensions,
   Image,
   StyleSheet,
-  Easing
+  Easing,
 } from 'react-native';
-
 
 // import { TouchableOpacity } from 'react-native-gesture-handler'
 const {height, width} = Dimensions.get('window');
-const SIZE = height/32
+const SIZE = height / 32;
 export default function SplashScreen({navigation}) {
   const moveLeft = useRef(new Animated.Value(0)).current;
-  const moveRight= useRef(new Animated.Value(0)).current
-//   const moveDown= useRef(new Animated.Value(0)).current
+  const moveRight = useRef(new Animated.Value(0)).current;
+  const [hide, setHide] = useState(false);
+  const [rotateValue, setRotateValue] = useState(new Animated.Value(0));
 
-  const moveDrawer = async() => {
-      
-   await Animated.timing(moveLeft, {
+  useEffect(() => {
+    startImageRotate();
+  }, [rotateValue]);
+
+  function startImageRotate() {
+    rotateValue.setValue(0);
+
+    Animated.timing(rotateValue, {
+      toValue: 1,
+      duration: 3000,
+      useNativeDriver: true,
+      easing: Easing.linear,
+    }).start();
+  }
+ async function moveDrawer() {
+    await Animated.timing(moveLeft, {
       toValue: -500,
-      duration: 1000,
+      duration: 2000,
       useNativeDriver: true,
     }).start();
-      
-   await Animated.timing(moveRight, {
-        toValue:1000,
-        duration: 1000,
-        useNativeDriver: true,
-     
-      }).start();
+
+    await Animated.timing(moveRight, {
+      toValue: 500,
+      duration: 2000,
+      useNativeDriver: true,
+    }).start();
+    setHide(true);
+    // await Animated.timing(opacity, {
+    //   toValue:0,
+    //   duration: 1000,
+    //   useNativeDriver: true,
+
+    // }).start();
     //   Animated.timing(moveDown, {
     //     toValue: 1,
     //     duration: 1000,
     //     useNativeDriver: true,
     //   }).start();
-   await setTimeout(()=>{
-        navigation.navigate('SlideNavigation')
-    },800)
-  
-
+    await setTimeout(() => {
+      navigation.navigate('SlideNavigation');
+    }, 400);
   };
+  const rotateImage = rotateValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  });
   const drawerOne = {
     backgroundColor: 'white',
     width: width / 2,
-    height: height*2,
+    height: height * 2,
     // left:-2,
     transform: [{translateX: moveLeft}],
   };
@@ -55,29 +76,42 @@ export default function SplashScreen({navigation}) {
     backgroundColor: 'white',
     width: width / 2,
     // right:-2,
-    height: height*2,
+    height: height * 2,
     transform: [{translateX: moveRight}],
   };
- 
 
   return (
     <View style={styles.container}>
-      <View style={{flexDirection:'row',flex:1}}>
+      <View style={{flexDirection: 'row', flex: 1}}>
         <Animated.View style={[drawerOne]} />
         <Animated.View style={[drawerTwo]} />
       </View>
-      <Text style={{color:'black',position:'absolute',top:height/1.5,fontSize:SIZE,left:width/2.9}}>Press Button</Text>
-
-      <View
-        style={[styles.buttonContainer]
-        }>
-        <TouchableOpacity style={styles.button} onPress={moveDrawer}>
-          <Image
-            style={[styles.image]}
-            source={require('../../assets/logoButton.png')}
-          />
-        </TouchableOpacity>
-      </View>
+      <Text
+        style={{
+          color: 'black',
+          position: 'absolute',
+          top: height / 1.5,
+          fontSize: SIZE,
+          left: width / 2.9,
+        }}>
+        Press Button
+      </Text>
+      {hide === false && (
+        <Animated.View
+          style={[
+            styles.buttonContainer,
+            {
+              transform: [{rotate: rotateImage}],
+            },
+          ]}>
+          <TouchableOpacity style={styles.button} onPress={moveDrawer}>
+            <Image
+              style={[styles.image]}
+              source={require('../../assets/logoButton.png')}
+            />
+          </TouchableOpacity>
+        </Animated.View>
+      )}
     </View>
   );
 }
@@ -110,12 +144,11 @@ const styles = StyleSheet.create({
     elevation: 5,
     // position:'absolute',
   },
-  buttonContainer:{
+  buttonContainer: {
     top: height / 2.5,
     alignItems: 'center',
     position: 'absolute',
     left: width / 3.4,
-  
   },
   box: {
     width: 100,

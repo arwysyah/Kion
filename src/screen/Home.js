@@ -28,6 +28,7 @@ const SIZE = width * 0.62;
 const Spacer = (width - SIZE) / 2;
 const BACKDROPHEIGHT = height * 0.6;
 LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+LogBox.ignoreLogs(['Setting a timer for a long period of time'])
 const Home = ({navigation}) => {
   const [text, setText] = React.useState('');
   const scrollY = new Animated.Value(0);
@@ -50,9 +51,7 @@ const Home = ({navigation}) => {
         <Text style={{fontSize: 16, color: 'white', paddingLeft: 12, top: 7}}>
           Populer
         </Text>
-        <Text style={{fontSize: 19, color: 'white', top: 7}}>
-          KION
-        </Text>
+       
         <TouchableOpacity onPress={() => navigation.navigate('Test')}>
           <MaterialCommunity name="chat-processing" size={25} color="grey" />
           <Text style={{fontSize: 12, color: 'white'}}>Chat</Text>
