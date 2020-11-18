@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import {Card} from 'native-base';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -33,12 +34,12 @@ const config = {
 // firebase.initializeApp(config);
 
 const Articles = ({navigation, data, from}) => {
+  console.log('article');
   const [pin, setPin] = React.useState(false);
   const [dot, setDots] = React.useState(false);
   const sendRequest = async () => {
     const ref = await firebase.database().ref('/income');
     const idRequest = Math.floor(Math.random() * 10000000000000) + 1;
-
     ref
       .push({
         idRequest: 'zzzzz',
@@ -54,86 +55,94 @@ const Articles = ({navigation, data, from}) => {
   };
   return (
     <SafeAreaView>
-      <FlatList
-        data={data}
-        keyExtractor={(item) => item.ids.toString()}
-        contentContainerStyle={{alignItems: 'center'}}
-        bounces={false}
-        scrollEventThrottle={60}
-        decelerationRate={0}
-        renderItem={({item, index}) => {
-          return (
-            <View style={{height: HEIGHT + 20, width}}>
-              <Card
-                style={{
-                  backgroundColor: 'black',
-                  opacity: 0.8,
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                  height: HEIGHT,
-                  borderRadius: 8,
-                }}>
-                <View
-                  style={{padding: spacing, paddingRight: 50, paddingLeft: 34}}>
-                  <Text style={{color: 'white'}}>{item.category}</Text>
-                  <Text
+      {/* {load === false ? ( */}
+        <FlatList
+          data={data}
+          keyExtractor={(item) => item.ids.toString()}
+          contentContainerStyle={{alignItems: 'center'}}
+          bounces={false}
+          scrollEventThrottle={60}
+          decelerationRate={0}
+          renderItem={({item, index}) => {
+            return (
+              <View style={{height: HEIGHT + 20, width}}>
+                <Card
+                  style={{
+                    backgroundColor: 'black',
+                    opacity: 0.8,
+                    flexDirection: 'row',
+                    justifyContent: 'space-around',
+                    height: HEIGHT,
+                    borderRadius: 8,
+                  }}>
+                  <View
                     style={{
-                      color: 'white',
-                      fontWeight: 'bold',
-                      top: 10,
-                      fontFamily: 'SansitaSwashed-Light',
+                      padding: spacing,
+                      paddingRight: 50,
+                      paddingLeft: 34,
                     }}>
-                    {item.title}
-                  </Text>
-
-                  <View style={{width: HEIGHT * 1.8}}></View>
-
-                  <View style={{top: spacing * 3}}>
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate('Test')}>
-                      <Text style={{color: 'white'}}>{item.author}</Text>
-                      <Text style={{color: 'white', fontSize: 10}}>
-                        {item.date}
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-
-                <View style={{alignItems: 'center', top: 20, left: -20}}>
-                  <Image
-                    source={require('../../assets/perahukertas.jpg')}
-                    style={{height: 100, width: 60, borderRadius: 6}}
-                  />
-                  {from !== 'profile' && (
-                    <View
+                    <Text style={{color: 'white'}}>{item.category}</Text>
+                    <Text
                       style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-evenly',
-                        width: 90,
-                        top: 6,
+                        color: 'white',
+                        fontWeight: 'bold',
+                        top: 10,
+                        fontFamily: 'SansitaSwashed-Light',
                       }}>
-                      <TouchableOpacity onPress={() => sendRequest()}>
-                        <MaterialCommunity
-                          name="pin-outline"
-                          size={20}
-                          color={pin === false ? 'grey' : 'white'}
-                        />
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={() => setDots(!dot)}>
-                        <MaterialCommunity
-                          name="dots-vertical"
-                          size={20}
-                          color={dot === false ? 'grey' : 'white'}
-                        />
+                      {item.title}
+                    </Text>
+
+                    <View style={{width: HEIGHT * 1.8}}></View>
+
+                    <View style={{top: spacing * 3}}>
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate('Test')}>
+                        <Text style={{color: 'white'}}>{item.author}</Text>
+                        <Text style={{color: 'white', fontSize: 10}}>
+                          {item.date}
+                        </Text>
                       </TouchableOpacity>
                     </View>
-                  )}
-                </View>
-              </Card>
-            </View>
-          );
-        }}
-      />
+                  </View>
+
+                  <View style={{alignItems: 'center', top: 20, left: -20}}>
+                    <Image
+                      source={require('../../assets/perahukertas.jpg')}
+                      style={{height: 100, width: 60, borderRadius: 6}}
+                    />
+                    {from !== 'profile' && (
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-evenly',
+                          width: 90,
+                          top: 6,
+                        }}>
+                        <TouchableOpacity onPress={() => sendRequest()}>
+                          <MaterialCommunity
+                            name="pin-outline"
+                            size={20}
+                            color={pin === false ? 'grey' : 'white'}
+                          />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => setDots(!dot)}>
+                          <MaterialCommunity
+                            name="dots-vertical"
+                            size={20}
+                            color={dot === false ? 'grey' : 'white'}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    )}
+                  </View>
+                </Card>
+              </View>
+            );
+          }}
+        />
+      {/* ) : (
+        <ActivityIndicator size="small" color="red" />
+      )} */}
       <View style={{height: 60}} />
     </SafeAreaView>
   );

@@ -4,7 +4,7 @@ const deviceWidth = Dimensions.get('window').width * (2 / 3);
 const TestNavigation =()=>{
     return(
         <View style={{flex:1,backgroundColor:'black'}}>
-            <Text>
+            <Text style={{color:'white'}}>
             Chat 
             </Text>
         </View>

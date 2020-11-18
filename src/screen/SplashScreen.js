@@ -9,31 +9,41 @@ import {
   StyleSheet,
   Easing,
 } from 'react-native';
-
+import {version as app_version} from './../../package.json';
 // import { TouchableOpacity } from 'react-native-gesture-handler'
 const {height, width} = Dimensions.get('window');
 const SIZE = height / 32;
 export default function SplashScreen({navigation}) {
   const moveLeft = useRef(new Animated.Value(0)).current;
   const moveRight = useRef(new Animated.Value(0)).current;
+  const opacity = useState(new Animated.Value(0))[0];
   const [hide, setHide] = useState(false);
   const [rotateValue, setRotateValue] = useState(new Animated.Value(0));
 
   useEffect(() => {
     startImageRotate();
   }, [rotateValue]);
+  useEffect(() => {
+    setTimeout(() => {
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start();
+    }, 1800);
+  }, []);
 
   function startImageRotate() {
     rotateValue.setValue(0);
 
     Animated.timing(rotateValue, {
       toValue: 1,
-      duration: 3000,
+      duration: 2000,
       useNativeDriver: true,
       easing: Easing.linear,
     }).start();
   }
- async function moveDrawer() {
+  async function moveDrawer() {
     await Animated.timing(moveLeft, {
       toValue: -500,
       duration: 2000,
@@ -46,21 +56,16 @@ export default function SplashScreen({navigation}) {
       useNativeDriver: true,
     }).start();
     setHide(true);
-    // await Animated.timing(opacity, {
-    //   toValue:0,
-    //   duration: 1000,
-    //   useNativeDriver: true,
 
-    // }).start();
     //   Animated.timing(moveDown, {
     //     toValue: 1,
     //     duration: 1000,
     //     useNativeDriver: true,
     //   }).start();
     await setTimeout(() => {
-      navigation.navigate('SlideNavigation');
-    }, 400);
-  };
+      navigation.replace('SlideNavigation');
+    }, 600);
+  }
   const rotateImage = rotateValue.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg'],
@@ -86,16 +91,17 @@ export default function SplashScreen({navigation}) {
         <Animated.View style={[drawerOne]} />
         <Animated.View style={[drawerTwo]} />
       </View>
-      <Text
+      <Animated.Text
         style={{
           color: 'black',
           position: 'absolute',
           top: height / 1.5,
           fontSize: SIZE,
           left: width / 2.9,
+          opacity,
         }}>
         Press Button
-      </Text>
+      </Animated.Text>
       {hide === false && (
         <Animated.View
           style={[
@@ -112,6 +118,11 @@ export default function SplashScreen({navigation}) {
           </TouchableOpacity>
         </Animated.View>
       )}
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+      <Text style={{fontSize: 14}}>Version {app_version}</Text>
+      <Text>Created by Arwy Syahputra Siregar</Text>
+    
+      </View>
     </View>
   );
 }

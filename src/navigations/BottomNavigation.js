@@ -3,18 +3,16 @@ import {TransitionPresets} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from './StackNavigation';
 import Profile from '../screen/Profile';
-import History from '../screen/History';
+import Challenge from '../screen/Challenge';
 import TopButton from '../navigations/TopButton';
 import UploadButton from '../components/uploadButton';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import gray from '../components/color';
 import Upload from '../screen/Upload';
+import Modal from '../screen/Modal';
 import {
   View,
-  Text,
-  TouchableHighlight,
-  Alert,
-  TouchableWithoutFeedback,
+
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 
@@ -43,7 +41,12 @@ const forFade = ({current}) => ({
 export default function BottomNavigation() {
   return (
     <Tab.Navigator
-      screenOptions={({route}) => ({
+    
+    initialRouteName='Home'
+    backBehavior={"order"}
+    
+      screenOptions={({route,navigation}) => ({
+       
         tabBarVisible: getIsTabBarVisible(route),
         tabBarIcon: ({focused, size, color}) => {
           let iconName;
@@ -53,10 +56,10 @@ export default function BottomNavigation() {
             iconName = focused ? 'file-table-box-outline' : 'file-table-box'
           
             }
-          else if (route.name === 'Upload') {
+          else if (route.name === 'Modal') {
             iconName = focused ? 'tooltip-plus' : 'plus-circle-outline';
          
-          }else if (route.name === 'History'){
+          }else if (route.name === 'Challenge'){
             iconName = focused ? 'file-document-edit-outline' : 'file-document-edit';
           }
           else if (route.name === 'Profile'){
@@ -107,14 +110,15 @@ export default function BottomNavigation() {
       }}>
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Content" component={TopButton} />
-      <Tab.Screen
+      <Tab.Screen name= 'Modal' component={Modal}
       listeners={({navigation})=>({
         tabPress:event=>{
           event.preventDefault()
           navigation.navigate('Upload')
         }
       })}
-        name="Upload"
+
+        name="Modal"
         options={{
           tabBarLabel: '',
           tabBarIcon: ({color}) => (
@@ -137,7 +141,7 @@ export default function BottomNavigation() {
         }}
         component={Upload}
       />
-      <Tab.Screen name="History" component={History}
+      <Tab.Screen name="Challenge" component={Challenge}
        />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>

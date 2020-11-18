@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {
   View,
   Text,
@@ -20,10 +20,16 @@ const Spacer = (width - SIZE) / 2;
 const BACKDROPHEIGHT = height * 0.6;
 
 export default function Profile({navigation}) {
+  const profileData = useMemo(()=>{
+   return ['Postingan', 'Pengikut ', 'Mengikuti']
+  },[])
+  const data = useMemo(()=>{
+    return [88,87,69]
+   },[])
   return (
     <View style={styles.container}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <Text style={styles.titleTextName}>Kenzo Ymc</Text>
+        <Text style={styles.titleTextName}>Maudy Ayunda</Text>
         <TouchableOpacity>
           <MaterialCommunity
             name="fountain-pen"
@@ -35,6 +41,8 @@ export default function Profile({navigation}) {
         </TouchableOpacity>
       </View>
 
+     
+      <ScrollView>
       <View style={styles.secondContainer}>
         <View>
           <Image
@@ -44,18 +52,17 @@ export default function Profile({navigation}) {
         </View>
         <View>
           <ProfileText
-            data={['Postingan', 'Pengikut ', 'Mengikuti']}
+            data={profileData}
             textStyles={styles.text}
             
           />
           <ProfileText
-            data={[88,77,66]}
+            data={data}
             textStyles={styles.texts}
           />
         </View>
        
       </View>
-      <ScrollView>
       <Articles data={articleData} navigation={navigation}
       from ={'profile'} />
       </ScrollView>

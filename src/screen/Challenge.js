@@ -1,11 +1,11 @@
 import React from 'react'
 import {View,Text,TouchableOpacity,StyleSheet} from 'react-native'
 
-export default function History (){
+export default function Challange (){
     return(
         <View style={styles.container}>
       
-       <Text style={{color:'white'}}> History</Text>
+       <Text style={{color:'white'}}> Challange</Text>
        </View>
 
        )

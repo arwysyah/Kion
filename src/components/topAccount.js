@@ -18,7 +18,6 @@ const Spacer = (width - SIZE) / 2;
 const BACKDROPHEIGHT = height * 0.6;
 const TopAccount = ({navigation}) => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
-console.log('hahah')
   const data = [{id: 29}, ...newData, {id: 22}];
 
   return (

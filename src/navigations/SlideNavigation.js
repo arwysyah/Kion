@@ -3,16 +3,15 @@
 import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import BottomNavigation from './BottomNavigation'
-import Test from '../screen/Test'
+import HomeScreen from './StackNavigation';
+import Chat from '../screen/Chat'
 const Tab = createMaterialTopTabNavigator();
 
 export default function SlideNavigation() {
   return (
     <Tab.Navigator
     tabBarOptions={{
-        activeTintColor: 'tomato',
-        inactiveTintColor: 'grey',
-        labelStyle: {},
+     
         style: {
           backgroundColor: 'black',
           flex:1,
@@ -38,7 +37,7 @@ export default function SlideNavigation() {
         },
         tabStyle: {height: 50}}}>
       <Tab.Screen name="Top" component={BottomNavigation} />
-      <Tab.Screen name="Test" component={Test} />
+      <Tab.Screen name="Chat" component={Chat} />
      
     </Tab.Navigator>
   );

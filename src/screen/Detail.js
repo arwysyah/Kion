@@ -5,7 +5,7 @@ export default function Detail({navigation}) {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Text>HEllo world</Text>
+        <Text style={{color:'white'}}>Detail</Text>
       </TouchableOpacity>
     </View>
   );

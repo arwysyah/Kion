@@ -1,9 +1,10 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
-import Home from '../screen/Home';;
+import Home from '../screen/Home';
 import Detail from '../screen/Detail';
-import Chat from '../screen/Chat';
 import Test from '../screen/Test';
+import Upload from '../screen/Upload';
+import Notification from '../screen/Notification'
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
@@ -27,10 +28,16 @@ const HomeScreen = () => {
       initialRouteName="Home"
       headerMode="none"
       screenOptions={({route, navigation}) => ({
-        gestureEnabled: true,
-        ...TransitionPresets.SlideFromRightIOS,
-        gestureDirection: 'horizontal-inverted',
-      })}>
+        cardOverlayEnabled: true,
+        headerStatusBarHeight:
+          navigation
+            .dangerouslyGetState()
+            .routes.findIndex((r) => r.key === route.key) > 3
+            ? 0
+            : undefined,
+        ...TransitionPresets.ModalPresentationIOS,
+      })}
+      mode="modal">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -39,12 +46,40 @@ const HomeScreen = () => {
       <Stack.Screen
         name="Detail"
         component={Detail}
-        options={{headerShown: false}}
+        options={
+          ({headerShown: false},
+          {
+            ...TransitionPresets.SlideFromRightIOS,
+            gestureDirection: 'horizontal-inverted',
+          })
+        }
+      />
+       <Stack.Screen
+        name="Notification"
+        component={Notification}
+        options={
+          ({headerShown: false},
+          {
+            ...TransitionPresets.SlideFromRightIOS,
+            gestureDirection: 'horizontal-inverted',
+          })
+        }
+      />
+      <Stack.Screen
+        name="Upload"
+        component={Upload}
+        options={
+          ({headerShown: false},
+          {
+            cardStyleInterpolator: forFade,
+            ...TransitionPresets.RevealFromBottomAndroid,
+          })
+        }
       />
 
       <Stack.Screen
-        name="Chat"
-        component={Chat}
+        name="Test"
+        component={Test}
         options={{
           transitionSpec: {
             open: config,
@@ -55,7 +90,6 @@ const HomeScreen = () => {
           ...TransitionPresets.ScaleFromCenterAndroid,
         }}
       />
-     
     </Stack.Navigator>
   );
 };
