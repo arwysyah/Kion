@@ -1,11 +1,12 @@
 import React from 'react'
 import {View,Text,TouchableOpacity,StyleSheet} from 'react-native'
+import { globalStyle, black } from '../components/color'
 
 export default function Challange (){
     return(
-        <View style={styles.container}>
+        <View style={globalStyle.container}>
       
-       <Text style={{color:'white'}}> Challange</Text>
+       <Text style={{color:black}}> Challange</Text>
        </View>
 
        )

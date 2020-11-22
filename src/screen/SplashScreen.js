@@ -19,6 +19,7 @@ export default function SplashScreen({navigation}) {
   const opacity = useState(new Animated.Value(0))[0];
   const [hide, setHide] = useState(false);
   const [rotateValue, setRotateValue] = useState(new Animated.Value(0));
+  const opacityText= useRef(new Animated.Value(0)).current
 
   useEffect(() => {
     startImageRotate();
@@ -30,6 +31,12 @@ export default function SplashScreen({navigation}) {
         duration: 1000,
         useNativeDriver: true,
       }).start();
+    
+        Animated.timing(opacityText, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }).start();
     }, 1800);
   }, []);
 
@@ -71,14 +78,14 @@ export default function SplashScreen({navigation}) {
     outputRange: ['0deg', '360deg'],
   });
   const drawerOne = {
-    backgroundColor: 'white',
+    backgroundColor: '#f0f0f0',
     width: width / 2,
     height: height * 2,
     // left:-2,
     transform: [{translateX: moveLeft}],
   };
   const drawerTwo = {
-    backgroundColor: 'white',
+    backgroundColor: '#f0f0f0',
     width: width / 2,
     // right:-2,
     height: height * 2,
@@ -120,7 +127,8 @@ export default function SplashScreen({navigation}) {
       )}
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
       <Text style={{fontSize: 14}}>Version {app_version}</Text>
-      <Text>Created by Arwy Syahputra Siregar</Text>
+      <Animated.Text
+      style={{opacity:opacityText}}>Created by Arwy Syahputra Siregar</Animated.Text>
     
       </View>
     </View>

@@ -1,10 +1,11 @@
 import React from 'react'
 import {View,Text} from 'react-native'
+import { globalStyle, black } from '../components/color'
 
 export default function Test ({}){
 return(
-    <View style={{backgroundColor:'black',flex:1}}>
-        <Text style={{color:"white"}}>
+    <View style={globalStyle.container}>
+        <Text style={{color:black}}>
             Test
         </Text>
     </View>

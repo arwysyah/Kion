@@ -1,10 +1,11 @@
 import React from 'react'
 import {View,Text} from 'react-native'
+import {globalStyle,black} from '../../components/color'
 
 const Challange =()=>{
     return(
-        <View style={{flex:1,backgroundColor:'black'}}>
-            <Text style={{color:'grey'}}>
+        <View style={globalStyle.container}>
+            <Text style={{color:black}}>
                Challange
             </Text>
         </View>

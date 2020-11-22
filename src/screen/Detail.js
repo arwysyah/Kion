@@ -1,18 +1,15 @@
 import React from 'react'
 import {View,Text,TouchableOpacity,StyleSheet} from 'react-native'
-
+import {globalStyle } from '../components/color'
 export default function Detail({navigation}) {
   return (
-    <View style={styles.container}>
+    <View style={globalStyle.container}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Text style={{color:'white'}}>Detail</Text>
+        <Text style={{color:'black'}}>Detail</Text>
       </TouchableOpacity>
     </View>
   );
 }
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'black',
-    flex: 1,
-  },
+
 });

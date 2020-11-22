@@ -13,32 +13,32 @@ import {
 import {Card} from 'native-base';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
-import firebase from 'firebase';
+import fireDB from '../../config/configs'
+import {globalStyle,black} from '../components/color'
 
 const {height, width} = Dimensions.get('window');
 const spacing = 12;
 const SIZE = width * 0.62;
 const HEIGHT = SIZE - 90;
 
-const config = {
-  apiKey: 'AIzaSyBjOs3ighmmnr0qEVOqNgm1XOpdaYqZIsc',
-  authDomain: 'kion-80d7f.firebaseapp.com',
-  databaseURL: 'https://kion-80d7f.firebaseio.com',
-  projectId: 'kion-80d7f',
-  storageBucket: 'kion-80d7f.appspot.com',
-  messagingSenderId: '193729941299',
-  appId: '1:193729941299:web:36751e5d1650b59f25f846',
-  measurementId: 'G-FPQ46620KV',
-};
+// const config = {
+//   apiKey: 'AIzaSyBjOs3ighmmnr0qEVOqNgm1XOpdaYqZIsc',
+//   authDomain: 'kion-80d7f.firebaseapp.com',
+//   databaseURL: 'https://kion-80d7f.firebaseio.com',
+//   projectId: 'kion-80d7f',
+//   storageBucket: 'kion-80d7f.appspot.com',
+//   messagingSenderId: '193729941299',
+//   appId: '1:193729941299:web:36751e5d1650b59f25f846',
+//   measurementId: 'G-FPQ46620KV',
+// };
 // Initialize Firebase
 // firebase.initializeApp(config);
 
 const Articles = ({navigation, data, from}) => {
-  console.log('article');
   const [pin, setPin] = React.useState(false);
   const [dot, setDots] = React.useState(false);
   const sendRequest = async () => {
-    const ref = await firebase.database().ref('/income');
+    const ref = await fireDB.database().ref('/income');
     const idRequest = Math.floor(Math.random() * 10000000000000) + 1;
     ref
       .push({
@@ -67,24 +67,17 @@ const Articles = ({navigation, data, from}) => {
             return (
               <View style={{height: HEIGHT + 20, width}}>
                 <Card
-                  style={{
-                    backgroundColor: 'black',
-                    opacity: 0.8,
-                    flexDirection: 'row',
-                    justifyContent: 'space-around',
-                    height: HEIGHT,
-                    borderRadius: 8,
-                  }}>
+                  style={globalStyle.cardContainer}>
                   <View
                     style={{
                       padding: spacing,
                       paddingRight: 50,
                       paddingLeft: 34,
                     }}>
-                    <Text style={{color: 'white'}}>{item.category}</Text>
+                    <Text style={{color: 'black'}}>{item.category}</Text>
                     <Text
                       style={{
-                        color: 'white',
+                        color: 'black',
                         fontWeight: 'bold',
                         top: 10,
                         fontFamily: 'SansitaSwashed-Light',
@@ -97,8 +90,8 @@ const Articles = ({navigation, data, from}) => {
                     <View style={{top: spacing * 3}}>
                       <TouchableOpacity
                         onPress={() => navigation.navigate('Test')}>
-                        <Text style={{color: 'white'}}>{item.author}</Text>
-                        <Text style={{color: 'white', fontSize: 10}}>
+                        <Text style={{color: 'black'}}>{item.author}</Text>
+                        <Text style={{color: 'black', fontSize: 10}}>
                           {item.date}
                         </Text>
                       </TouchableOpacity>
@@ -122,14 +115,14 @@ const Articles = ({navigation, data, from}) => {
                           <MaterialCommunity
                             name="pin-outline"
                             size={20}
-                            color={pin === false ? 'grey' : 'white'}
+                            color={pin === false ? 'grey' : 'black'}
                           />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => setDots(!dot)}>
                           <MaterialCommunity
                             name="dots-vertical"
                             size={20}
-                            color={dot === false ? 'grey' : 'white'}
+                            color={dot === false ? 'grey' : 'black'}
                           />
                         </TouchableOpacity>
                       </View>

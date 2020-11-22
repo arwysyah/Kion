@@ -10,12 +10,8 @@ import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
 import gray from '../components/color';
 import Upload from '../screen/Upload';
 import Modal from '../screen/Modal';
-import {
-  View,
-
-} from 'react-native';
+import {View} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
-
 
 const Tab = createBottomTabNavigator();
 const getIsTabBarVisible = (route) => {
@@ -41,31 +37,26 @@ const forFade = ({current}) => ({
 export default function BottomNavigation() {
   return (
     <Tab.Navigator
-    
-    initialRouteName='Home'
-    backBehavior={"order"}
-    
-      screenOptions={({route,navigation}) => ({
-       
+      initialRouteName="Home"
+      backBehavior={'order'}
+      screenOptions={({route, navigation}) => ({
         tabBarVisible: getIsTabBarVisible(route),
         tabBarIcon: ({focused, size, color}) => {
           let iconName;
           if (route.name === 'Home') {
-            iconName = focused ? 'home-analytics' : 'home';
-            } else if (route.name === 'Content') {
-            iconName = focused ? 'file-table-box-outline' : 'file-table-box'
-          
-            }
-          else if (route.name === 'Modal') {
-            iconName = focused ? 'tooltip-plus' : 'plus-circle-outline';
-         
-          }else if (route.name === 'Challenge'){
-            iconName = focused ? 'file-document-edit-outline' : 'file-document-edit';
+            iconName = focused ? 'home' : 'home-analytics';
+          } else if (route.name === 'Content') {
+            iconName = focused ? 'file-table-box' : 'file-table-box-outline';
+          } else if (route.name === 'Modal') {
+            iconName = focused ? 'plus-circle-outline' : 'tooltip-plus';
+          } else if (route.name === 'Challenge') {
+            iconName = focused
+              ? 'file-document-edit'
+              : 'file-document-edit-outline';
+          } else if (route.name === 'Profile') {
+            iconName = focused ? 'account-tie' : 'account-tie-outline';
           }
-          else if (route.name === 'Profile'){
-            iconName = focused ? 'account-tie-outline' : 'account-tie';
-          }
-         
+
           // You can return any component that you like here!
           return (
             <MaterialCommunity name={iconName} size={size} color={color} />
@@ -73,11 +64,11 @@ export default function BottomNavigation() {
         },
       })}
       tabBarOptions={{
-        activeTintColor: 'tomato',
+        activeTintColor: 'black',
         inactiveTintColor: gray,
         labelStyle: {},
         style: {
-          backgroundColor: '#2b2929',
+          backgroundColor: 'white',
 
           opacity: 1,
           height: 50,
@@ -110,14 +101,15 @@ export default function BottomNavigation() {
       }}>
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Content" component={TopButton} />
-      <Tab.Screen name= 'Modal' component={Modal}
-      listeners={({navigation})=>({
-        tabPress:event=>{
-          event.preventDefault()
-          navigation.navigate('Upload')
-        }
-      })}
-
+      <Tab.Screen
+        name="Modal"
+        component={Modal}
+        listeners={({navigation}) => ({
+          tabPress: (event) => {
+            event.preventDefault();
+            navigation.navigate('Upload');
+          },
+        })}
         name="Modal"
         options={{
           tabBarLabel: '',
@@ -141,8 +133,7 @@ export default function BottomNavigation() {
         }}
         component={Upload}
       />
-      <Tab.Screen name="Challenge" component={Challenge}
-       />
+      <Tab.Screen name="Challenge" component={Challenge} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );

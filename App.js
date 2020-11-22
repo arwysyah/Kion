@@ -5,14 +5,20 @@ import { NavigationContainer } from '@react-navigation/native';
 import BottomNavigation from './src/navigations/BottomNavigation';
 import Index from './src/navigations/index'
 import SplashScreen from './src/screen/SplashScreen'
+import {Provider }from 'react-redux'
+import {store} from './src/redux/redux'
 
 const App =()=>{
   return(
     <>
+    <Provider store={store}>
+
+
  <NavigationContainer>
 
    <Index/>
   </NavigationContainer>
+  </Provider>
 
   
  

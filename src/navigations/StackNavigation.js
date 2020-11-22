@@ -4,6 +4,7 @@ import Home from '../screen/Home';
 import Detail from '../screen/Detail';
 import Test from '../screen/Test';
 import Upload from '../screen/Upload';
+import Posting from '../screen/Posting'
 import Notification from '../screen/Notification'
 const Stack = createStackNavigator();
 const config = {
@@ -50,6 +51,17 @@ const HomeScreen = () => {
           ({headerShown: false},
           {
             ...TransitionPresets.SlideFromRightIOS,
+            gestureDirection: 'horizontal-inverted',
+          })
+        }
+      />
+         <Stack.Screen
+        name="Posting"
+        component={Posting}
+        options={
+          ({headerShown: false},
+          {
+            ...TransitionPresets.ModalSlideFromBottomIOS,
             gestureDirection: 'horizontal-inverted',
           })
         }

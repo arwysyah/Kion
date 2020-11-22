@@ -13,6 +13,7 @@ import articleData from '../components/data/articleData';
 import Articles from '../components/articles'
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import ProfileText from '../components/textProfile';
+import {globalStyle,iconColor } from '../components/color'
 const {height, width} = Dimensions.get('window');
 const spacing = 10;
 const SIZE = width * 0.62;
@@ -27,17 +28,17 @@ export default function Profile({navigation}) {
     return [88,87,69]
    },[])
   return (
-    <View style={styles.container}>
+    <View style={globalStyle.container}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <Text style={styles.titleTextName}>Maudy Ayunda</Text>
+        <Text style={globalStyle.titleTextName}>Maudy Ayunda</Text>
         <TouchableOpacity>
           <MaterialCommunity
             name="fountain-pen"
             size={25}
-            color="white"
+            color='#999793'
             style={{paddingRight: spacing * 2, top: spacing}}
           />
-          <Text style={{color:"white",top:9}}> edit</Text>
+          <Text style={{color:"black",top:9}}> edit</Text>
         </TouchableOpacity>
       </View>
 
@@ -53,12 +54,12 @@ export default function Profile({navigation}) {
         <View>
           <ProfileText
             data={profileData}
-            textStyles={styles.text}
+            textStyles={globalStyle.text}
             
           />
           <ProfileText
             data={data}
-            textStyles={styles.texts}
+            textStyles={globalStyle.texts}
           />
         </View>
        
@@ -76,13 +77,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     flex: 1,
   },
-  titleTextName: {
-    fontSize: 26,
-    color: 'white',
-    fontWeight: 'bold',
-    // top: spacing,
-    padding: spacing,
-  },
+
   secondContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -95,20 +90,5 @@ const styles = StyleSheet.create({
     height: width / 4,
     borderRadius: width / 8,
   },
-  text: {
-    fontSize: 15,
-    color: 'white',
-    paddingLeft: spacing+10,
-    top: spacing * 2.5,
-    // justifyContent:'c'
-  },
-   texts: {
-    fontSize: 15,
-    color: 'white',
-    paddingHorizontal:spacing*3,
-    left:10,
-    top: spacing * 2.5,
-    textAlign:'center',
-    justifyContent:'center'
-  },
+
 });

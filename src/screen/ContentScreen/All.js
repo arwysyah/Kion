@@ -2,13 +2,13 @@ import React from 'react'
 import {View,Text} from 'react-native'
 import { globalStyle, black } from '../../components/color'
 
-const Science =()=>{
+const All=()=>{
     return(
-        <View style={globalStyle.container}>
+        <View style={globalStyle}>
         <Text style={{color:black}}>
-                Science
+               All
             </Text>
         </View>
     )
 }
-export default Science
+export default All

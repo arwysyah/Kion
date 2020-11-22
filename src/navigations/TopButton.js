@@ -7,6 +7,7 @@ import Technology from '../screen/ContentScreen/Technology';
 import Story from '../screen/ContentScreen/Story';
 import Scholarship from '../screen/ContentScreen/Scholarship';
 import Internship from '../screen/ContentScreen/Internship';
+import All from '../screen/ContentScreen/All'
 import {Dimensions} from 'react-native';
 const {width} = Dimensions.get('window');
 const Tab = createMaterialTopTabNavigator();
@@ -14,8 +15,8 @@ const Tab = createMaterialTopTabNavigator();
 export default function TopButton() {
   return (
     <Tab.Navigator
-      initialRouteName="University"
-      backBehavior="University"
+      initialRouteName="All"
+      backBehavior="All"
       // tabBarOptions={
       //   ({
       //     style: {
@@ -36,20 +37,21 @@ export default function TopButton() {
         ({
           labelStyle: {fontSize: 12, color: 'grey'},
           tabStyle: {width: 110},
-          style: {backgroundColor: '#2b2929'},
+          style: {backgroundColor: 'white'},
         },
         {
           lazy: true,
           scrollEnabled: true,
         })
       }>
-      <Tab.Screen name="University" component={University} />
-      <Tab.Screen name="Story" component={Story} />
-      <Tab.Screen name="Technology" component={Technology} />
-      <Tab.Screen name="Science" component={Science} />
-      <Tab.Screen name="Scholarship" component={Scholarship} />
+          <Tab.Screen name="Semua" component={All} />
+      <Tab.Screen name="Universtas" component={University} />
+      <Tab.Screen name="Cerita" component={Story} />
+      <Tab.Screen name="Teknologi" component={Technology} />
+      <Tab.Screen name="Sains" component={Science} />
+      <Tab.Screen name="Beasiswa" component={Scholarship} />
       <Tab.Screen name="Internship" component={Internship} />
-      <Tab.Screen name="Challange" component={Challange} />
+      <Tab.Screen name="Tantangan" component={Challange} />
     </Tab.Navigator>
   );
 }

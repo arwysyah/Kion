@@ -1,10 +1,11 @@
 import React from 'react'
 import {View,Text,Dimensions} from 'react-native'
+import {globalStyle } from '../components/color'
 const deviceWidth = Dimensions.get('window').width * (2 / 3);
 const TestNavigation =()=>{
     return(
-        <View style={{flex:1,backgroundColor:'black'}}>
-            <Text style={{color:'white'}}>
+        <View style={globalStyle.container}>
+            <Text style={{color:'black'}}>
             Chat 
             </Text>
         </View>

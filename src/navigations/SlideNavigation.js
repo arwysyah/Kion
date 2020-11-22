@@ -13,7 +13,7 @@ export default function SlideNavigation() {
     tabBarOptions={{
      
         style: {
-          backgroundColor: 'black',
+          backgroundColor: 'white',
           flex:1,
 
           opacity: 0.7,
