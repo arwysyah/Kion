@@ -21,8 +21,8 @@ import RoundTopAccount from '../components/roundTopAccount';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector,useDispatch,createSelectorHook} from 'react-redux'
 import {watchData} from '../redux/redux'
-import {globalStyle,iconColor, black,height,spacing,SIZE,width} from '../components/color'
-
+import {globalStyle,iconColor, black,height,spacing,SIZE,width, arrayColor} from '../components/color'
+import LinearGradient from 'react-native-linear-gradient'
 // import articlesData from '../components/data/articleData';
 const AnimatedFlatlist = Animated.createAnimatedComponent(RoundTopAccount);
 
@@ -37,10 +37,10 @@ const getCarsSelector = createSelectorHook(globalState, request =>request );
   const scrollY = new Animated.Value(0);
   // const [count, setCount] = useState(0);
   const diffClamp = Animated.diffClamp(scrollY, 0, 90);
-  const translateY = diffClamp.interpolate({
-    inputRange: [0, 80],
-    outputRange: [0, -80],
-  });
+  // const translateY = diffClamp.interpolate({
+  //   inputRange: [0, 80],
+  //   outputRange: [0, -80],
+  // });
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const dispatch = useDispatch()
@@ -50,10 +50,11 @@ const getCarsSelector = createSelectorHook(globalState, request =>request );
       dispatch(watchData())
 
   }, [data,dispatch]);
-  console.log('loads')
+
 
   return (
     <SafeAreaView style={globalStyle.container}>
+      <LinearGradient colors={arrayColor}  style={{flex:1}}>
       <View
         style={{
           flexDirection: 'row',
@@ -64,19 +65,22 @@ const getCarsSelector = createSelectorHook(globalState, request =>request );
         {/* <TouchableOpacity onPress={() => setCount(count + 1)}>
           <Text style={{fontSize: 30, color: 'white'}}>{count}</Text>
         </TouchableOpacity> */}
-<TouchableOpacity onPress={()=>navigation.navigate('Notification')}>
-        <Image
-          source={require('../../assets/logoButton.png')}
-          style={{width: width / 9.4, height: width / 9.8, left: -spacing}}
-        />
-         <Text style={{fontSize: 12, color:'black',top:-10}}>Notifikasi</Text>
+<TouchableOpacity onPress={()=>navigation.navigate('Profile')}>
+
+<MaterialCommunity
+            name="account-tie"
+            size={28}
+            color={iconColor}
+            style={{top: spacing - 7,left:spacing-1}}
+          />
+         <Text style={{fontSize: 12, color:'black',textAlign:'center'}}>Notifikasi</Text>
 </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
           <MaterialCommunity
             name="chat-processing"
             size={28}
             color={iconColor}
-            style={{top: spacing - 5}}
+            style={{top: spacing - 7}}
           />
           <Text style={{fontSize: 12, color:'black'}}>Chat</Text>
         </TouchableOpacity>
@@ -89,15 +93,18 @@ const getCarsSelector = createSelectorHook(globalState, request =>request );
           Populer
         </Text>
       
-        <RoundTopAccount
+        {/* <RoundTopAccount
           data={articleData}
 
           // translateY={translateY}
-        />
+        /> */}
         <TopAccount navigation={navigation} />
 
-        <Articles data={articleData} navigation={navigation} />
+        <Articles data={articleData} navigation={navigation}
+        routes={'Home'} />
       </Animated.ScrollView>
+
+      </LinearGradient>
     </SafeAreaView>
   );
 };

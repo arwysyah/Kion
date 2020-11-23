@@ -44,7 +44,7 @@ color:'black',
 fontWeight:'bold'
   },
   titleTextName: {
-    fontSize: 26,
+    fontSize: 23,
     color: 'black',
     fontWeight: 'bold',
     // top: spacing,
@@ -60,16 +60,24 @@ fontWeight:'bold'
     justifyContent: 'center',
   },
   backIconContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#ffffff',
     position: 'absolute',
-    marginTop: 30,
+  
     left: 15,
-    zIndex: 9999,
-    width: 30,
-    height: 30,
-    borderRadius: 200,
+    zIndex: 999,
+    width: 35,
+    height: 35,
+    borderRadius: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   commonText:{
     textAlign:'justify'
@@ -86,7 +94,7 @@ fontWeight:'bold'
     width,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#f0f0f0',
     padding: 10,
     shadowColor: '#000',
     shadowOffset: {
@@ -98,10 +106,34 @@ fontWeight:'bold'
     elevation: 3,
     height:HEIGHT/3.4
   },
+  image: {
+    height: height / 4,
+    width: width / 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: -10,
+  }, logoButton: {
+    height: height / 4.4,
+    backgroundColor: 'red',
+    width: width / 2.3,
+    alignItems: 'center',
+    borderRadius: 100,
+    shadowColor: 'black',
+
+    shadowOffset: {
+      width: 10,
+      height: 2,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 3.84,
+    elevation: 5,
+    // position:'absolute',
+  },terms:{fontSize:11,color:"black",textAlign:"center"}
 });
 const color = '#E0E5EC';
 const black = 'black';
 const iconColor = '#999793';
 const white = '#ffffff'
+const arrayColor=['#dde2eb', '#cacfca','#dee3de','#dde2eb']
 
-export {globalStyle, color, iconColor, black,HEIGHT,SIZE,spacing,width,height,white};
+export {globalStyle, color, iconColor, black,HEIGHT,SIZE,spacing,width,height,white,arrayColor};

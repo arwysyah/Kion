@@ -1,13 +1,15 @@
 import React, {memo} from 'react';
-import {globalStyle} from '../components/color';
-import {View, Text, Platform, TouchableOpacity,} from 'react-native';
+import {globalStyle, arrayColor} from '../components/color';
+import {View, Text, Platform, TouchableOpacity, SafeAreaView,} from 'react-native';
 import PropTypes from 'prop-types'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Header = ({title,navigation}) => {
   return (
-    <View style={globalStyle.header}>
+    <SafeAreaView style={globalStyle.header} >
       <TouchableOpacity
+      style={globalStyle.backIconContainer}
    
         onPress={() => navigation.goBack()}>
         <MaterialCommunityIcons
@@ -18,7 +20,7 @@ const Header = ({title,navigation}) => {
       <View style={{flex: 1,top:-5}}>
   <Text style={globalStyle.headerTitle}>{title}</Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 Header.propTypes = {

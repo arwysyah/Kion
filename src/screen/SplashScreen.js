@@ -10,6 +10,7 @@ import {
   Easing,
 } from 'react-native';
 import {version as app_version} from './../../package.json';
+import { globalStyle } from '../components/color';
 // import { TouchableOpacity } from 'react-native-gesture-handler'
 const {height, width} = Dimensions.get('window');
 const SIZE = height / 32;
@@ -117,9 +118,9 @@ export default function SplashScreen({navigation}) {
               transform: [{rotate: rotateImage}],
             },
           ]}>
-          <TouchableOpacity style={styles.button} onPress={moveDrawer}>
+          <TouchableOpacity style={globalStyle.logoButton} onPress={moveDrawer}>
             <Image
-              style={[styles.image]}
+              style={[globalStyle.image]}
               source={require('../../assets/logoButton.png')}
             />
           </TouchableOpacity>
@@ -139,30 +140,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'black',
   },
-  image: {
-    height: height / 4,
-    width: width / 4,
-    alignItems: 'center',
-    justifyContent: 'center',
-    top: -10,
-  },
-  button: {
-    height: height / 4.4,
-    backgroundColor: 'red',
-    width: width / 2.3,
-    alignItems: 'center',
-    borderRadius: 100,
-    shadowColor: 'black',
 
-    shadowOffset: {
-      width: 10,
-      height: 2,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 3.84,
-    elevation: 5,
-    // position:'absolute',
-  },
+ 
   buttonContainer: {
     top: height / 2.5,
     alignItems: 'center',

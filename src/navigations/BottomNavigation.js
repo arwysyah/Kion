@@ -2,7 +2,7 @@ import React from 'react';
 import {TransitionPresets} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from './StackNavigation';
-import Profile from '../screen/Profile';
+import Notification from '../screen/Notification';
 import Challenge from '../screen/Challenge';
 import TopButton from '../navigations/TopButton';
 import UploadButton from '../components/uploadButton';
@@ -53,8 +53,8 @@ export default function BottomNavigation() {
             iconName = focused
               ? 'file-document-edit'
               : 'file-document-edit-outline';
-          } else if (route.name === 'Profile') {
-            iconName = focused ? 'account-tie' : 'account-tie-outline';
+          } else if (route.name === 'Notification') {
+            iconName = focused ? 'bell-circle' : 'bell-circle-outline';
           }
 
           // You can return any component that you like here!
@@ -78,7 +78,7 @@ export default function BottomNavigation() {
           borderRadius: 18,
           position: 'absolute',
           borderTopWidth: 0,
-          bottom: 0,
+          bottom: 3,
           shadowColor: '#000',
           shadowOffset: {
             width: 0,
@@ -90,6 +90,7 @@ export default function BottomNavigation() {
           elevation: 7,
         },
         tabStyle: {height: 40},
+      
 
         // style: {
         //   height: 80,
@@ -133,8 +134,9 @@ export default function BottomNavigation() {
         }}
         component={Upload}
       />
+          <Tab.Screen name="Notification" component={Notification} />
       <Tab.Screen name="Challenge" component={Challenge} />
-      <Tab.Screen name="Profile" component={Profile} />
+  
     </Tab.Navigator>
   );
 }

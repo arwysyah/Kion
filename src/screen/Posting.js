@@ -7,8 +7,11 @@ import {
   Keyboard,
   KeyboardAvoidingView,
 } from 'react-native';
-import {globalStyle, width, height, spacing, white} from '../components/color';
+import {globalStyle, width, height, spacing, white, arrayColor} from '../components/color';
 import Header from '../components/header';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
+import LinearGradient from 'react-native-linear-gradient'
 
 // import DismissKeyboard from '../components/keyboardDismiss';
 export default function Posting({navigation}) {
@@ -23,7 +26,7 @@ export default function Posting({navigation}) {
       return <Text style={{color: 'green'}}>{result}</Text>;
     }
   }
-  function clear() {
+  function clear(props) {
     setText('');
     Keyboard.dismiss();
     setHeight(1.2);
@@ -32,9 +35,18 @@ export default function Posting({navigation}) {
     setText(text);
     setHeight(1.8);
   }
+  function close(){
+    Keyboard.dismiss();
+    setHeight(1.2);
+  }
   return (
-    <View style={globalStyle.container}>
-      <Header navigation={navigation} title={'Menulis'} />
+    <LinearGradient colors={arrayColor}>
+  <TouchableOpacity
+        onPress={()=>navigation.goBack()}
+          style={[globalStyle.backIconContainer, {top: -spacing + 15}]}>
+          <MaterialCommunity name="arrow-left" size={25} color="black" />
+        </TouchableOpacity>
+      <TouchableWithoutFeedback onPress={close}>
       <View style={{flexDirection: 'row', left: width / 1.4, top: spacing / 2}}>
         <TouchableOpacity onPress={clear}>
           <Text
@@ -52,10 +64,7 @@ export default function Posting({navigation}) {
           </Text>
         </TouchableOpacity>
       </View>
-      <KeyboardAvoidingView
-        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-        //   style={styles.container}
-      >
+  
         <TextInput
           editable={true}
           onChangeText={(texts) => seNewText(texts)}
@@ -75,7 +84,8 @@ export default function Posting({navigation}) {
         <Text style={{position: 'absolute', top: height / heights, right: 15}}>
           {countText()}
         </Text>
-      </KeyboardAvoidingView>
-    </View>
+        </TouchableWithoutFeedback>
+
+    </LinearGradient>
   );
 }

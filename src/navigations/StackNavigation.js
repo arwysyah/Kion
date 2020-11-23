@@ -5,7 +5,7 @@ import Detail from '../screen/Detail';
 import Test from '../screen/Test';
 import Upload from '../screen/Upload';
 import Posting from '../screen/Posting'
-import Notification from '../screen/Notification'
+import Profile from '../screen/Profile'
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
@@ -67,8 +67,8 @@ const HomeScreen = () => {
         }
       />
        <Stack.Screen
-        name="Notification"
-        component={Notification}
+        name="Profile"
+        component={Profile}
         options={
           ({headerShown: false},
           {
