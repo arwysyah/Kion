@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Dimensions, StyleSheet, Image} from 'react-native';
-import { globalStyle, spacing } from '../components/color';
+import { globalStyle, spacing } from '../components/styles';
 
 
 const Login = () => {

@@ -6,12 +6,22 @@ import {
   TouchableOpacity,
   Keyboard,
   KeyboardAvoidingView,
+  SafeAreaView,
 } from 'react-native';
-import {globalStyle, width, height, spacing, white, arrayColor} from '../components/color';
+import {
+  globalStyle,
+  width,
+  height,
+  spacing,
+  white,
+  arrayColor,
+  backgroundColor,
+  TOP,
+} from '../components/styles';
 import Header from '../components/header';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
-import LinearGradient from 'react-native-linear-gradient'
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
+import LinearGradient from 'react-native-linear-gradient';
 
 // import DismissKeyboard from '../components/keyboardDismiss';
 export default function Posting({navigation}) {
@@ -35,48 +45,45 @@ export default function Posting({navigation}) {
     setText(text);
     setHeight(1.8);
   }
-  function close(){
+  function close() {
     Keyboard.dismiss();
     setHeight(1.2);
   }
   return (
-    <LinearGradient colors={arrayColor}>
-  <TouchableOpacity
-        onPress={()=>navigation.goBack()}
-          style={[globalStyle.backIconContainer, {top: -spacing + 15}]}>
-          <MaterialCommunity name="arrow-left" size={25} color="black" />
-        </TouchableOpacity>
+    <SafeAreaView style={{flex: 1, backgroundColor: backgroundColor}}>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={[globalStyle.backIconContainer, {top: TOP - spacing}]}>
+        <MaterialCommunity name="arrow-left" size={25} color="black" />
+      </TouchableOpacity>
       <TouchableWithoutFeedback onPress={close}>
-      <View style={{flexDirection: 'row', left: width / 1.4, top: spacing / 2}}>
-        <TouchableOpacity onPress={clear}>
-          <Text
-            style={{
-              fontWeight: 'bold',
-              justifyContent: 'space-between',
-              color: 'grey',
-            }}>
-            CLEAR
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={{fontWeight: 'bold', left: spacing, color: '#6bc200'}}>
-            NEXT
-          </Text>
-        </TouchableOpacity>
-      </View>
-  
+        <View
+          style={{
+            flexDirection: 'row',
+            left: width / 1.4,
+            top: TOP - spacing,
+            justifyContent: 'space-between',
+          }}>
+          <TouchableOpacity
+            onPress={clear}
+            style={[globalStyle.backIconContainer, {left: -spacing}]}>
+            <MaterialCommunity name="trash-can" size={25} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[globalStyle.backIconContainer, {left: 4 * spacing}]}>
+            <MaterialCommunity
+              name="arrow-right-bold-outline"
+              size={25}
+              color="black"
+            />
+          </TouchableOpacity>
+        </View>
+
         <TextInput
           editable={true}
           onChangeText={(texts) => seNewText(texts)}
           value={text}
-          style={{
-            height: height,
-            backgroundColor: white,
-            borderColor: 'green',
-            top: height / 30,
-            paddingLeft: spacing,
-            paddingRight: spacing,
-          }}
+          style={globalStyle.bigTextInput}
           multiline={true}
           textAlignVertical="top"
           maxLength={maxLength}
@@ -84,8 +91,7 @@ export default function Posting({navigation}) {
         <Text style={{position: 'absolute', top: height / heights, right: 15}}>
           {countText()}
         </Text>
-        </TouchableWithoutFeedback>
-
-    </LinearGradient>
+      </TouchableWithoutFeedback>
+    </SafeAreaView>
   );
 }

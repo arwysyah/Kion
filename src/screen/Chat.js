@@ -1,6 +1,6 @@
 import React from 'react'
 import {View,Text,Dimensions} from 'react-native'
-import {globalStyle } from '../components/color'
+import {globalStyle } from '../components/styles'
 const deviceWidth = Dimensions.get('window').width * (2 / 3);
 const TestNavigation =()=>{
     return(

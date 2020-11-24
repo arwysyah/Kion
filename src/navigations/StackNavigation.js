@@ -6,6 +6,7 @@ import Test from '../screen/Test';
 import Upload from '../screen/Upload';
 import Posting from '../screen/Posting'
 import Profile from '../screen/Profile'
+import EditProfile from '../screen/EditProfile'
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
@@ -74,6 +75,17 @@ const HomeScreen = () => {
           {
             ...TransitionPresets.SlideFromRightIOS,
             gestureDirection: 'horizontal-inverted',
+          })
+        }
+      />
+         <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={
+          ({headerShown: false},
+          {
+            ...TransitionPresets.SlideFromRightIOS,
+            gestureDirection: 'horizontal',
           })
         }
       />

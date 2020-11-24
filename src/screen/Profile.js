@@ -8,19 +8,13 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import articleData from '../components/data/articleData';
 import Articles from '../components/articles';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import ProfileText from '../components/textProfile';
-import {globalStyle, iconColor} from '../components/color';
-import Header from '../components/header';
-
-const {height, width} = Dimensions.get('window');
-const spacing = 10;
-const SIZE = width * 0.62;
-const Spacer = (width - SIZE) / 2;
-const BACKDROPHEIGHT = height * 0.6;
+import {globalStyle, spacing, width, TOP} from '../components/styles';
 
 export default function Profile({navigation}) {
   const profileData = useMemo(() => {
@@ -30,38 +24,40 @@ export default function Profile({navigation}) {
     return [88, 87, 69];
   }, []);
   return (
-    <View style={globalStyle.container}>
-      <View style={{flexDirection: 'row', justifyContent: 'space-evenly',height:2*spacing}}>
+    <SafeAreaView style={globalStyle.container}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-evenly',
+          height: 2 * spacing,
+          top: spacing - 4,
+        }}>
         <TouchableOpacity
-        onPress={()=>navigation.goBack()}
+          onPress={() => navigation.goBack()}
           style={[globalStyle.backIconContainer, {top: -spacing + 15}]}>
           <MaterialCommunity name="arrow-left" size={25} color="black" />
         </TouchableOpacity>
-      <View>
-      <Text style={[globalStyle.titleWrite, {right: -(width / 5)}]}>
-          Maudy Ayunda
-        </Text>
-      </View>
-        <TouchableOpacity style={{right: -(width / 5)}}>
-          <MaterialCommunity
-            name="fountain-pen"
-            size={25}
-            color="#999793"
-            style={{paddingRight: spacing * 2, top: spacing}}
-          />
-          <Text style={{color: 'black', top: 9}}> edit</Text>
+        <View>
+          <Text style={[globalStyle.titleWrite, {justifyContent: 'center'}]}>
+            Maudy Ayunda
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={[globalStyle.commonIcon, {left: width - 50, top: spacing - 5}]}
+          onPress={() => navigation.navigate('EditProfile')}>
+          <MaterialCommunity name="fountain-pen" size={25} color="black" />
         </TouchableOpacity>
       </View>
-   
 
-      <ScrollView style={{top: 30}}
-      showsVerticalScrollIndicator={false}>
+      <ScrollView style={{top: 30}} showsVerticalScrollIndicator={false}>
         <View style={styles.secondContainer}>
           <View>
-            <Image
-              source={require('../../assets/maudy.jpg')}
-              style={styles.profilImage}
-            />
+            <View style={globalStyle.profilImageBack}>
+              <Image
+                source={require('../../assets/maudy.jpg')}
+                style={globalStyle.profilImage}
+              />
+            </View>
             <Text
               style={[
                 globalStyle.commonText,
@@ -83,7 +79,7 @@ export default function Profile({navigation}) {
           routes={'Profile'}
         />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
@@ -98,11 +94,5 @@ const styles = StyleSheet.create({
     padding: spacing * 1.2,
     left: -10,
     top: -7,
-  },
-  profilImage: {
-    width: width / 4,
-    height: width / 4,
-    borderRadius: width / 8,
-    padding: 10,
   },
 });

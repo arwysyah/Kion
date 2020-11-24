@@ -10,7 +10,7 @@ import {
   Easing,
 } from 'react-native';
 import {version as app_version} from './../../package.json';
-import { globalStyle } from '../components/color';
+import { globalStyle } from '../components/styles';
 // import { TouchableOpacity } from 'react-native-gesture-handler'
 const {height, width} = Dimensions.get('window');
 const SIZE = height / 32;

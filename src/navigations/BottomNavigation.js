@@ -7,7 +7,7 @@ import Challenge from '../screen/Challenge';
 import TopButton from '../navigations/TopButton';
 import UploadButton from '../components/uploadButton';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
-import gray from '../components/color';
+import gray from '../components/styles';
 import Upload from '../screen/Upload';
 import Modal from '../screen/Modal';
 import {View} from 'react-native';

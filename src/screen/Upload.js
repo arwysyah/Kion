@@ -9,16 +9,15 @@ import {
   StatusBar,
   Alert
 } from 'react-native';
-import {globalStyle,height,width, spacing, arrayColor} from '../components/color';
+import {globalStyle,height,width, spacing, arrayColor} from '../components/styles';
 import {Card} from 'native-base';
 import Header from '../components/header'
-import LinearGradient from 'react-native-linear-gradient';
 
 
 export default function Upload({navigation}) {
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <LinearGradient style={{flex:1}} colors={arrayColor}>
+    <SafeAreaView style={globalStyle.container}>
+   
       {/* <StatusBar/> */}
       <Header
       title={'Posting'}
@@ -47,7 +46,7 @@ export default function Upload({navigation}) {
         </Card>
         </TouchableOpacity>
       </View>
-      </LinearGradient>
+
     </SafeAreaView>
   );
 }

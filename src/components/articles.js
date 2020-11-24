@@ -14,7 +14,7 @@ import {Card} from 'native-base';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import fireDB from '../../config/configs';
-import {globalStyle, black, width} from '../components/color';
+import {globalStyle, black, width} from './styles';
 import PropTypes from 'prop-types';
 
 const spacing = 12;
@@ -24,26 +24,24 @@ const HEIGHT = SIZE - 90;
 const Articles = ({navigation, data, from, routes}) => {
   const [pin, setPin] = React.useState(false);
   const [dot, setDots] = React.useState(false);
-  const sendRequest = async () => {
-    const ref = await fireDB.database().ref('/income');
-    const idRequest = Math.floor(Math.random() * 10000000000000) + 1;
-    ref
-      .push({
-        idRequest: 'zzzzz',
+  // const sendRequest = async () => {
+  //   const ref = await fireDB.database().ref('/income');
+  //   const idRequest = Math.floor(Math.random() * 10000000000000) + 1;
+  //   ref
+  //     .push({
+  //       idRequest: 'zzzzz',
 
-        status: 'waiting',
-      })
-      .then((res) => {
-        // console.log(res);
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
-  };
+  //       status: 'waiting',
+  //     })
+  //     .then((res) => {
+  //       // console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       alert(err.message);
+  //     });
+  // };
   return (
     <SafeAreaView>
-      {/* {load === false ? ( */}
-
       <FlatList
         data={data}
         keyExtractor={(item) => item.ids.toString()}
@@ -53,7 +51,7 @@ const Articles = ({navigation, data, from, routes}) => {
         decelerationRate={0}
         renderItem={({item, index}) => {
           return (
-            <View style={{height: HEIGHT + 20, width:width-35}}>
+            <View style={{height: HEIGHT + 20, width: width - 35}}>
               <Card style={globalStyle.cardContainer}>
                 <View
                   style={{
@@ -61,10 +59,10 @@ const Articles = ({navigation, data, from, routes}) => {
                     paddingRight: 50,
                     paddingLeft: 34,
                   }}>
-                  <Text style={{color: 'black'}}>{item.category}</Text>
+                  <Text style={{color: black}}>{item.category}</Text>
                   <Text
                     style={{
-                      color: 'black',
+                      color: black,
                       fontWeight: 'bold',
                       top: 10,
                       fontFamily: 'SansitaSwashed-Light',

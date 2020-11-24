@@ -1,6 +1,6 @@
 import React from 'react'
 import {View,Text,TouchableOpacity,StyleSheet} from 'react-native'
-import { globalStyle, black } from '../components/color'
+import { globalStyle, black } from '../components/styles'
 
 export default function Challange (){
     return(
