@@ -18,13 +18,14 @@ import {
   backgroundColor,
   TOP,
 } from '../components/styles';
-import Header from '../components/header';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
-import LinearGradient from 'react-native-linear-gradient';
+
+
 
 // import DismissKeyboard from '../components/keyboardDismiss';
 export default function Posting({navigation}) {
+
   const maxLength = 1000;
   const [text, setText] = React.useState('');
   const [heights, setHeight] = React.useState(1.2);
@@ -49,6 +50,8 @@ export default function Posting({navigation}) {
     Keyboard.dismiss();
     setHeight(1.2);
   }
+ 
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: backgroundColor}}>
       <TouchableOpacity
@@ -70,6 +73,7 @@ export default function Posting({navigation}) {
             <MaterialCommunity name="trash-can" size={25} color="black" />
           </TouchableOpacity>
           <TouchableOpacity
+          onPress={()=>navigation.navigate('Action')}
             style={[globalStyle.backIconContainer, {left: 4 * spacing}]}>
             <MaterialCommunity
               name="arrow-right-bold-outline"
@@ -91,7 +95,10 @@ export default function Posting({navigation}) {
         <Text style={{position: 'absolute', top: height / heights, right: 15}}>
           {countText()}
         </Text>
+
       </TouchableWithoutFeedback>
+      {/* <ActionSheet/> */}
+      {/* <ActionSheet/> */}
     </SafeAreaView>
   );
 }

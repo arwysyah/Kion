@@ -45,13 +45,13 @@ export default function TopButton() {
         })
       }>
           <Tab.Screen name="Semua" component={All} />
-      <Tab.Screen name="Universtas" component={University} />
+      <Tab.Screen name="Universitas" component={University} />
       <Tab.Screen name="Cerita" component={Story} />
       <Tab.Screen name="Teknologi" component={Technology} />
       <Tab.Screen name="Sains" component={Science} />
       <Tab.Screen name="Beasiswa" component={Scholarship} />
       <Tab.Screen name="Internship" component={Internship} />
-      <Tab.Screen name="Tantangan" component={Challange} />
+
     </Tab.Navigator>
   );
 }

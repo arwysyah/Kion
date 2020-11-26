@@ -37,7 +37,7 @@ export default function SlideNavigation() {
         },
         tabStyle: {height: 50}}}>
       <Tab.Screen name="Top" component={BottomNavigation} />
-      <Tab.Screen name="Chat" component={Chat} />
+      {/* <Tab.Screen name="Chat" component={Chat} /> */}
      
     </Tab.Navigator>
   );

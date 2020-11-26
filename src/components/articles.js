@@ -14,7 +14,7 @@ import {Card} from 'native-base';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import fireDB from '../../config/configs';
-import {globalStyle, black, width} from './styles';
+import {globalStyle, black, width, height} from './styles';
 import PropTypes from 'prop-types';
 
 const spacing = 12;
@@ -45,13 +45,14 @@ const Articles = ({navigation, data, from, routes}) => {
       <FlatList
         data={data}
         keyExtractor={(item) => item.ids.toString()}
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{alignItems: 'center'}}
         bounces={false}
         scrollEventThrottle={60}
         decelerationRate={0}
         renderItem={({item, index}) => {
           return (
-            <View style={{height: HEIGHT + 20, width: width - 35}}>
+            <View style={{height: HEIGHT + 20, width: width -20}}>
               <Card style={globalStyle.cardContainer}>
                 <View
                   style={{
@@ -122,10 +123,12 @@ const Articles = ({navigation, data, from, routes}) => {
           );
         }}
       />
+
+
       {/* ) : (
         <ActivityIndicator size="small" color="red" />
       )} */}
-      <View style={{height: 60}} />
+      {/* <View style={{height: 40}} /> */}
     </SafeAreaView>
   );
 };

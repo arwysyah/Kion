@@ -32,6 +32,8 @@ import {
   arrayColor,
 } from '../components/styles';
 import LinearGradient from 'react-native-linear-gradient';
+import HorizontalArticle from '../components/horizontalArticles';
+import Topic from './Topic';
 // import articlesData from '../components/data/articleData';
 const AnimatedFlatlist = Animated.createAnimatedComponent(RoundTopAccount);
 
@@ -39,6 +41,14 @@ LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 LogBox.ignoreLogs(['Setting a timer for a long period of time']);
 
 const Home = ({navigation}) => {
+  const topics = useState([
+    'Technology',
+    'Sains',
+    'Story',
+    'University',
+    'Scholarship',
+    'Internship',
+  ]);
   const globalState = useSelector((state) => state);
   const getCarsSelector = createSelectorHook(globalState, (request) => request);
   // const [text, setText] = React.useState('');
@@ -57,61 +67,68 @@ const Home = ({navigation}) => {
     setData(data);
     dispatch(watchData());
   }, []);
- 
+  //  console.log(globalState.request)
 
   return (
     <SafeAreaView style={globalStyle.container}>
       {/* <LinearGradient colors={arrayColor} style={{flex: 1}}> */}
-        <View
-          style={{
-            flexDirection: 'row',
+      <View
+        style={{
+          flexDirection: 'row',
 
-            justifyContent: 'space-between',
-            paddingHorizontal: 20,
-          }}>
-          {/* <TouchableOpacity onPress={() => setCount(count + 1)}>
+          justifyContent: 'space-between',
+          paddingHorizontal: 20,
+        }}>
+        {/* <TouchableOpacity onPress={() => setCount(count + 1)}>
           <Text style={{fontSize: 30, color: 'white'}}>{count}</Text>
         </TouchableOpacity> */}
-          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-            <MaterialCommunity
-              name="account-tie"
-              size={28}
-              color={black}
-              style={{top: spacing - 7, left: spacing / 6}}
-            />
-            <Text style={globalStyle.iconText}>Profile</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
-            <MaterialCommunity
-              name="chat-processing"
-              size={28}
-              color={black}
-              style={{top: spacing - 7}}
-            />
-            <Text style={{fontSize: 12, color: 'black'}}>Chat</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+          <MaterialCommunity
+            name="account-tie"
+            size={28}
+            color={black}
+            style={{top: spacing - 7, left: spacing / 6}}
+          />
+          <Text style={globalStyle.iconText}>Profile</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
+          <MaterialCommunity
+            name="chat-processing"
+            size={28}
+            color={black}
+            style={{top: spacing - 7}}
+          />
+          <Text style={{fontSize: 12, color: 'black'}}>Chat</Text>
+        </TouchableOpacity>
+      </View>
 
-        <Animated.ScrollView
-          showsHorizontalScrollIndicator={false}
-          onScroll={(e) => scrollY.setValue(e.nativeEvent.contentOffset.y)}>
-          <Text style={{fontSize: 16, color: black, paddingLeft: 12, top: 7}}>
-            Populer
-          </Text>
+      <Animated.ScrollView
+        showsVerticalScrollIndicator={false}
+        onScroll={(e) => scrollY.setValue(e.nativeEvent.contentOffset.y)}>
+        <Text style={{fontSize: 16, color: black, paddingLeft: 12, top: 7}}>
+          Populer
+        </Text>
 
-          {/* <RoundTopAccount
+        {/* <RoundTopAccount
           data={articleData}
 
           // translateY={translateY}
         /> */}
-          <TopAccount navigation={navigation} />
+        <TopAccount navigation={navigation} />
 
-          <Articles
-            data={articleData}
-            navigation={navigation}
-            routes={'Home'}
-          />
-        </Animated.ScrollView>
+        <Articles data={articleData} navigation={navigation} routes={'Home'} />
+        <HorizontalArticle
+          data={articleData}
+          navigation={navigation}
+          routes={'Home'}
+        />
+        <Articles data={articleData} navigation={navigation} routes={'Home'} />
+        <Topic
+        data={topics}
+        navigation={navigation}/>
+      </Animated.ScrollView>
+
+      <View style={{height: 40}} />
       {/* </LinearGradient> */}
     </SafeAreaView>
   );

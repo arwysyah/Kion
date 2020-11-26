@@ -8,21 +8,15 @@ import SplashScreen from './src/screen/SplashScreen'
 import {Provider }from 'react-redux'
 import {store} from './src/redux/store'
 
-const App =()=>{
-  return(
+const App = () => {
+  return (
     <>
-    <Provider store={store}>
-
-
- <NavigationContainer>
-
-   <Index/>
-  </NavigationContainer>
-  </Provider>
-
-  
- 
-  </>
-  )
-}
+      <Provider store={store}>
+        <NavigationContainer>
+          <Index />
+        </NavigationContainer>
+      </Provider>
+    </>
+  );
+};
 export default App

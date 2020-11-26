@@ -40,4 +40,7 @@ date: '2 February 2012'
             author:'Arwy Syahputra Siregar',
             date: '2 February 2012'         },
 ];
-export default articlesData;
+
+
+
+export default articlesData

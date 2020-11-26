@@ -6,11 +6,33 @@ import {
   Image,
   TouchableOpacity,
   Platform,
+  Alert
 } from 'react-native';
 import {globalStyle, spacing, TOP} from '../components/styles';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function EditProfile({navigation}) {
+  function handleLogout(){
+    Alert.alert(
+      '',
+      'Are you sure want to logout?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => Alert.alert('ok')},
+      ],
+      {cancelable: false},
+    );
+  };
+
+ const  logout = () => {
+    // await AsyncStorage.removeItem('uid')
+    // firebase.auth().signOut();
+    // this.props.navigation.navigate('LandingScreen');
+  };
   return (
     <SafeAreaView style={globalStyle.container}>
       <View
@@ -89,6 +111,13 @@ export default function EditProfile({navigation}) {
               style={{top: 15}}
             />
           </View>
+        </TouchableOpacity>
+      </View>
+      <View style={{top:TOP*4}}>
+        <TouchableOpacity style={globalStyle.commonButton} onPress={handleLogout}>
+        <Text style={{fontSize: 18, color: 'white', fontWeight: 'bold'}}>
+              Log Out
+            </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

@@ -4,7 +4,7 @@ import { globalStyle, black } from '../../components/styles'
 
 const All=()=>{
     return(
-        <View style={globalStyle}>
+        <View style={globalStyle.container}>
         <Text style={{color:black}}>
                All
             </Text>

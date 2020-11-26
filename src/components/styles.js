@@ -17,6 +17,14 @@ const globalStyle = StyleSheet.create({
     backgroundColor: backgroundColor,
     flex: 1,
   },
+  add: {
+    backgroundColor: '#dbdbdb',
+    width: width/3,
+    height: height/5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    top:200
+  },
   icon: {
     color: '#E0E5EC',
   },
@@ -26,6 +34,14 @@ const globalStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     height: HEIGHT,
+    borderRadius: 8,
+  },
+  cardContainerPerCard: {
+    backgroundColor: '#FFFFFF',
+    opacity: 0.8,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    height: HEIGHT*1.5,
     borderRadius: 8,
   },
   cardPart: {
@@ -219,6 +235,25 @@ const globalStyle = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
   },
+  commonButton:{
+              width: Dimensions.get('window').width - 250,
+              top: 20,
+              height: 45,
+              borderRadius: 20,
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+              backgroundColor: '#D23B4B',
+
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 3,
+              },
+              shadowOpacity: 0.27,
+              shadowRadius: 4.65,
+              elevation: 8,
+            },
 
   modalContainer: {
     backgroundColor: 'white',
@@ -259,6 +294,29 @@ const globalStyle = StyleSheet.create({
     top: height / 15,
     paddingLeft: spacing,
     paddingRight: spacing,
+  },
+  inputTitle: {
+    color: black,
+    fontSize: 15,
+    top:TOP*2
+  },
+  login: {
+    color: 'green',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  input: {
+  
+    // borderBottomWidth: StyleSheet.hairlineWidth,
+    height: 40,
+    top:TOP*2,
+    width: width-40,
+    fontSize: 15,
+    color: 'white',
+    backgroundColor: '#FFFFFF',
+    // borderRadius: 10,
+    paddingVertical:10,
+    
   },
 });
 

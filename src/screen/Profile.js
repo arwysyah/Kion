@@ -14,7 +14,7 @@ import articleData from '../components/data/articleData';
 import Articles from '../components/articles';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import ProfileText from '../components/textProfile';
-import {globalStyle, spacing, width, TOP} from '../components/styles';
+import {globalStyle, spacing, width, TOP, height} from '../components/styles';
 
 export default function Profile({navigation}) {
   const profileData = useMemo(() => {
@@ -23,6 +23,7 @@ export default function Profile({navigation}) {
   const data = useMemo(() => {
     return [88, 87, 69];
   }, []);
+ 
   return (
     <SafeAreaView style={globalStyle.container}>
       <View
@@ -79,6 +80,7 @@ export default function Profile({navigation}) {
           routes={'Profile'}
         />
       </ScrollView>
+   <View style={{height:spacing*4}}/>
     </SafeAreaView>
   );
 }
