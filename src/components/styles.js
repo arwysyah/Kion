@@ -12,6 +12,8 @@ const iconColor = '#999793';
 const white = '#ffffff';
 const arrayColor = ['#dde2eb', '#cacfca', '#dee3de', '#dde2eb'];
 const backgroundColor = '#cacfca';
+const ITEM_WIDTH = width*0.76
+const ITEM_HEIGHT = ITEM_WIDTH * 1.47
 const globalStyle = StyleSheet.create({
   container: {
     backgroundColor: backgroundColor,
@@ -334,4 +336,6 @@ export {
   arrayColor,
   TOP,
   backgroundColor,
+  ITEM_HEIGHT,
+  ITEM_WIDTH
 };

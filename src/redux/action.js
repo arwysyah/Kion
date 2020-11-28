@@ -1,5 +1,6 @@
 ///action
 import fireDB from '../../config/configs';
+
 export const setGetIncome = (requst) => {
 //   console.log(params, 'paras');
   return {
@@ -7,6 +8,21 @@ export const setGetIncome = (requst) => {
     value: requst,
   };
 };
+
+export const getSignedIN=(isSignedIn)=>{
+  return{
+    type:'GET SIGNED IN',
+    value:isSignedIn
+  }
+}
+
+// export const dispatchSignedIn = async () => {
+//   return async function(dispatch){
+//     const isSignedIn = await GoogleSignin.isSignedIn();
+//  dispatch(getSignedIN(isSignedIn))
+//   }
+
+// };
 export const watchData = () => {
   return function (dispatch) {
     fireDB

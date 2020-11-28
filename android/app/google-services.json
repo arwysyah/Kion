@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "193729941299",
+    "firebase_url": "https://kion-80d7f.firebaseio.com",
+    "project_id": "kion-80d7f",
+    "storage_bucket": "kion-80d7f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:193729941299:android:8bb88ca9faa0d59625f846",
+        "android_client_info": {
+          "package_name": "com.kion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "193729941299-tc4nvhb1nh6f4lq01ghk0n7av726f90f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kion",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "193729941299-t3vscfh06e5nq9m71qn0h08k5svd3rmb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAF-NqsYYT3WaionFaXavmDiUg8AyPijF0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "193729941299-t3vscfh06e5nq9m71qn0h08k5svd3rmb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

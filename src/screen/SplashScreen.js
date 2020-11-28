@@ -11,6 +11,13 @@ import {
 } from 'react-native';
 import {version as app_version} from './../../package.json';
 import { globalStyle } from '../components/styles';
+import fireDB from '../../config/configs'
+import {useSelector, useDispatch} from 'react-redux'
+import {dispatchSignedIn} from '../redux/action'
+import {
+  GoogleSignin,
+ 
+} from '@react-native-community/google-signin';
 // import { TouchableOpacity } from 'react-native-gesture-handler'
 const {height, width} = Dimensions.get('window');
 const SIZE = height / 32;
@@ -19,13 +26,23 @@ export default function SplashScreen({navigation}) {
   const moveRight = useRef(new Animated.Value(0)).current;
   const opacity = useState(new Animated.Value(0))[0];
   const [hide, setHide] = useState(false);
+  const [isLoginScreenPresented,setIsSignedIn]=useState(false)
   const [rotateValue, setRotateValue] = useState(new Animated.Value(0));
   const opacityText= useRef(new Animated.Value(0)).current
+ 
 
+
+  async function isSignedIn(){
+    const isSignedIn = await GoogleSignin.isSignedIn();
+   setIsSignedIn(isSignedIn)
+   if(isSignedIn===true){
+     navigation.replace('SlideNavigation')
+   }else{
+     navigation.replace('Login')
+   }
+  }
   useEffect(() => {
     startImageRotate();
-  }, [rotateValue]);
-  useEffect(() => {
     setTimeout(() => {
       Animated.timing(opacity, {
         toValue: 1,
@@ -71,7 +88,7 @@ export default function SplashScreen({navigation}) {
     //     useNativeDriver: true,
     //   }).start();
     await setTimeout(() => {
-      navigation.replace('SlideNavigation');
+   isSignedIn()
     }, 600);
   }
   const rotateImage = rotateValue.interpolate({

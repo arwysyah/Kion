@@ -10,7 +10,10 @@ import {
 } from 'react-native';
 import {globalStyle, spacing, TOP} from '../components/styles';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
+import {
+  GoogleSignin,
 
+} from '@react-native-community/google-signin';
 export default function EditProfile({navigation}) {
   function handleLogout(){
     Alert.alert(
@@ -22,17 +25,23 @@ export default function EditProfile({navigation}) {
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        {text: 'OK', onPress: () => Alert.alert('ok')},
+        {text: 'OK', onPress: () =>logOut()},
       ],
       {cancelable: false},
     );
   };
 
- const  logout = () => {
-    // await AsyncStorage.removeItem('uid')
-    // firebase.auth().signOut();
-    // this.props.navigation.navigate('LandingScreen');
+
+  async function logOut() {
+    try {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+navigation.replace('Login')
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   return (
     <SafeAreaView style={globalStyle.container}>
       <View

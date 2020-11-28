@@ -9,7 +9,7 @@ const HEIGHT = SIZE - 90;
 
 export default function HorizontalArticle({navigation, data, from, routes}) {
   return (
-    <SafeAreaView style={globalStyle.container}>
+    <SafeAreaView style={[globalStyle.container,]}>
       <FlatList
         data={data}
         horizontal

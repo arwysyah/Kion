@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import SlideNavigation from './SlideNavigation';
 import SplashScreen from '../screen/SplashScreen';
+import Login from '../screen/Login'
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
@@ -38,6 +39,20 @@ const Index = () => {
       <Stack.Screen
         name="SlideNavigation"
         component={SlideNavigation}
+        options={{
+          transitionSpec: {
+            open: config,
+            close: config,
+            backgroundColor: 'black',
+          },
+
+          cardStyleInterpolator: forFade,
+          ...TransitionPresets.ScaleFromCenterAndroid,
+        }}
+      />
+            <Stack.Screen
+        name="Login"
+        component={Login}
         options={{
           transitionSpec: {
             open: config,

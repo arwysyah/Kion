@@ -31,11 +31,11 @@ import {
   width,
   arrayColor,
 } from '../components/styles';
-import LinearGradient from 'react-native-linear-gradient';
+import Parallax from '../components/Parallax'
 import HorizontalArticle from '../components/horizontalArticles';
 import Topic from './Topic';
 // import articlesData from '../components/data/articleData';
-const AnimatedFlatlist = Animated.createAnimatedComponent(RoundTopAccount);
+// const AnimatedFlatlist = Animated.createAnimatedComponent(RoundTopAccount);
 
 LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 LogBox.ignoreLogs(['Setting a timer for a long period of time']);
@@ -50,7 +50,8 @@ const Home = ({navigation}) => {
     'Internship',
   ]);
   const globalState = useSelector((state) => state);
-  const getCarsSelector = createSelectorHook(globalState, (request) => request);
+  console.log(globalState)
+  // const getCarsSelector = createSelectorHook(globalState, (request) => request);
   // const [text, setText] = React.useState('');
   const scrollY = new Animated.Value(0);
   // const [count, setCount] = useState(0);
@@ -59,7 +60,7 @@ const Home = ({navigation}) => {
   //   inputRange: [0, 80],
   //   outputRange: [0, -80],
   // });
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
 
@@ -105,7 +106,7 @@ const Home = ({navigation}) => {
       <Animated.ScrollView
         showsVerticalScrollIndicator={false}
         onScroll={(e) => scrollY.setValue(e.nativeEvent.contentOffset.y)}>
-        <Text style={{fontSize: 16, color: black, paddingLeft: 12, top: 7}}>
+        <Text style={{fontSize: 12, color: black, paddingLeft: 12, }}>
           Populer
         </Text>
 
@@ -114,7 +115,8 @@ const Home = ({navigation}) => {
 
           // translateY={translateY}
         /> */}
-        <TopAccount navigation={navigation} />
+        {/* <TopAccount navigation={navigation} /> */}
+        <Parallax />
 
         <Articles data={articleData} navigation={navigation} routes={'Home'} />
         <HorizontalArticle

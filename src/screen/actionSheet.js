@@ -84,7 +84,7 @@ const ActionSheet = ({status}) => {
      setUrlPhoto(url)
     });
 
-    console.log(photo,'ss')
+    console.log(urlPhoto,'ss')
   };
   return (
     <View style={globalStyle.container}>
