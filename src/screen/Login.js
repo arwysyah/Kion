@@ -16,6 +16,8 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-community/google-signin';
+import fireDB from '../../config/configs'
+import { uid } from 'uid'
 
 GoogleSignin.configure({
   webClientId: WEB_CLIENT_ID, // client ID of type WEB for your server (needed to verify user ID and offline access)
@@ -31,14 +33,14 @@ const Login = ({navigation}) => {
   const dispatch = useDispatch();
   useEffect(() => {
     // getCurrentUser()
-    redirect(userInfo);
+ 
     isSignedIns();
   }, []);
   async function signIn() {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log(userInfo);
+    fetchData(userInfo)
     } catch (error) {
       switch (error.code) {
         case statusCodes.SIGN_IN_CANCELLED:
@@ -61,6 +63,36 @@ const Login = ({navigation}) => {
       }
     }
   }
+
+  async  function fetchData(userInfo){
+    const {givenName,email,name,photo}=userInfo.user
+   const key = email.replace(/\./g, ',')
+   const ref =  fireDB.database().ref(`users/${key}`)
+  
+   fireDB.database().ref(`users/${key}`).once("value", snapshot => {
+    if (snapshot.exists()){
+       navigation.replace('SlideNavigation')
+    }else{
+      try {
+        ref.set({
+         key,
+          username:givenName,
+          email,
+          fullName:name,
+          profilImage:photo,
+          follower:0,
+          following:0,
+          verified:'no',
+          accountType:'VIP',
+          cretedAt:new Date().getTime()
+        }).then(()=>navigation.replace('SlideNavigation'))
+       } catch (error) {
+         console.log(error.message)
+       }
+    }
+ });
+  
+  }
   async function getCurrentUser() {
     try {
       const userInfo = await GoogleSignin.signInSilently();
@@ -73,15 +105,11 @@ const Login = ({navigation}) => {
       setError(new Error(errorMessage));
     }
   }
-  function redirect() {
-    if (userInfo !== null) {
-    }
-  }
+
   async function isSignedIns() {
     const isSignedIn = await GoogleSignin.isSignedIn();
     await dispatch(getSignedIN(isSignedIn));
     setIsSignIn(isSignedIn)
-
     if (isSignedIn == true) {
       navigation.replace('SlideNavigation');
     }
