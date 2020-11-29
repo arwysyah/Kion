@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -9,21 +9,10 @@ import {
   Platform,
   ToastAndroid,
 } from 'react-native';
-import {
-  globalStyle,
-  width,
-  height,
-  ITEM_HEIGHT,
-  ITEM_WIDTH,
-} from '../components/styles';
+import {globalStyle, width, height, ITEM_HEIGHT, ITEM_WIDTH} from '../components/styles';
 import RNFetchBlob from 'rn-fetch-blob';
 import ImagePicker from 'react-native-image-picker';
 import fireDB from '../../config/configs';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
-} from '@react-native-community/google-signin';
 const Blob = RNFetchBlob.polyfill.Blob;
 const fs = RNFetchBlob.fs;
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
@@ -42,12 +31,11 @@ window.fetch = new Fetch({
   // contains string `application/octet`.
   binaryContentTypes: ['image/', 'video/', 'audio/', 'foo/'],
 }).build();
-const ActionSheet = ({navigation}) => {
+const ActionSheet = ({status}) => {
   const [loading, setLoading] = useState(false);
   const [photo, setPhoto] = useState(null);
   const [urlPhoto, setUrlPhoto] = useState('');
-  const [tagsText, setTagsText] = useState('');
-  const [userPathName,setName]=useState('')
+  const [tagsText,setTagsText]=useState('')
   function handleChoosePhoto() {
     const options = {
       noData: true,
@@ -64,25 +52,17 @@ const ActionSheet = ({navigation}) => {
     });
   }
 
-  useEffect(()=>{
-getCurrentUser()
-  },[])
-
-  getCurrentUser = async () => {
-    const currentUser = await GoogleSignin.getCurrentUser();
-setName(currentUser.user.givenName)
-  }
   function formatUpload(uri, mime = 'image/jpeg', name) {
     return new Promise((resolve, reject) => {
       let imgUri = uri;
       let uploadBlob = null;
       const uploadUri =
         Platform.OS === 'ios' ? imgUri.replace('file://', '') : imgUri;
-      ;
+      const {currentUser} = '12323123123123';
       const imageName = `${name}${Date.now()}.jpg`;
       const imageRef = fireDB
         .storage()
-        .ref(`/images/${userPathName}`)
+        .ref(`/images/${currentUser}`)
         .child(imageName);
       fs.readFile(uploadUri, 'base64')
         .then((data) => {
@@ -100,7 +80,7 @@ setName(currentUser.user.givenName)
           resolve(url);
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error)
           reject(error);
         });
     });
@@ -108,20 +88,19 @@ setName(currentUser.user.givenName)
   async function uploadImage() {
     const mime = 'image/jpeg';
 
-    const name = 'coverFoto';
-if(photo){
-  try {
-    await formatUpload(photo, mime, name).then((url) => {
-      setUrlPhoto(url);
-    ToastAndroid.show('Bethasil mengupload artikel',ToastAndroid.SHORT)
-    }).then(()=>navigation.goBack())
-  } catch (error) {
-    console.log(error);
-  }
-}else{
-  ToastAndroid.show('Anda harus memasukkan foto cover',ToastAndroid.SHORT)
-}
-   
+  const name = 'photo';
+ try {
+  await formatUpload(photo, mime, name).then((url) => {
+    setPhoto(url);
+     console.log(url)
+   })
+ } catch (error) {
+   console.log(error)
+ }
+
+
+
+
   }
 
   return (
@@ -141,9 +120,11 @@ if(photo){
         <Text style={globalStyle.inputTitle}> Tags </Text>
         <TextInput
           style={globalStyle.input}
+      
           autoCapitalize="none"
-          onChangeText={(txt) => setTagsText(txt)}
-          value={tagsText}></TextInput>
+          onChangeText={(txt)=>setTagsText(txt)}
+          value={tagsText}
+        ></TextInput>
       </View>
       <View
         style={{
@@ -167,9 +148,11 @@ if(photo){
         ) : (
           <TouchableOpacity
             onPress={handleChoosePhoto}
-            style={{height: height * 0.3, width: width * 0.6}}>
-            {/* <View style={globalStyle.add}> */}
-            <Image source={{uri: photo}} style={{flex: 1}} resizeMode="cover" />
+            style={{height:height*0.3,width:width*0.6}}
+            >
+              {/* <View style={globalStyle.add}> */}
+            <Image source={{uri: photo}} style={{flex: 1,}}
+            resizeMode='cover' />
             {/* </View> */}
             <Text style={[globalStyle.titleWrite, {textAlign: 'center'}]}>
               Foto Cover

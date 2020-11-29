@@ -118,6 +118,7 @@ const Home = ({navigation}) => {
         {/* <TopAccount navigation={navigation} /> */}
         <Parallax />
 
+        <View style={{top:-(4*spacing)}}>
         <Articles data={articleData} navigation={navigation} routes={'Home'} />
         <HorizontalArticle
           data={articleData}
@@ -128,6 +129,7 @@ const Home = ({navigation}) => {
         <Topic
         data={topics}
         navigation={navigation}/>
+        </View>
       </Animated.ScrollView>
 
       <View style={{height: 40}} />

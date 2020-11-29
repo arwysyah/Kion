@@ -12,8 +12,8 @@ const iconColor = '#999793';
 const white = '#ffffff';
 const arrayColor = ['#dde2eb', '#cacfca', '#dee3de', '#dde2eb'];
 const backgroundColor = '#cacfca';
-const ITEM_WIDTH = width*0.76
-const ITEM_HEIGHT = ITEM_WIDTH * 1.47
+const ITEM_WIDTH = width/1.4*0.76
+const ITEM_HEIGHT = ITEM_WIDTH/1.4 * 1.47
 const globalStyle = StyleSheet.create({
   container: {
     backgroundColor: backgroundColor,
@@ -21,11 +21,12 @@ const globalStyle = StyleSheet.create({
   },
   add: {
     backgroundColor: '#dbdbdb',
-    width: width/3,
-    height: height/5,
+    width: ITEM_WIDTH,
+    height: ITEM_HEIGHT,
     alignItems: 'center',
     justifyContent: 'center',
-    top:200
+    alignItems:'center'
+
   },
   icon: {
     color: '#E0E5EC',
@@ -314,9 +315,9 @@ const globalStyle = StyleSheet.create({
     top:TOP*2,
     width: width-40,
     fontSize: 15,
-    color: 'white',
+    color: 'black',
     backgroundColor: '#FFFFFF',
-    // borderRadius: 10,
+    borderRadius: 8,
     paddingVertical:10,
     
   },

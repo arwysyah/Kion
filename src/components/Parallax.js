@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import {View, Text, FlatList, Image, Animated} from 'react-native';
-import {globalStyle, width, ITEM_HEIGHT, ITEM_WIDTH, height} from './styles';
+import {globalStyle, width, ITEM_HEIGHT, ITEM_WIDTH, height, HEIGHT, spacing} from './styles';
 import newData from './data/data';
 
 export default function Parallax({}) {
@@ -48,10 +48,7 @@ export default function Parallax({}) {
                   shadowColor: '#000',
                   shadowRadius: 30,
                   shadowOpacity: 1,
-                  shadowOffset: {
-                    width: 0,
-                    height: 0,
-                  },
+                 
                   backgroundColor: 'white',
                   borderColor: '#FFFFFF',
                 }}>
@@ -85,7 +82,7 @@ export default function Parallax({}) {
                   height: 60,
                   borderRadius: 60,
                   position: 'absolute',
-                  bottom: 0,
+                  bottom: HEIGHT-50,
                   alignItems: 'center',
                   borderWidth: 5,
                   borderColor: '#FFFFFF',
