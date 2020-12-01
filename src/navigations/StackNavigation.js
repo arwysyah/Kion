@@ -8,6 +8,7 @@ import Posting from '../screen/Posting'
 import Profile from '../screen/Profile'
 import EditProfile from '../screen/EditProfile'
 import ActionSheet from '../screen/actionSheet'
+
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',

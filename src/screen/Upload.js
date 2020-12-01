@@ -23,7 +23,7 @@ export default function Upload({navigation}) {
       title={'Posting'}
       navigation={navigation}/>
      <View style={{padding:spacing+18,top:spacing*3}}>
-       <Image source={require('../../assets/datacenter.jpg')}
+       <Image source={require('../../assets/datacentre.jpg')}
        style={{resizeMode:'stretch',width:width/1.2,height:height/2.9}}/>
      </View>
       <View style={{paddingHorizontal: 30,top:height/11,}}>

@@ -13,14 +13,13 @@ import {
   LogBox,
   TextInput,
 } from 'react-native';
-import Svg, {Rect} from 'react-native-svg';
 import TopAccount from '../components/topAccount';
 import articleData from '../components/data/articleData';
 import Articles from '../components/articles';
-import RoundTopAccount from '../components/roundTopAccount';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector, useDispatch, createSelectorHook} from 'react-redux';
-import {watchData} from '../redux/action';
+import {watchData, getUserById, WATCHDATA, GET_USER_BYID} from '../redux/action';
+import firebase from 'firebase'
 import {
   globalStyle,
   iconColor,
@@ -30,10 +29,14 @@ import {
   SIZE,
   width,
   arrayColor,
+  TOP,
+  white,
+  ITEM_HEIGHT,
 } from '../components/styles';
 import Parallax from '../components/Parallax'
 import HorizontalArticle from '../components/horizontalArticles';
 import Topic from './Topic';
+
 // import articlesData from '../components/data/articleData';
 // const AnimatedFlatlist = Animated.createAnimatedComponent(RoundTopAccount);
 
@@ -41,6 +44,7 @@ LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 LogBox.ignoreLogs(['Setting a timer for a long period of time']);
 
 const Home = ({navigation}) => {
+  const uid = firebase.auth().currentUser.uid
   const topics = useState([
     'Technology',
     'Sains',
@@ -50,25 +54,20 @@ const Home = ({navigation}) => {
     'Internship',
   ]);
   const globalState = useSelector((state) => state);
-  console.log(globalState)
   // const getCarsSelector = createSelectorHook(globalState, (request) => request);
   // const [text, setText] = React.useState('');
   const scrollY = new Animated.Value(0);
   // const [count, setCount] = useState(0);
   const diffClamp = Animated.diffClamp(scrollY, 0, 90);
-  // const translateY = diffClamp.interpolate({
-  //   inputRange: [0, 80],
-  //   outputRange: [0, -80],
-  // });
-  // const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     setData(data);
-    dispatch(watchData());
+    dispatch(WATCHDATA());
+  dispatch(GET_USER_BYID(uid))
   }, []);
-  //  console.log(globalState.request)
+
 
   return (
     <SafeAreaView style={globalStyle.container}>
@@ -116,9 +115,21 @@ const Home = ({navigation}) => {
           // translateY={translateY}
         /> */}
         {/* <TopAccount navigation={navigation} /> */}
-        <Parallax />
-
-        <View style={{top:-(4*spacing)}}>
+       <View style={{top:-(TOP*4)}}>
+       <Parallax />
+       </View>
+   
+        <View style={{top:-(TOP*5),height:ITEM_HEIGHT*1.2}}>
+        <View style={{height:40}}>
+         <Text style={[globalStyle.titleWrite,{paddingLeft:TOP}]} >Based On Your Read</Text>
+         </View>
+        <HorizontalArticle
+          data={articleData}
+          navigation={navigation}
+          routes={'Home'}
+        />
+        </View>
+        <View style={{top:-(4*TOP)}}>
         <Articles data={articleData} navigation={navigation} routes={'Home'} />
         <HorizontalArticle
           data={articleData}

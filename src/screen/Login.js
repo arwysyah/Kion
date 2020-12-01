@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import {globalStyle, spacing} from '../components/styles';
+import {globalStyle, spacing,TOP} from '../components/styles';
 import {WEB_CLIENT_ID} from '../secret/secretKey';
 import {useSelector, useDispatch, createSelectorHook} from 'react-redux';
 import {getSignedIN} from '../redux/action';
@@ -16,7 +16,7 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-community/google-signin';
-import fireDB from '../../config/configs'
+import firebase from 'firebase'
 import { uid } from 'uid'
 
 GoogleSignin.configure({
@@ -34,8 +34,18 @@ const Login = ({navigation}) => {
   useEffect(() => {
     // getCurrentUser()
  
-    isSignedIns();
+    watch()
   }, []);
+
+  function watch() {
+    firebase.auth().onAuthStateChanged(function(user) {
+      console.log('onAuthStateChanged: ', user);
+
+      if (user) {
+        navigation.replace('SlideNavigation');
+      }
+  })
+  }
   async function signIn() {
     try {
       await GoogleSignin.hasPlayServices();
@@ -66,31 +76,12 @@ const Login = ({navigation}) => {
 
   async  function fetchData(userInfo){
     const {givenName,email,name,photo}=userInfo.user
-   const key = email.replace(/\./g, ',')
-   const ref =  fireDB.database().ref(`users/${key}`)
-  
-   fireDB.database().ref(`users/${key}`).once("value", snapshot => {
-    if (snapshot.exists()){
-       navigation.replace('SlideNavigation')
-    }else{
-      try {
-        ref.set({
-         key,
-          username:givenName,
-          email,
-          fullName:name,
-          profilImage:photo,
-          follower:0,
-          following:0,
-          verified:'no',
-          accountType:'VIP',
-          cretedAt:new Date().getTime()
-        }).then(()=>navigation.replace('SlideNavigation'))
-       } catch (error) {
-         console.log(error.message)
-       }
-    }
- });
+
+  await navigation.navigate('Password',{
+    userInfo:userInfo.user
+   })
+   await GoogleSignin.revokeAccess();
+   await GoogleSignin.signOut();
   
   }
   async function getCurrentUser() {
@@ -106,14 +97,6 @@ const Login = ({navigation}) => {
     }
   }
 
-  async function isSignedIns() {
-    const isSignedIn = await GoogleSignin.isSignedIn();
-    await dispatch(getSignedIN(isSignedIn));
-    setIsSignIn(isSignedIn)
-    if (isSignedIn == true) {
-      navigation.replace('SlideNavigation');
-    }
-  }
   return (
     <View style={styles.container}>
       <View
@@ -126,7 +109,7 @@ const Login = ({navigation}) => {
         <View style={[globalStyle.logoButton, {top: spacing}]}>
           <Image
             source={require('../../assets/logoButton.png')}
-            style={globalStyle.image}
+            style={[globalStyle.image,{top:-TOP+5}]}
           />
         </View>
       </View>
@@ -137,9 +120,11 @@ const Login = ({navigation}) => {
             <Image source={require('../../assets/google.png')} />
           </TouchableOpacity>
           <Text style={{color: '#707070'}}>or</Text>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <TouchableOpacity onPress={()=>navigation.navigate('PhoneLogin')}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Image source={require('../../assets/phone.png')} />
           </View>
+        </TouchableOpacity>
           <Text style={globalStyle.terms}>
             By signing up you agree to
             <Text style={{color: 'red', justifyContent: 'center'}}>

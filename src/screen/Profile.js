@@ -15,15 +15,16 @@ import Articles from '../components/articles';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import ProfileText from '../components/textProfile';
 import {globalStyle, spacing, width, TOP, height} from '../components/styles';
-
+import {useSelector} from 'react-redux';
 export default function Profile({navigation}) {
   const profileData = useMemo(() => {
     return ['Postingan', 'Pengikut ', 'Mengikuti'];
   }, []);
+  const newData = useSelector((state) => state.userByID);
   const data = useMemo(() => {
-    return [88, 87, 69];
+    return [7, newData.following, newData.follower];
   }, []);
- 
+
   return (
     <SafeAreaView style={globalStyle.container}>
       <View
@@ -40,7 +41,7 @@ export default function Profile({navigation}) {
         </TouchableOpacity>
         <View>
           <Text style={[globalStyle.titleWrite, {justifyContent: 'center'}]}>
-            Maudy Ayunda
+            {newData.username}
           </Text>
         </View>
         <TouchableOpacity
@@ -53,18 +54,33 @@ export default function Profile({navigation}) {
       <ScrollView style={{top: 30}} showsVerticalScrollIndicator={false}>
         <View style={styles.secondContainer}>
           <View>
-            <View style={globalStyle.profilImageBack}>
-              <Image
-                source={require('../../assets/maudy.jpg')}
-                style={globalStyle.profilImage}
-              />
+            <View style={[globalStyle.profilImageBack, {left: 5}]}>
+              {newData.profilImage === undefined ? (
+                <Text
+                  style={{
+                    fontSize: 70,
+                    color: 'black',
+                    position: 'absolute',
+                    textAlign: 'center',
+                    left: 30,
+                    top: 5,
+                  }}>
+                  {newData.fullName.charAt(0)}
+                </Text>
+              ) : (
+                <Image
+                  source={{uri: newData.profilImage}}
+                  style={globalStyle.profilImage}
+                  resizeMode="stretch"
+                />
+              )}
             </View>
             <Text
               style={[
                 globalStyle.commonText,
                 {paddingLeft: spacing, fontWeight: 'bold'},
               ]}>
-              Maudy Ayunda
+              {newData.fullName}
             </Text>
           </View>
 
@@ -80,7 +96,7 @@ export default function Profile({navigation}) {
           routes={'Profile'}
         />
       </ScrollView>
-   <View style={{height:spacing*4}}/>
+      <View style={{height: spacing * 4}} />
     </SafeAreaView>
   );
 }

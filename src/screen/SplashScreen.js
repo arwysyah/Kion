@@ -10,8 +10,8 @@ import {
   Easing,
 } from 'react-native';
 import {version as app_version} from './../../package.json';
-import { globalStyle } from '../components/styles';
-import fireDB from '../../config/configs'
+import { globalStyle, spacing } from '../components/styles';
+import firebase from 'firebase'
 import {useSelector, useDispatch} from 'react-redux'
 import {dispatchSignedIn} from '../redux/action'
 import {
@@ -33,13 +33,18 @@ export default function SplashScreen({navigation}) {
 
 
   async function isSignedIn(){
-    const isSignedIn = await GoogleSignin.isSignedIn();
-   setIsSignedIn(isSignedIn)
-   if(isSignedIn===true){
-     navigation.replace('SlideNavigation')
-   }else{
-     navigation.replace('Login')
-   }
+
+      firebase.auth().onAuthStateChanged(function(user) {
+        console.log('onAuthStateChanged: ', user);
+  
+        if (user) {
+          navigation.replace('SlideNavigation');
+        }else{
+          navigation.replace('Auth')
+        }
+    })
+
+
   }
   useEffect(() => {
     startImageRotate();
@@ -137,7 +142,7 @@ export default function SplashScreen({navigation}) {
           ]}>
           <TouchableOpacity style={globalStyle.logoButton} onPress={moveDrawer}>
             <Image
-              style={[globalStyle.image]}
+              style={[globalStyle.image,{top:-spacing}]}
               source={require('../../assets/logoButton.png')}
             />
           </TouchableOpacity>

@@ -13,8 +13,7 @@ import {
   globalStyle,
   width,
   height,
-  ITEM_HEIGHT,
-  ITEM_WIDTH,
+  TOP
 } from '../components/styles';
 import RNFetchBlob from 'rn-fetch-blob';
 import ImagePicker from 'react-native-image-picker';
@@ -42,12 +41,15 @@ window.fetch = new Fetch({
   // contains string `application/octet`.
   binaryContentTypes: ['image/', 'video/', 'audio/', 'foo/'],
 }).build();
-const ActionSheet = ({navigation}) => {
+const ActionSheet = ({navigation,route}) => {
   const [loading, setLoading] = useState(false);
   const [photo, setPhoto] = useState(null);
   const [urlPhoto, setUrlPhoto] = useState('');
   const [tagsText, setTagsText] = useState('');
   const [userPathName,setName]=useState('')
+  const [title,setTitle]=useState('')
+  const{text}=route.params
+  console.log(text)
   function handleChoosePhoto() {
     const options = {
       noData: true,
@@ -127,17 +129,16 @@ if(photo){
   return (
     <View style={globalStyle.container}>
       <View style={{left: 20, right: 20, top: 40}}>
-        {/* <Text style={globalStyle.inputTitle}>
-          {' '}
-          Masukkan source (sumber) jika ada{' '}
+       <Text style={globalStyle.inputTitle}>
+         Judul
         </Text>
         <TextInput
           style={globalStyle.input}
           secureTextEntry
-          autoCapitalize="none"
-          // onChangeText={this.handleChange('password')}
-          value={this.state.password}
-        ></TextInput> */}
+         
+          onChangeText={(s)=>setTitle(s)}
+          value={title}
+        ></TextInput>
         <Text style={globalStyle.inputTitle}> Tags </Text>
         <TextInput
           style={globalStyle.input}
@@ -160,7 +161,7 @@ if(photo){
                 style={{height: 60, width: 100, alignItems: 'center'}}
               />
             </View>
-            <Text style={[globalStyle.titleWrite, {textAlign: 'center'}]}>
+            <Text style={[globalStyle.titleWrite, {textAlign: 'center',top:TOP}]}>
               Foto Cover
             </Text>
           </TouchableOpacity>

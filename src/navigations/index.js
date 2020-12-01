@@ -2,7 +2,7 @@ import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import SlideNavigation from './SlideNavigation';
 import SplashScreen from '../screen/SplashScreen';
-import Login from '../screen/Login'
+import Auth from'./Auth'
 const Stack = createStackNavigator();
 const config = {
   animation: 'spring',
@@ -51,8 +51,8 @@ const Index = () => {
         }}
       />
             <Stack.Screen
-        name="Login"
-        component={Login}
+        name="Auth"
+        component={Auth}
         options={{
           transitionSpec: {
             open: config,

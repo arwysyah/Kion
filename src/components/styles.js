@@ -209,12 +209,13 @@ const globalStyle = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   profilImageBigger: {
-    width: width / 3,
-    height: width / 3,
+    // width: width / 3,
+    // height: width / 3,
     borderRadius: width / 6,
     padding: 10,
     top: 2,
     left: 2,
+    flex:1
   },
   BackprofileImage: {
     width: width / 2.9,
@@ -320,6 +321,54 @@ const globalStyle = StyleSheet.create({
     borderRadius: 8,
     paddingVertical:10,
     
+  },
+  content: {
+    marginLeft: 20,
+    marginRight: 20,
+  },
+  image: {
+    width: 200,
+    height: 200,
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 17,
+    color: '#000',
+    width: 300,
+    bottom: 40,
+  },
+
+  textInput: {
+    width: '70%',
+    height: 40,
+    borderBottomColor: '#dedede',
+    borderBottomWidth: 1,
+  },
+  callingCode: {
+    color: '#000',
+    marginRight: 10,
+  },
+  countryPicker: {
+    left: 10,
+  },
+  titlePhone: {
+    fontWeight: 'bold',
+    color: '#000',
+    fontSize: 12,
+    marginBottom: 5,
+  },
+  buttonNext: {
+    width: '100%',
+    height: 45,
+    justifyContent: 'center',
+    alignItems: 'center',
+    bottom: 0,
+    position: 'absolute',
+  },
+  textNext: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

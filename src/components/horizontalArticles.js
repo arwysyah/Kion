@@ -3,6 +3,7 @@ import {View, Text, SafeAreaView, FlatList, Image} from 'react-native';
 import {Card} from 'native-base';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 import {globalStyle, black, width, height} from './styles';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 const spacing = 12;
 const SIZE = width * 0.62;
 const HEIGHT = SIZE - 90;
@@ -22,6 +23,9 @@ export default function HorizontalArticle({navigation, data, from, routes}) {
             <View
               style={{height: HEIGHT * 1.62, width: width / 1.2, paddingLeft: 20}}>
               <Card style={globalStyle.cardContainerPerCard}>
+                <TouchableOpacity onPress={()=>navigation.navigate('Test',{
+                 item:item
+                })}>
                 <View>
                   <Image
                     source={require('../../assets/perahukertas.jpg')}
@@ -71,7 +75,9 @@ export default function HorizontalArticle({navigation, data, from, routes}) {
                     </Text>
                   </View>
                 </View>
+                </TouchableOpacity>
               </Card>
+              
             </View>
           );
         }}
