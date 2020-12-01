@@ -9,20 +9,12 @@ import {
   Platform,
   ToastAndroid,
 } from 'react-native';
-import {
-  globalStyle,
-  width,
-  height,
-  TOP
-} from '../components/styles';
+import {globalStyle, width, height, TOP} from '../components/styles';
 import RNFetchBlob from 'rn-fetch-blob';
 import ImagePicker from 'react-native-image-picker';
 import fireDB from '../../config/configs';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
-} from '@react-native-community/google-signin';
+import {useSelector} from 'react-redux';
+import firebase from 'firebase';
 const Blob = RNFetchBlob.polyfill.Blob;
 const fs = RNFetchBlob.fs;
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
@@ -41,15 +33,16 @@ window.fetch = new Fetch({
   // contains string `application/octet`.
   binaryContentTypes: ['image/', 'video/', 'audio/', 'foo/'],
 }).build();
-const ActionSheet = ({navigation,route}) => {
+const ActionSheet = ({navigation, route}) => {
+  const userData = useSelector((state) => state.userByID);
+  console.log(userData);
   const [loading, setLoading] = useState(false);
   const [photo, setPhoto] = useState(null);
   const [urlPhoto, setUrlPhoto] = useState('');
   const [tagsText, setTagsText] = useState('');
-  const [userPathName,setName]=useState('')
-  const [title,setTitle]=useState('')
-  const{text}=route.params
-  console.log(text)
+  const [userPathName, setName] = useState('');
+  const [title, setTitle] = useState('');
+  const {text} = route.params;
   function handleChoosePhoto() {
     const options = {
       noData: true,
@@ -66,21 +59,50 @@ const ActionSheet = ({navigation,route}) => {
     });
   }
 
-  useEffect(()=>{
-getCurrentUser()
-  },[])
+  async function uploadData() {
+const {username,fullName,uid,email}=userData
+    const ref = await firebase.database().ref(`/posting/${uid}`);
 
-  getCurrentUser = async () => {
-    const currentUser = await GoogleSignin.getCurrentUser();
-setName(currentUser.user.givenName)
+    try {
+      ref.push({
+        uid,
+        title,
+        ids:new Date().getMilliseconds()+ Math.floor(9),
+        urlImage: urlPhoto,
+        email,
+        username,
+        fullName,
+        text,
+        createdAt: new Date().getTime()
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
   }
+  async function uploadAllData(){
+    try {
+      await setLoading(true)
+      await uploadImage()
+      await uploadData()
+      
+      await setTimeout(()=>{
+        setLoading(false)
+        ToastAndroid.show('Berhasil Meposting artikel',ToastAndroid.SHORT)
+        navigation.navigate('Upload')
+      },1500)
+    } catch (error) {
+      alert(error.message)
+    }
+
+
+  }
+
   function formatUpload(uri, mime = 'image/jpeg', name) {
     return new Promise((resolve, reject) => {
       let imgUri = uri;
       let uploadBlob = null;
       const uploadUri =
         Platform.OS === 'ios' ? imgUri.replace('file://', '') : imgUri;
-      ;
       const imageName = `${name}${Date.now()}.jpg`;
       const imageRef = fireDB
         .storage()
@@ -100,6 +122,7 @@ setName(currentUser.user.givenName)
         })
         .then((url) => {
           resolve(url);
+          setUrlPhoto(url)
         })
         .catch((error) => {
           console.log(error);
@@ -111,34 +134,32 @@ setName(currentUser.user.givenName)
     const mime = 'image/jpeg';
 
     const name = 'coverFoto';
-if(photo){
-  try {
-    await formatUpload(photo, mime, name).then((url) => {
-      setUrlPhoto(url);
-    ToastAndroid.show('Bethasil mengupload artikel',ToastAndroid.SHORT)
-    }).then(()=>navigation.goBack())
-  } catch (error) {
-    console.log(error);
-  }
-}else{
-  ToastAndroid.show('Anda harus memasukkan foto cover',ToastAndroid.SHORT)
-}
-   
+    if (photo) {
+      try {
+        await formatUpload(photo, mime, name)
+          .then((url) => {
+            console.log(url,'url')
+            setUrlPhoto(url);
+          
+          })
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      ToastAndroid.show('Anda harus memasukkan foto cover', ToastAndroid.SHORT);
+    }
   }
 
   return (
     <View style={globalStyle.container}>
       <View style={{left: 20, right: 20, top: 40}}>
-       <Text style={globalStyle.inputTitle}>
-         Judul
-        </Text>
+        <Text style={globalStyle.inputTitle}>Judul</Text>
         <TextInput
           style={globalStyle.input}
           secureTextEntry
-         
-          onChangeText={(s)=>setTitle(s)}
-          value={title}
-        ></TextInput>
+          onChangeText={(s) => setTitle(s)}
+          multiline={true}
+          value={title}></TextInput>
         <Text style={globalStyle.inputTitle}> Tags </Text>
         <TextInput
           style={globalStyle.input}
@@ -161,7 +182,8 @@ if(photo){
                 style={{height: 60, width: 100, alignItems: 'center'}}
               />
             </View>
-            <Text style={[globalStyle.titleWrite, {textAlign: 'center',top:TOP}]}>
+            <Text
+              style={[globalStyle.titleWrite, {textAlign: 'center', top: TOP}]}>
               Foto Cover
             </Text>
           </TouchableOpacity>
@@ -182,7 +204,7 @@ if(photo){
       <View style={{top: width / 2}}>
         <TouchableOpacity
           style={{alignItems: 'center'}}
-          onPress={uploadImage}
+          onPress={uploadAllData}
           disabled={loading === true ? true : false}>
           <View style={globalStyle.commonButton}>
             {loading === true ? (

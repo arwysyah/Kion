@@ -18,7 +18,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import firebase from 'firebase';
 const PhoneLogin = ({navigation, route}) => {
   const [password, setPassword] = React.useState('');
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
   const [email, setEmail] = React.useState('');
 
   useEffect(() => {
@@ -29,15 +29,19 @@ const PhoneLogin = ({navigation, route}) => {
     });
   }, []);
 
-  function handleNext() {
-    firebase
+  async function handleNext() {
+    await setLoading(true);
+    await firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => {
+      .then(async () => {
+        await setLoading(false);
         ToastAndroid.show('Berhasil Login', ToastAndroid.SHORT);
-        navigation.navigate('SlideNavigation');
+
+        await navigation.navigate('SlideNavigation');
       })
       .catch((error) => {
+        setLoading(false)
         alert(error.message);
       });
   }
@@ -124,10 +128,15 @@ const PhoneLogin = ({navigation, route}) => {
         </Text>
       </TouchableOpacity>
       <View style={{left: 20, top: TOP * 4}}>
-        <TouchableOpacity onPress={forgoPassword}>
+        <TouchableOpacity onPress={forgoPassword} disabled={loading}>
           <Text style={{color: 'blue'}}>Forgot Password ?</Text>
         </TouchableOpacity>
       </View>
+      {loading == true && (
+        <View style={{top: 20}}>
+          <ActivityIndicator size="large" color="red" />
+        </View>
+      )}
     </SafeAreaView>
   );
 };

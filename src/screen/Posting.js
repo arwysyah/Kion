@@ -23,7 +23,7 @@ import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
 
 // import DismissKeyboard from '../components/keyboardDismiss';
 export default function Posting({navigation}) {
-  const maxLength = 1000;
+  const maxLength = 10000;
   const [text, setText] = React.useState('');
   const [heights, setHeight] = React.useState(1.2);
   function countText() {

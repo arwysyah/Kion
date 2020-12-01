@@ -14,11 +14,10 @@ import {
   TextInput,
 } from 'react-native';
 import TopAccount from '../components/topAccount';
-import articleData from '../components/data/articleData';
 import Articles from '../components/articles';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector, useDispatch, createSelectorHook} from 'react-redux';
-import {watchData, getUserById, WATCHDATA, GET_USER_BYID} from '../redux/action';
+import {watchData, getUserById, WATCHDATA, GET_USER_BYID,GET_POSTING_CURRENT_USER} from '../redux/action';
 import firebase from 'firebase'
 import {
   globalStyle,
@@ -37,6 +36,7 @@ import Parallax from '../components/Parallax'
 import HorizontalArticle from '../components/horizontalArticles';
 import Topic from './Topic';
 
+
 // import articlesData from '../components/data/articleData';
 // const AnimatedFlatlist = Animated.createAnimatedComponent(RoundTopAccount);
 
@@ -54,6 +54,7 @@ const Home = ({navigation}) => {
     'Internship',
   ]);
   const globalState = useSelector((state) => state);
+const articleData =globalState.posts
   // const getCarsSelector = createSelectorHook(globalState, (request) => request);
   // const [text, setText] = React.useState('');
   const scrollY = new Animated.Value(0);
@@ -66,7 +67,8 @@ const Home = ({navigation}) => {
     setData(data);
     dispatch(WATCHDATA());
   dispatch(GET_USER_BYID(uid))
-  }, []);
+  dispatch(GET_POSTING_CURRENT_USER(uid))
+  },[]);
 
 
   return (

@@ -35,8 +35,6 @@ export default function SplashScreen({navigation}) {
   async function isSignedIn(){
 
       firebase.auth().onAuthStateChanged(function(user) {
-        console.log('onAuthStateChanged: ', user);
-  
         if (user) {
           navigation.replace('SlideNavigation');
         }else{

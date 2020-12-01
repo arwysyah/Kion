@@ -74,7 +74,7 @@ export default function EditProfile({navigation}) {
             <Image
               source={{uri: userData.profilImage}}
               style={globalStyle.profilImageBigger}
-              resizeMode="stretch"
+              resizeMode="cover"
             />
           )}
         </View>

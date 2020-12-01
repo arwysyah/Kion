@@ -77,6 +77,7 @@ const Password = ({navigation, route}) => {
         })
 
         .catch((error) => {
+          setLoading(false)
           alert(error.message);
         });
     }

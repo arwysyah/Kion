@@ -1,6 +1,6 @@
 ///action
 import fireDB from '../../config/configs';
-import {GET_INCOME,GET_SIGNED_IN,GET_USER_BY_ID} from'./SringType'
+import {GET_INCOME,GET_SIGNED_IN,GET_USER_BY_ID, GET_POSTING_BY_ID} from'./SringType'
 
 export const SET_GET_INCOME = (requst) => {
 //   console.log(params, 'paras');
@@ -17,19 +17,19 @@ export const GETSIGNED_IN=(isSignedIn)=>{
   }
 }
 
-// export const dispatchSignedIn = async () => {
-//   return async function(dispatch){
-//     const isSignedIn = await GoogleSignin.isSignedIn();
-//  dispatch(getSignedIN(isSignedIn))
-//   }
-
-// };
 
 export const SET_USER_BY_ID=(data)=>{
 return{
   type:GET_USER_BY_ID,
   value:data
 }
+}
+
+export const SET_USER_POSTING_BY_ID=(data)=>{
+  return{
+    type:GET_POSTING_BY_ID,
+    value:data
+  }
 }
 export const WATCHDATA = () => {
   return function (dispatch) {
@@ -54,3 +54,13 @@ export const GET_USER_BYID=(id)=>{
   }
 }
 
+export const GET_POSTING_CURRENT_USER=(id)=>{
+
+  return function(dispatch){
+    fireDB.database().ref(`posting/${id}`)
+    .on('value',function(snapshot){
+    let data = snapshot.val() !== null ? Object.values(snapshot.val()):''
+    dispatch(SET_USER_POSTING_BY_ID(data))
+    })
+  }
+}

@@ -10,7 +10,6 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import articleData from '../components/data/articleData';
 import Articles from '../components/articles';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import ProfileText from '../components/textProfile';
@@ -20,7 +19,9 @@ export default function Profile({navigation}) {
   const profileData = useMemo(() => {
     return ['Postingan', 'Pengikut ', 'Mengikuti'];
   }, []);
-  const newData = useSelector((state) => state.userByID);
+  const fetchDataUser = useSelector((state) => state);
+  const newData = fetchDataUser.userByID
+  const articleData=fetchDataUser.posts
   const data = useMemo(() => {
     return [7, newData.following, newData.follower];
   }, []);
@@ -53,7 +54,7 @@ export default function Profile({navigation}) {
 
       <ScrollView style={{top: 30}} showsVerticalScrollIndicator={false}>
         <View style={styles.secondContainer}>
-          <View>
+          <View >
             <View style={[globalStyle.profilImageBack, {left: 5}]}>
               {newData.profilImage === undefined ? (
                 <Text
@@ -74,17 +75,36 @@ export default function Profile({navigation}) {
                   resizeMode="stretch"
                 />
               )}
+              {newData.verified === 'yes' && (
+                <Image
+                  source={require('../../assets/verified.png')}
+                  style={{
+                    width: 23,
+                    height: 23,
+                    top: -(TOP * 4),
+                    left: TOP * 3,
+                  }}
+                />
+              )}
             </View>
-            <Text
-              style={[
-                globalStyle.commonText,
-                {paddingLeft: spacing, fontWeight: 'bold'},
-              ]}>
-              {newData.fullName}
-            </Text>
+            <View style={{left: 0}}>
+              <Text
+                style={[
+                  globalStyle.commonText,
+                  {paddingLeft: spacing, fontWeight: 'bold'},
+                ]}>
+                {newData.fullName}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 11,
+                }}>
+                {newData.about}
+              </Text>
+            </View>
           </View>
 
-          <View>
+          <View style={{left: -40}}>
             <ProfileText data={profileData} textStyles={globalStyle.text} />
             <ProfileText data={data} textStyles={globalStyle.texts} />
           </View>

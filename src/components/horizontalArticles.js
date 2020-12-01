@@ -3,7 +3,7 @@ import {View, Text, SafeAreaView, FlatList, Image} from 'react-native';
 import {Card} from 'native-base';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 import {globalStyle, black, width, height} from './styles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 const spacing = 12;
 const SIZE = width * 0.62;
 const HEIGHT = SIZE - 90;
@@ -23,12 +23,12 @@ export default function HorizontalArticle({navigation, data, from, routes}) {
             <View
               style={{height: HEIGHT * 1.62, width: width / 1.2, paddingLeft: 20}}>
               <Card style={globalStyle.cardContainerPerCard}>
-                <TouchableOpacity onPress={()=>navigation.navigate('Test',{
+                <TouchableWithoutFeedback onPress={()=>navigation.navigate('Test',{
                  item:item
                 })}>
                 <View>
                   <Image
-                    source={require('../../assets/perahukertas.jpg')}
+                    source={ item.urlImage === ''? require('../../assets/perahukertas.jpg'):{uri:item.urlImage}}
                     style={{
                       height: HEIGHT * 1.2,
                       width: width / 1.3,
@@ -71,11 +71,11 @@ export default function HorizontalArticle({navigation, data, from, routes}) {
                   <View style={{top: -HEIGHT + 80, left: spacing}}>
                     <Text style={{color: 'black'}}>{item.author}</Text>
                     <Text style={{color: 'black', fontSize: 10}}>
-                      {item.date}
+                      {new Date (item.createdAt).toString()}
                     </Text>
                   </View>
                 </View>
-                </TouchableOpacity>
+                </TouchableWithoutFeedback>
               </Card>
               
             </View>

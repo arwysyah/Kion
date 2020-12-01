@@ -209,13 +209,13 @@ const globalStyle = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   profilImageBigger: {
-    // width: width / 3,
-    // height: width / 3,
+    width: width / 3,
+    height: width / 3,
     borderRadius: width / 6,
     padding: 10,
     top: 2,
     left: 2,
-    flex:1
+
   },
   BackprofileImage: {
     width: width / 2.9,

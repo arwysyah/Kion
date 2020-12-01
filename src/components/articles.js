@@ -52,7 +52,7 @@ const Articles = ({navigation, data, from, routes}) => {
         decelerationRate={0}
         renderItem={({item, index}) => {
           return (
-            <View style={{height: HEIGHT + 20, width: width -20}}>
+            <View style={{height: HEIGHT + 20, width: width - 20}}>
               <Card style={globalStyle.cardContainer}>
                 <View
                   style={{
@@ -60,7 +60,13 @@ const Articles = ({navigation, data, from, routes}) => {
                     paddingRight: 50,
                     paddingLeft: 34,
                   }}>
-                  <Text style={{color: black}}>{item.category}</Text>
+                     <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate('Test', {
+                          routes,
+                        })
+                      }>
+                       <Text style={{color: black}}>{item.category}</Text>
                   <Text
                     style={{
                       color: black,
@@ -70,8 +76,11 @@ const Articles = ({navigation, data, from, routes}) => {
                     }}>
                     {item.title}
                   </Text>
+                  </TouchableOpacity>
 
-                  <View style={{width: HEIGHT * 1.8}}></View>
+                  <View style={{width: HEIGHT * 1.8}}>
+                    
+                  </View>
 
                   <View style={{top: spacing * 3}}>
                     <TouchableOpacity
@@ -80,19 +89,31 @@ const Articles = ({navigation, data, from, routes}) => {
                           routes,
                         })
                       }>
-                      <Text style={{color: 'black'}}>{item.author}</Text>
+                             
+                      <Text style={{color: 'black'}}>{item.username}</Text>
                       <Text style={{color: 'black', fontSize: 10}}>
-                        {item.date}
+                     {new Date(item.createdAt).toString()}
                       </Text>
                     </TouchableOpacity>
                   </View>
                 </View>
 
                 <View style={{alignItems: 'center', top: 20, left: -20}}>
+                <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate('Test', {
+                          routes,
+                        })
+                      }>
                   <Image
-                    source={require('../../assets/perahukertas.jpg')}
+                    source={
+                      item.urlImage === ''
+                        ? require('../../assets/perahukertas.jpg')
+                        : {uri: item.urlImage}
+                    }
                     style={{height: 100, width: 60, borderRadius: 6}}
                   />
+                      </TouchableOpacity>
                   {from !== 'Profile' && (
                     <View
                       style={{
@@ -123,7 +144,6 @@ const Articles = ({navigation, data, from, routes}) => {
           );
         }}
       />
-
 
       {/* ) : (
         <ActivityIndicator size="small" color="red" />
