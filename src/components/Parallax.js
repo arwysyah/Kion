@@ -15,7 +15,7 @@ import {useSelector} from 'react-redux';
 export default function Parallax({}) {
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const populerUser = useSelector((state) => state.allUsers);
-  console.log(populerUser);
+
   return (
     <View style={globalStyle.container}>
       <Animated.FlatList

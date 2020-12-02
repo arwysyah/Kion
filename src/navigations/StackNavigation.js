@@ -8,6 +8,7 @@ import Posting from '../screen/Posting'
 import Profile from '../screen/Profile'
 import EditProfile from '../screen/EditProfile'
 import ActionSheet from '../screen/actionSheet'
+import Chat from '../screen/Chat'
 
 const Stack = createStackNavigator();
 const config = {
@@ -88,6 +89,17 @@ const HomeScreen = () => {
           {
             ...TransitionPresets.SlideFromRightIOS,
             gestureDirection: 'horizontal-inverted',
+          })
+        }
+      />
+        <Stack.Screen
+        name="Chat"
+        component={Chat}
+        options={
+          ({headerShown: false},
+          {
+            ...TransitionPresets.SlideFromRightIOS,
+            gestureDirection: 'horizontal',
           })
         }
       />

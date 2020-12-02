@@ -8,11 +8,9 @@ import Story from '../screen/ContentScreen/Story';
 import Scholarship from '../screen/ContentScreen/Scholarship';
 import Internship from '../screen/ContentScreen/Internship';
 import All from '../screen/ContentScreen/All';
-import {Dimensions, TouchableWithoutFeedback} from 'react-native';
-import {View, TextInput} from 'react-native';
-import {height, TOP, width} from '../components/styles';
+import {TouchableWithoutFeedback, View, Image} from 'react-native';
+import {height, TOP, width, globalStyle} from '../components/styles';
 import MaterialCommunity from 'react-native-vector-icons/Ionicons';
-
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -21,29 +19,28 @@ export default function TopButton({navigation}) {
     <>
       <TouchableWithoutFeedback onPress={() => navigation.navigate('Detail')}>
         <View
-          style={{
-            height: TOP * 2,
-            paddingHorizontal: 30,
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection:'row'
-          }}>
+          style={globalStyle.topButtonHeader}>
+          <View
+            style={globalStyle.smallLogo}>
+            <Image source={require('../../assets/logoButton.png')}
+            style={{height:30,width:30}} />
+          </View>
           <View
             style={{
-              width: width * 0.83,
-              borderWidth: 0.7,
-              borderColor: 'black',
-              height: TOP * 1.5,
+              width: width * 0.6,
+              borderWidth: 0.5,
+              borderColor: 'grey',
+              height: TOP * 1.2,
               backgroundColor: 'white',
               borderRadius: 5,
-           
             }}
           />
           <MaterialCommunity
-          style={{left:10}}
-          color='black'
-          name='search'
-          size={28}/>
+            style={{left: 10}}
+            color="black"
+            name="search"
+            size={28}
+          />
         </View>
       </TouchableWithoutFeedback>
       <Tab.Navigator

@@ -22,7 +22,7 @@ export default function HorizontalArticle({navigation, data, from, routes}) {
           return (
             <View
               style={{height: HEIGHT * 1.62, width: width / 1.2, paddingLeft: 20}}>
-              <Card style={globalStyle.cardContainerPerCard}>
+              <View style={globalStyle.cardContainerPerCard}>
                 <TouchableWithoutFeedback onPress={()=>navigation.navigate('Test',{
                  item:item
                 })}>
@@ -40,9 +40,9 @@ export default function HorizontalArticle({navigation, data, from, routes}) {
                     style={{
                       backgroundColor: '#45484d',
                       height: 30,
-                      top: -(HEIGHT + 30),
+                      top: -(HEIGHT + 20),
                       width: HEIGHT,
-                      borderTopLeftRadius: 10,
+                    
                     }}>
                     <Text
                       style={[
@@ -57,7 +57,7 @@ export default function HorizontalArticle({navigation, data, from, routes}) {
                       backgroundColor: '#45484d',
                       height: 45,
                       top: -(HEIGHT - 80),
-                      borderTopLeftRadius: 10,
+                     
                       justifyContent: 'center',
                     }}>
                     <Text
@@ -76,7 +76,7 @@ export default function HorizontalArticle({navigation, data, from, routes}) {
                   </View>
                 </View>
                 </TouchableWithoutFeedback>
-              </Card>
+              </View>
               
             </View>
           );

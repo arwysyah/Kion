@@ -37,14 +37,16 @@ const globalStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     height: HEIGHT,
-    borderRadius: 8,
+    // borderRadius: 8,
+    borderWidth:0.5,
+    borderColor:'#dedede'
   },
   cardContainerPerCard: {
     backgroundColor: '#FFFFFF',
     opacity: 0.8,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    height: HEIGHT*1.5,
+    height: HEIGHT*2,
     borderRadius: 8,
   },
   cardPart: {
@@ -377,6 +379,15 @@ const globalStyle = StyleSheet.create({
     alignSelf:"center",
     borderRadius:10
     // alignContent:'center'
+  },
+  smallLogo:{height: 30, width: 30, backgroundColor: 'red', left: -10,borderRadius:30},
+  topButtonHeader:{
+    height: TOP * 2,
+    paddingHorizontal: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    backgroundColor:"#FFFFFF"
   }
 });
 

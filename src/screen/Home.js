@@ -12,13 +12,22 @@ import {
   ScrollView,
   LogBox,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
 import TopAccount from '../components/topAccount';
 import Articles from '../components/articles';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector, useDispatch, createSelectorHook} from 'react-redux';
-import {watchData, getUserById, WATCHDATA, GET_USER_BYID,GET_POSTING_CURRENT_USER,GET_ALL_POST,WATCH_ALL_USERS} from '../redux/action';
-import firebase from 'firebase'
+import {
+  watchData,
+  getUserById,
+  WATCHDATA,
+  GET_USER_BYID,
+  GET_POSTING_CURRENT_USER,
+  GET_ALL_POST,
+  WATCH_ALL_USERS,
+} from '../redux/action';
+import firebase from 'firebase';
 import {
   globalStyle,
   iconColor,
@@ -32,10 +41,9 @@ import {
   white,
   ITEM_HEIGHT,
 } from '../components/styles';
-import Parallax from '../components/Parallax'
+import Parallax from '../components/Parallax';
 import HorizontalArticle from '../components/horizontalArticles';
 import Topic from './Topic';
-
 
 // import articlesData from '../components/data/articleData';
 // const AnimatedFlatlist = Animated.createAnimatedComponent(RoundTopAccount);
@@ -44,7 +52,8 @@ LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 LogBox.ignoreLogs(['Setting a timer for a long period of time']);
 
 const Home = ({navigation}) => {
-  const uid = firebase.auth().currentUser.uid
+  const uid = firebase.auth().currentUser.uid;
+  const [loading, setLoading] = useState(false);
   const topics = useState([
     'Technology',
     'Sains',
@@ -55,25 +64,26 @@ const Home = ({navigation}) => {
   ]);
   const globalState = useSelector((state) => state);
 
-const articleData =globalState.posts
+  const articleData = globalState.posts;
   // const getCarsSelector = createSelectorHook(globalState, (request) => request);
   // const [text, setText] = React.useState('');
   const scrollY = new Animated.Value(0);
   // const [count, setCount] = useState(0);
   const diffClamp = Animated.diffClamp(scrollY, 0, 90);
-  const [data, setData] = useState([]);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setData(data);
     dispatch(WATCHDATA());
-  dispatch(GET_USER_BYID(uid))
-  dispatch(GET_POSTING_CURRENT_USER(uid))
-  dispatch(GET_ALL_POST())
-  dispatch(WATCH_ALL_USERS())
-  },[]);
+    dispatch(GET_USER_BYID(uid));
+    dispatch(GET_POSTING_CURRENT_USER(uid));
+    dispatch(GET_ALL_POST());
+    dispatch(WATCH_ALL_USERS());
+  }, []);
 
-
+  if (loading === true) {
+    return <ActivityIndicator size="large" color="red" />;
+  }
   return (
     <SafeAreaView style={globalStyle.container}>
       {/* <LinearGradient colors={arrayColor} style={{flex: 1}}> */}
@@ -110,7 +120,7 @@ const articleData =globalState.posts
       <Animated.ScrollView
         showsVerticalScrollIndicator={false}
         onScroll={(e) => scrollY.setValue(e.nativeEvent.contentOffset.y)}>
-        <Text style={{fontSize: 12, color: black, paddingLeft: 12, }}>
+        <Text style={{fontSize: 12, color: black, paddingLeft: 12}}>
           Populer
         </Text>
 
@@ -120,36 +130,47 @@ const articleData =globalState.posts
           // translateY={translateY}
         /> */}
         {/* <TopAccount navigation={navigation} /> */}
-       <View style={{top:-(TOP*4)}}>
-       <Parallax />
-       </View>
-   
-        <View style={{top:-(TOP*5),height:ITEM_HEIGHT*1.2}}>
-        <View style={{height:40}}>
-         <Text style={[globalStyle.titleWrite,{paddingLeft:TOP}]} >Based On Your Read</Text>
-         </View>
-        <HorizontalArticle
-          data={articleData}
-          navigation={navigation}
-          routes={'Home'}
-        />
+        <View style={{top: -(TOP * 4)}}>
+          <Parallax />
         </View>
-        <View style={{top:-(4*TOP)}}>
-        <Articles data={articleData} navigation={navigation} routes={'Home'} />
-        <HorizontalArticle
-          data={articleData}
-          navigation={navigation}
-          routes={'Home'}
-        />
-        <Articles data={articleData} navigation={navigation} routes={'Home'} />
-        <Topic
-        data={topics}
-        navigation={navigation}/>
+
+        <View style={{top: -(TOP * 5), height: ITEM_HEIGHT * 1.2}}>
+          <View style={{height: 40}}>
+            <Text style={[globalStyle.titleWrite, {paddingLeft: TOP}]}>
+              Based On Your Read
+            </Text>
+          </View>
+          <HorizontalArticle
+            data={articleData}
+            navigation={navigation}
+            routes={'Home'}
+          />
+        </View>
+        <View style={{top: -(4.2 * TOP)}}>
+          <Articles
+            data={articleData}
+            navigation={navigation}
+            routes={'Home'}
+          />
+          <View style={{marginTop: 13}}>
+            <HorizontalArticle
+              data={articleData}
+              navigation={navigation}
+              routes={'Home'}
+            />
+          </View>
+          <View style={{marginTop: 20}}>
+            <Articles
+              data={articleData}
+              navigation={navigation}
+              routes={'Home'}
+            />
+          </View>
+         < View style={{top:10}}> 
+         <Topic data={topics} navigation={navigation} />
+         </View>
         </View>
       </Animated.ScrollView>
-
-      <View style={{height: 40}} />
-      {/* </LinearGradient> */}
     </SafeAreaView>
   );
 };

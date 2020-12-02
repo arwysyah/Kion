@@ -15,6 +15,7 @@ import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
 import ProfileText from '../components/textProfile';
 import {globalStyle, spacing, width, TOP, height} from '../components/styles';
 import {useSelector} from 'react-redux';
+import HeaderSlide from '../components/headerSlide';
 export default function Profile({navigation}) {
   const profileData = useMemo(() => {
     return ['Postingan', 'Pengikut ', 'Mengikuti'];
@@ -96,7 +97,7 @@ export default function Profile({navigation}) {
           </View>
         </View>
 
-        <View style={{width: width * 0.6,top:-10,left:8}}>
+        <View style={{width: width * 0.6, top: -10, left: 8}}>
           <Text
             style={[
               globalStyle.commonText,
@@ -108,38 +109,13 @@ export default function Profile({navigation}) {
             style={{
               fontSize: 11,
               top: -3,
-              left:10
+              left: 10,
             }}>
             {newData.about}
           </Text>
         </View>
 
-        <View style={{height: TOP * 3}} />
-        {articleData === '' ? (
-          <View>
-            <Image
-              source={require('../../assets/notfound.jpg')}
-              style={globalStyle.handlingImage}
-            />
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 22,
-                color: '#FFFFFF',
-                top: -TOP * 2.4,
-                fontWeight: 'bold',
-              }}>
-              Kamu belum memiliki {'\n'}postingan
-            </Text>
-          </View>
-        ) : (
-          <Articles
-            data={articleData}
-            navigation={navigation}
-            from={'Profile'}
-            routes={'Profile'}
-          />
-        )}
+        <HeaderSlide navigation={navigation} />
       </ScrollView>
       <View style={{height: spacing * 4}} />
     </SafeAreaView>

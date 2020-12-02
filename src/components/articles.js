@@ -24,22 +24,6 @@ const HEIGHT = SIZE - 90;
 const Articles = ({navigation, data, from, routes}) => {
   const [pin, setPin] = React.useState(false);
   const [dot, setDots] = React.useState(false);
-  // const sendRequest = async () => {
-  //   const ref = await fireDB.database().ref('/income');
-  //   const idRequest = Math.floor(Math.random() * 10000000000000) + 1;
-  //   ref
-  //     .push({
-  //       idRequest: 'zzzzz',
-
-  //       status: 'waiting',
-  //     })
-  //     .then((res) => {
-  //       // console.log(res);
-  //     })
-  //     .catch((err) => {
-  //       alert(err.message);
-  //     });
-  // };
   return (
     <SafeAreaView>
       <FlatList
@@ -52,37 +36,34 @@ const Articles = ({navigation, data, from, routes}) => {
         decelerationRate={0}
         renderItem={({item, index}) => {
           return (
-            <View style={{height: HEIGHT + 20, width: width - 20}}>
-              <Card style={globalStyle.cardContainer}>
+            <View style={{height: HEIGHT+2, width: width}}>
+              <View style={globalStyle.cardContainer}>
                 <View
                   style={{
                     padding: spacing,
                     paddingRight: 50,
                     paddingLeft: 34,
                   }}>
-                     <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate('Test', {
-                          routes,
-                        })
-                      }>
-                       <Text style={{color: black}}>{item.category}</Text>
-                  <Text
-                    style={{
-                      color: black,
-                      fontWeight: 'bold',
-                      top: 10,
-                      fontFamily: 'SansitaSwashed-Light',
-                    }}
-                    numberOfLines={1}>
-
-                    {item.title}
-                  </Text>
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate('Test', {
+                        routes,
+                      })
+                    }>
+                    <Text style={{color: black}}>{item.category}</Text>
+                    <Text
+                      style={{
+                        color: black,
+                        fontWeight: 'bold',
+                        top: 10,
+                        fontFamily: 'SansitaSwashed-Light',
+                      }}
+                      numberOfLines={1}>
+                      {item.title}
+                    </Text>
                   </TouchableOpacity>
 
-                  <View style={{width: HEIGHT * 1.8}}>
-                    
-                  </View>
+                  <View style={{width: HEIGHT * 1.8}}></View>
 
                   <View style={{top: spacing * 3}}>
                     <TouchableOpacity
@@ -91,31 +72,30 @@ const Articles = ({navigation, data, from, routes}) => {
                           routes,
                         })
                       }>
-                             
                       <Text style={{color: 'black'}}>{item.username}</Text>
                       <Text style={{color: 'black', fontSize: 10}}>
-                     {new Date(item.createdAt).toString()}
+                        {new Date(item.createdAt).toString()}
                       </Text>
                     </TouchableOpacity>
                   </View>
                 </View>
 
                 <View style={{alignItems: 'center', top: 20, left: -20}}>
-                <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate('Test', {
-                          routes,
-                        })
-                      }>
-                  <Image
-                    source={
-                      item.urlImage === ''
-                        ? require('../../assets/perahukertas.jpg')
-                        : {uri: item.urlImage}
-                    }
-                    style={{height: 100, width: 60, borderRadius: 6}}
-                  />
-                      </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate('Test', {
+                        routes,
+                      })
+                    }>
+                    <Image
+                      source={
+                        item.urlImage === ''
+                          ? require('../../assets/perahukertas.jpg')
+                          : {uri: item.urlImage}
+                      }
+                      style={{height: 100, width: 60, borderRadius: 6}}
+                    />
+                  </TouchableOpacity>
                   {from !== 'Profile' && (
                     <View
                       style={{
@@ -141,7 +121,7 @@ const Articles = ({navigation, data, from, routes}) => {
                     </View>
                   )}
                 </View>
-              </Card>
+              </View>
             </View>
           );
         }}
