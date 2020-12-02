@@ -36,23 +36,21 @@ const Password = ({navigation, route}) => {
     const emails = await firebase.auth().currentUser.email;
     const ref = await firebase.database().ref(`/users/${uid}`);
 
- try {
-      ref
-        .set({
-          uid,
-          username: givenName,
-          email,
-          emails,
-          fullName: name,
-          profilImage: photo,
-          follower: 0,
-          following: 0,
-          verified: 'no',
-          accountType: 'VIP',
-          cretedAt: new Date().getTime(),
-          about:''
-        })
-       
+    try {
+      ref.set({
+        uid,
+        username: givenName,
+        email,
+        emails,
+        fullName: name,
+        profilImage: photo,
+        follower: 0,
+        following: 0,
+        verified: 'no',
+        accountType: 'VIP',
+        cretedAt: new Date().getTime(),
+        about: '',
+      });
     } catch (error) {
       console.log(error.message);
     }
@@ -62,22 +60,22 @@ const Password = ({navigation, route}) => {
     if (password.length < 7) {
       Alert.alert('Anda memasukkan password kurang dari 7 karakter');
     } else {
-      await setLoading(true)
-     await  firebase
+      await setLoading(true);
+      await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(() => insertData(userInfo))
-        .then(async() => {
-         await setLoading(false)
-         await ToastAndroid.show(
+        .then(async () => {
+          await setLoading(false);
+          await ToastAndroid.show(
             'Akun Anda berhasil didaftarkan',
             ToastAndroid.SHORT,
           );
-        navigation.navigate('SlideNavigation')
+          navigation.navigate('SlideNavigation');
         })
 
         .catch((error) => {
-          setLoading(false)
+          setLoading(false);
           alert(error.message);
         });
     }
@@ -88,6 +86,7 @@ const Password = ({navigation, route}) => {
         {/* <Toast visible={this.state.visible} message={errorMessage} /> */}
         <TouchableOpacity
           onPress={() => navigation.goBack()}
+          disabled={loading === true}
           style={[
             globalStyle.backIconContainer,
             {left: -(spacing * 0.8), top: 5},
@@ -113,7 +112,7 @@ const Password = ({navigation, route}) => {
                 }}
                 source={require('../../assets/logoButton.png')}
               />
-              <Text style={{fontSize: 10, fontWeight: 'bold'}}>Login</Text>
+              <Text style={{fontSize: 10, fontWeight: 'bold',left:-4}}>Sign Up</Text>
             </View>
           </ImageBackground>
           <Text style={globalStyle.title}>
@@ -137,18 +136,29 @@ const Password = ({navigation, route}) => {
       </View>
 
       {/* <TouchableOpacity> */}
-      <TouchableOpacity style={[globalStyle.commonButton]} onPress={handleNext}>
-        <Text style={{color: white, fontWeight: 'bold', fontSize: 18}}>
-          Next
-        </Text>
+      <TouchableOpacity
+        style={globalStyle.commonButton}
+        onPress={handleNext}
+        disabled={loading == true}>
+        {loading === true ? (
+          <ActivityIndicator size="large" color="white" />
+        ) : (
+          <Text
+            style={[
+              globalStyle.textUsual,
+              {color: '#FFFFFF', fontWeight: 'bold'},
+            ]}>
+            Next
+          </Text>
+        )}
       </TouchableOpacity>
-      {loading==true&&
+      {/* {loading==true&&
       <View style={{top:20}}>
         <ActivityIndicator
         size='large'
         color='red'/>
       </View>
-      }
+      } */}
     </SafeAreaView>
   );
 };

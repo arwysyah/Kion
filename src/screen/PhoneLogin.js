@@ -30,6 +30,13 @@ const PhoneLogin = ({navigation, route}) => {
   }, []);
 
   async function handleNext() {
+    if(email.length<1  ){
+      alert('Tolong Masukkan email anda')
+    }else if(password.length<1){
+      alert("Tolong Masukkan Password anda")
+    }else{
+
+   
     await setLoading(true);
     await firebase
       .auth()
@@ -41,9 +48,10 @@ const PhoneLogin = ({navigation, route}) => {
         await navigation.navigate('SlideNavigation');
       })
       .catch((error) => {
-        setLoading(false)
+        setLoading(false);
         alert(error.message);
       });
+    }
   }
 
   function forgoPassword() {
@@ -63,6 +71,7 @@ const PhoneLogin = ({navigation, route}) => {
         {/* <Toast visible={this.state.visible} message={errorMessage} /> */}
         <TouchableOpacity
           onPress={() => navigation.goBack()}
+          disabled={loading===true}
           style={[
             globalStyle.backIconContainer,
             {left: -(spacing * 0.8), top: 5},
@@ -123,20 +132,23 @@ const PhoneLogin = ({navigation, route}) => {
       </View>
 
       <TouchableOpacity style={[globalStyle.commonButton]} onPress={handleNext}>
-        <Text style={{color: white, fontWeight: 'bold', fontSize: 18}}>
+        {loading === true ? (
+          <ActivityIndicator size="large" color="white" />
+        ) : (
+          <Text
+            style={[
+              globalStyle.textUsual,
+              {color: '#FFFFFF', fontWeight: 'bold'},
+            ]}>
           Login
-        </Text>
+          </Text>
+        )}
       </TouchableOpacity>
       <View style={{left: 20, top: TOP * 4}}>
         <TouchableOpacity onPress={forgoPassword} disabled={loading}>
           <Text style={{color: 'blue'}}>Forgot Password ?</Text>
         </TouchableOpacity>
       </View>
-      {loading == true && (
-        <View style={{top: 20}}>
-          <ActivityIndicator size="large" color="red" />
-        </View>
-      )}
     </SafeAreaView>
   );
 };

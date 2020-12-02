@@ -312,7 +312,7 @@ const globalStyle = StyleSheet.create({
   input: {
   
     // borderBottomWidth: StyleSheet.hairlineWidth,
-    height: 40,
+    height: width*0.2,
     top:TOP*2,
     width: width-40,
     fontSize: 15,
@@ -370,6 +370,14 @@ const globalStyle = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  handlingImage:{
+    width:width/1.4,
+    height:width/1.4,
+    alignItems:'center',
+    alignSelf:"center",
+    borderRadius:10
+    // alignContent:'center'
+  }
 });
 
 export {

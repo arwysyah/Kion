@@ -1,14 +1,21 @@
 import React from 'react'
-import {View,Text} from 'react-native'
+import {View,Text, SafeAreaView} from 'react-native'
 import { globalStyle, black } from '../../components/styles'
+import Articles from '../../components/articles'
+import {useSelector} from 'react-redux'
 
-const Technology =()=>{
+
+const Technology =({navigation})=>{
+    const data = useSelector(state=>state.posts.filter((i,d)=>{
+        return(
+        i.category=='Technology'
+        )
+    }))
+    // console.log(data,'ss')
     return(
-        <View style={globalStyle}>
-        <Text style={{color:black}}>
-                Technology
-            </Text>
-        </View>
+        <SafeAreaView style={globalStyle.container}>
+         <Articles data={data} navigation={navigation}/>
+        </SafeAreaView>
     )
 }
 export default Technology

@@ -20,8 +20,8 @@ export default function Profile({navigation}) {
     return ['Postingan', 'Pengikut ', 'Mengikuti'];
   }, []);
   const fetchDataUser = useSelector((state) => state);
-  const newData = fetchDataUser.userByID
-  const articleData=fetchDataUser.posts
+  const newData = fetchDataUser.userByID;
+  const articleData = fetchDataUser.postBYID;
   const data = useMemo(() => {
     return [7, newData.following, newData.follower];
   }, []);
@@ -54,8 +54,8 @@ export default function Profile({navigation}) {
 
       <ScrollView style={{top: 30}} showsVerticalScrollIndicator={false}>
         <View style={styles.secondContainer}>
-          <View >
-            <View style={[globalStyle.profilImageBack, {left: 5}]}>
+          <View>
+            <View style={[globalStyle.profilImageBack, {left: -5}]}>
               {newData.profilImage === undefined ? (
                 <Text
                   style={{
@@ -75,6 +75,7 @@ export default function Profile({navigation}) {
                   resizeMode="stretch"
                 />
               )}
+
               {newData.verified === 'yes' && (
                 <Image
                   source={require('../../assets/verified.png')}
@@ -87,34 +88,58 @@ export default function Profile({navigation}) {
                 />
               )}
             </View>
-            <View style={{left: 0}}>
-              <Text
-                style={[
-                  globalStyle.commonText,
-                  {paddingLeft: spacing, fontWeight: 'bold'},
-                ]}>
-                {newData.fullName}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 11,
-                }}>
-                {newData.about}
-              </Text>
-            </View>
           </View>
 
-          <View style={{left: -40}}>
+          <View>
             <ProfileText data={profileData} textStyles={globalStyle.text} />
             <ProfileText data={data} textStyles={globalStyle.texts} />
           </View>
         </View>
-        <Articles
-          data={articleData}
-          navigation={navigation}
-          from={'Profile'}
-          routes={'Profile'}
-        />
+
+        <View style={{width: width * 0.6,top:-10,left:8}}>
+          <Text
+            style={[
+              globalStyle.commonText,
+              {paddingLeft: spacing, fontWeight: 'bold'},
+            ]}>
+            {newData.fullName}
+          </Text>
+          <Text
+            style={{
+              fontSize: 11,
+              top: -3,
+              left:10
+            }}>
+            {newData.about}
+          </Text>
+        </View>
+
+        <View style={{height: TOP * 3}} />
+        {articleData === '' ? (
+          <View>
+            <Image
+              source={require('../../assets/notfound.jpg')}
+              style={globalStyle.handlingImage}
+            />
+            <Text
+              style={{
+                textAlign: 'center',
+                fontSize: 22,
+                color: '#FFFFFF',
+                top: -TOP * 2.4,
+                fontWeight: 'bold',
+              }}>
+              Kamu belum memiliki {'\n'}postingan
+            </Text>
+          </View>
+        ) : (
+          <Articles
+            data={articleData}
+            navigation={navigation}
+            from={'Profile'}
+            routes={'Profile'}
+          />
+        )}
       </ScrollView>
       <View style={{height: spacing * 4}} />
     </SafeAreaView>
@@ -128,9 +153,10 @@ const styles = StyleSheet.create({
 
   secondContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     padding: spacing * 1.2,
-    left: -10,
-    top: -7,
+
+    // left: -10,
+    // top: -7,
   },
 });

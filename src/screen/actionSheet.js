@@ -8,13 +8,17 @@ import {
   Image,
   Platform,
   ToastAndroid,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
-import {globalStyle, width, height, TOP} from '../components/styles';
+import {globalStyle, width, height, TOP, spacing} from '../components/styles';
 import RNFetchBlob from 'rn-fetch-blob';
 import ImagePicker from 'react-native-image-picker';
 import fireDB from '../../config/configs';
 import {useSelector} from 'react-redux';
 import firebase from 'firebase';
+
+import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 const Blob = RNFetchBlob.polyfill.Blob;
 const fs = RNFetchBlob.fs;
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
@@ -60,41 +64,50 @@ const ActionSheet = ({navigation, route}) => {
   }
 
   async function uploadData() {
-const {username,fullName,uid,email}=userData
+    const {username, fullName, uid, email} = userData;
     const ref = await firebase.database().ref(`/posting/${uid}`);
-
-    try {
-      ref.push({
-        uid,
-        title,
-        ids:new Date().getMilliseconds()+ Math.floor(9),
-        urlImage: urlPhoto,
-        email,
-        username,
-        fullName,
-        text,
-        createdAt: new Date().getTime()
-      });
-    } catch (error) {
-      console.log(error.message);
+    if (title.length < 5) {
+      alert('Anda harus memasukkan judul tulisan anda');
+    } else {
+      try {
+        ref.push({
+          uid,
+          title,
+          ids: new Date().getMilliseconds() + Math.floor(9),
+          urlImage: urlPhoto,
+          email,
+          username,
+          fullName,
+          text,
+          createdAt: new Date().getTime(),
+        });
+      } catch (error) {
+        console.log(error.message);
+      }
     }
   }
-  async function uploadAllData(){
-    try {
-      await setLoading(true)
-      await uploadImage()
-      await uploadData()
-      
-      await setTimeout(()=>{
-        setLoading(false)
-        ToastAndroid.show('Berhasil Meposting artikel',ToastAndroid.SHORT)
-        navigation.navigate('Upload')
-      },1500)
-    } catch (error) {
-      alert(error.message)
+  async function uploadAllData() {
+    if (title.length < 5) {
+      alert('Anda harus memasukkan judul tulisan anda');
     }
+    else if(urlPhoto===''){
+alert('anda harus memasukkan photo')
+    } else 
+    {
+    try {
+      await setLoading(true);
+      await uploadImage();
+      await uploadData();
 
-
+      await setTimeout(() => {
+        setLoading(false);
+        ToastAndroid.show('Berhasil Meposting artikel', ToastAndroid.SHORT);
+        navigation.navigate('Upload');
+      }, 1500);
+    } catch (error) {
+      alert(error.message);
+    }
+  }
   }
 
   function formatUpload(uri, mime = 'image/jpeg', name) {
@@ -122,7 +135,7 @@ const {username,fullName,uid,email}=userData
         })
         .then((url) => {
           resolve(url);
-          setUrlPhoto(url)
+          setUrlPhoto(url);
         })
         .catch((error) => {
           console.log(error);
@@ -136,12 +149,10 @@ const {username,fullName,uid,email}=userData
     const name = 'coverFoto';
     if (photo) {
       try {
-        await formatUpload(photo, mime, name)
-          .then((url) => {
-            console.log(url,'url')
-            setUrlPhoto(url);
-          
-          })
+        await formatUpload(photo, mime, name).then((url) => {
+          console.log(url, 'url');
+          setUrlPhoto(url);
+        });
       } catch (error) {
         console.log(error);
       }
@@ -152,21 +163,30 @@ const {username,fullName,uid,email}=userData
 
   return (
     <View style={globalStyle.container}>
-      <View style={{left: 20, right: 20, top: 40}}>
-        <Text style={globalStyle.inputTitle}>Judul</Text>
-        <TextInput
-          style={globalStyle.input}
-          secureTextEntry
-          onChangeText={(s) => setTitle(s)}
-          multiline={true}
-          value={title}></TextInput>
-        <Text style={globalStyle.inputTitle}> Tags </Text>
-        <TextInput
-          style={globalStyle.input}
-          autoCapitalize="none"
-          onChangeText={(txt) => setTagsText(txt)}
-          value={tagsText}></TextInput>
-      </View>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        disabled={loading === true}
+        style={[globalStyle.backIconContainer, {top: TOP - spacing}]}>
+        <MaterialCommunity name="arrow-left" size={25} color="black" />
+      </TouchableOpacity>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={{left: 20, right: 20, top: 40}}>
+          <Text style={globalStyle.inputTitle}>Judul</Text>
+          <TextInput
+            style={globalStyle.input}
+            textAlignVertical="top"
+            secureTextEntry
+            onChangeText={(s) => setTitle(s)}
+            multiline={true}
+            value={title}></TextInput>
+          <Text style={globalStyle.inputTitle}> Tags </Text>
+          <TextInput
+            style={globalStyle.input}
+            autoCapitalize="none"
+            onChangeText={(txt) => setTagsText(txt)}
+            value={tagsText}></TextInput>
+        </View>
+      </TouchableWithoutFeedback>
       <View
         style={{
           justifyContent: 'center',
@@ -176,7 +196,7 @@ const {username,fullName,uid,email}=userData
         }}>
         {photo == null ? (
           <TouchableOpacity onPress={handleChoosePhoto}>
-            <View style={globalStyle.add}>
+            <View style={[globalStyle.add, {borderRadius: 10}]}>
               <Image
                 source={require('../../assets/logoButton.png')}
                 style={{height: 60, width: 100, alignItems: 'center'}}

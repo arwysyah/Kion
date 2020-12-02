@@ -3,8 +3,8 @@
 import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import BottomNavigation from './BottomNavigation'
-import HomeScreen from './StackNavigation';
-import Chat from '../screen/Chat'
+// import HomeScreen from './StackNavigation';
+// import Chat from '../screen/Chat'
 const Tab = createMaterialTopTabNavigator();
 
 export default function SlideNavigation() {

@@ -73,7 +73,9 @@ const Articles = ({navigation, data, from, routes}) => {
                       fontWeight: 'bold',
                       top: 10,
                       fontFamily: 'SansitaSwashed-Light',
-                    }}>
+                    }}
+                    numberOfLines={1}>
+
                     {item.title}
                   </Text>
                   </TouchableOpacity>
@@ -154,7 +156,7 @@ const Articles = ({navigation, data, from, routes}) => {
 };
 Articles.propTypes = {
   route: PropTypes.string,
-  navigation: PropTypes.shape({}).isRequired,
+  navigation: PropTypes.shape({}),
   data: PropTypes.array,
 };
 export default memo(Articles);

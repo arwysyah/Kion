@@ -17,7 +17,7 @@ import TopAccount from '../components/topAccount';
 import Articles from '../components/articles';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector, useDispatch, createSelectorHook} from 'react-redux';
-import {watchData, getUserById, WATCHDATA, GET_USER_BYID,GET_POSTING_CURRENT_USER} from '../redux/action';
+import {watchData, getUserById, WATCHDATA, GET_USER_BYID,GET_POSTING_CURRENT_USER,GET_ALL_POST,WATCH_ALL_USERS} from '../redux/action';
 import firebase from 'firebase'
 import {
   globalStyle,
@@ -54,6 +54,7 @@ const Home = ({navigation}) => {
     'Internship',
   ]);
   const globalState = useSelector((state) => state);
+
 const articleData =globalState.posts
   // const getCarsSelector = createSelectorHook(globalState, (request) => request);
   // const [text, setText] = React.useState('');
@@ -68,6 +69,8 @@ const articleData =globalState.posts
     dispatch(WATCHDATA());
   dispatch(GET_USER_BYID(uid))
   dispatch(GET_POSTING_CURRENT_USER(uid))
+  dispatch(GET_ALL_POST())
+  dispatch(WATCH_ALL_USERS())
   },[]);
 
 
