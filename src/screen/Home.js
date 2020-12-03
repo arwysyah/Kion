@@ -1,17 +1,11 @@
-import React, {useEffect, useState, useMemo, useLayoutEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
-  FlatList,
-  Dimensions,
-  Image,
   Animated,
-  ScrollView,
-  LogBox,
-  TextInput,
   ActivityIndicator,
 } from 'react-native';
 import TopAccount from '../components/topAccount';
@@ -19,8 +13,6 @@ import Articles from '../components/articles';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector, useDispatch, createSelectorHook} from 'react-redux';
 import {
-  watchData,
-  getUserById,
   WATCHDATA,
   GET_USER_BYID,
   GET_POSTING_CURRENT_USER,
@@ -30,16 +22,12 @@ import {
 import firebase from 'firebase';
 import {
   globalStyle,
-  iconColor,
   black,
-  height,
   spacing,
-  SIZE,
-  width,
-  arrayColor,
   TOP,
   white,
   ITEM_HEIGHT,
+  backgroundColor,
 } from '../components/styles';
 import Parallax from '../components/Parallax';
 import HorizontalArticle from '../components/horizontalArticles';
@@ -47,9 +35,6 @@ import Topic from './Topic';
 
 // import articlesData from '../components/data/articleData';
 // const AnimatedFlatlist = Animated.createAnimatedComponent(RoundTopAccount);
-
-LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-LogBox.ignoreLogs(['Setting a timer for a long period of time']);
 
 const Home = ({navigation}) => {
   const uid = firebase.auth().currentUser.uid;
@@ -74,18 +59,27 @@ const Home = ({navigation}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(WATCHDATA());
-    dispatch(GET_USER_BYID(uid));
-    dispatch(GET_POSTING_CURRENT_USER(uid));
-    dispatch(GET_ALL_POST());
-    dispatch(WATCH_ALL_USERS());
+    setLoading(true)
+   let timer =  setTimeout(()=>{
+      dispatch(WATCHDATA());
+      dispatch(GET_USER_BYID(uid));
+      dispatch(GET_POSTING_CURRENT_USER(uid));
+      dispatch(GET_ALL_POST());
+      dispatch(WATCH_ALL_USERS())
+      setLoading(false)
+    },2000)
+    return () => {
+      clearTimeout(timer)
+    }
   }, []);
-
   if (loading === true) {
-    return <ActivityIndicator size="large" color="red" />;
+    return <View style={{justifyContent:'center',alignItems:'center',alignContent:"center",alignSelf:'center',flex:1}}>
+      <ActivityIndicator size="large" color="red" 
+   />
+    </View>;
   }
   return (
-    <SafeAreaView style={globalStyle.container}>
+    <SafeAreaView style={globalStyle.optionalContainer}>
       {/* <LinearGradient colors={arrayColor} style={{flex: 1}}> */}
       <View
         style={{
@@ -93,6 +87,7 @@ const Home = ({navigation}) => {
 
           justifyContent: 'space-between',
           paddingHorizontal: 20,
+          backgroundColor: white,
         }}>
         {/* <TouchableOpacity onPress={() => setCount(count + 1)}>
           <Text style={{fontSize: 30, color: 'white'}}>{count}</Text>
@@ -134,7 +129,12 @@ const Home = ({navigation}) => {
           <Parallax />
         </View>
 
-        <View style={{top: -(TOP * 5), height: ITEM_HEIGHT * 1.2}}>
+        <View
+          style={{
+            top: -(TOP * 5),
+            height: ITEM_HEIGHT * 1.2,
+            backgroundColor: backgroundColor,
+          }}>
           <View style={{height: 40}}>
             <Text style={[globalStyle.titleWrite, {paddingLeft: TOP}]}>
               Based On Your Read
@@ -159,16 +159,16 @@ const Home = ({navigation}) => {
               routes={'Home'}
             />
           </View>
-          <View style={{marginTop: 20}}>
+          <View style={{marginTop: 20, backgroundColor: backgroundColor}}>
             <Articles
               data={articleData}
               navigation={navigation}
               routes={'Home'}
             />
           </View>
-         < View style={{top:10}}> 
-         <Topic data={topics} navigation={navigation} />
-         </View>
+          <View style={{top: 10}}>
+            <Topic data={topics} navigation={navigation} />
+          </View>
         </View>
       </Animated.ScrollView>
     </SafeAreaView>

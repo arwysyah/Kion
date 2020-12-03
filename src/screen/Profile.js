@@ -16,6 +16,7 @@ import ProfileText from '../components/textProfile';
 import {globalStyle, spacing, width, TOP, height} from '../components/styles';
 import {useSelector} from 'react-redux';
 import HeaderSlide from '../components/headerSlide';
+import FastImage from 'react-native-fast-image';
 export default function Profile({navigation}) {
   const profileData = useMemo(() => {
     return ['Postingan', 'Pengikut ', 'Mengikuti'];
@@ -23,8 +24,9 @@ export default function Profile({navigation}) {
   const fetchDataUser = useSelector((state) => state);
   const newData = fetchDataUser.userByID;
   const articleData = fetchDataUser.postBYID;
+  const postingan = articleData.length;
   const data = useMemo(() => {
-    return [7, newData.following, newData.follower];
+    return [postingan, newData.following, newData.follower];
   }, []);
 
   return (
@@ -56,7 +58,11 @@ export default function Profile({navigation}) {
       <ScrollView style={{top: 30}} showsVerticalScrollIndicator={false}>
         <View style={styles.secondContainer}>
           <View>
-            <View style={[globalStyle.profilImageBack, {left: -5}]}>
+            <View
+              style={[
+                globalStyle.profilImageBack,
+                {left: -5, borderColor: 'black', borderWidth: 0.5},
+              ]}>
               {newData.profilImage === undefined ? (
                 <Text
                   style={{
@@ -70,10 +76,14 @@ export default function Profile({navigation}) {
                   {newData.fullName.charAt(0)}
                 </Text>
               ) : (
-                <Image
-                  source={{uri: newData.profilImage}}
+                <FastImage
                   style={globalStyle.profilImage}
-                  resizeMode="stretch"
+                  source={{
+                    uri: newData.profilImage,
+                    headers: {Authorization: 'StRSUJDJASDIouwebqmwbj'},
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.stretch}
                 />
               )}
 

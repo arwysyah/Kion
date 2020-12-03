@@ -7,13 +7,12 @@ import {
   Image,
   Animated,
 } from 'react-native';
-import Svg, {Rect} from 'react-native-svg';
+
 const {height, width} = Dimensions.get('window');
 const spacing = 10;
 const SIZE = width * 0.62;
 const Spacer = (width - SIZE) / 2;
 const BACKDROPHEIGHT = height * 0.6;
-const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
 const BackgroundImage = ({data, scrollX}) => {
 

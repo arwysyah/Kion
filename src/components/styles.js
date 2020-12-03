@@ -16,7 +16,11 @@ const ITEM_WIDTH = width/1.4*0.76
 const ITEM_HEIGHT = ITEM_WIDTH/1.4 * 1.47
 const globalStyle = StyleSheet.create({
   container: {
-    backgroundColor: backgroundColor,
+    backgroundColor: white,
+    flex: 1,
+  },
+  optionalContainer:{
+    backgroundColor:backgroundColor,
     flex: 1,
   },
   add: {
@@ -38,8 +42,8 @@ const globalStyle = StyleSheet.create({
     justifyContent: 'space-around',
     height: HEIGHT,
     // borderRadius: 8,
-    borderWidth:0.5,
-    borderColor:'#dedede'
+    borderWidth:0.7,
+    borderColor:'#868a87'
   },
   cardContainerPerCard: {
     backgroundColor: '#FFFFFF',
@@ -158,7 +162,7 @@ const globalStyle = StyleSheet.create({
     width,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor,
+    backgroundColor:white,
     // padding: 10,
     // shadowColor: '#000',
     // shadowOffset: {

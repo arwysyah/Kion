@@ -51,13 +51,15 @@ const HomeScreen = () => {
       <Stack.Screen
         name="Detail"
         component={Detail}
-        options={
-          ({headerShown: false},
-          {
-            ...TransitionPresets.SlideFromRightIOS,
-            gestureDirection: 'horizontal-inverted',
-          })
-        }
+        options={{
+          transitionSpec: {
+            open: config,
+            close: config,
+          },
+
+          cardStyleInterpolator: forFade,
+          ...TransitionPresets.ScaleFromCenterAndroid,
+        }}
       />
          <Stack.Screen
         name="Posting"

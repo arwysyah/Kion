@@ -17,7 +17,6 @@ import {
   statusCodes,
 } from '@react-native-community/google-signin';
 import firebase from 'firebase';
-import {uid} from 'uid';
 
 GoogleSignin.configure({
   webClientId: WEB_CLIENT_ID, // client ID of type WEB for your server (needed to verify user ID and offline access)

@@ -8,6 +8,7 @@ import {
   height,
   HEIGHT,
   spacing,
+  backgroundColor,
 } from './styles';
 import newData from './data/data';
 import {useSelector} from 'react-redux';
@@ -53,7 +54,8 @@ export default function Parallax({}) {
                 width: width,
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: height / 1.5,
+                height: height / 1.7,
+                backgroundColor:backgroundColor
               }}>
               <View
                 style={{

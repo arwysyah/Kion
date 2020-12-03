@@ -10,7 +10,6 @@ import {
   Alert
 } from 'react-native';
 import {globalStyle,height,width, spacing, arrayColor} from '../components/styles';
-import {Card} from 'native-base';
 import Header from '../components/header'
 
 
@@ -28,22 +27,22 @@ export default function Upload({navigation}) {
      </View>
       <View style={{paddingHorizontal: 30,top:height/11,}}>
         <TouchableOpacity onPress={()=>navigation.navigate('Posting')}>
-        <Card style={globalStyle.cardPart}>
+        <View style={[globalStyle.cardPart,{borderWidth:0.9,borderColor:'black'}]}>
           <Text style={globalStyle.titleWrite}>Buat Artikel</Text>
           <Text style={globalStyle.commonText}>
             Tuliskan idemu ataupun cerita mu sehingga orang lain tahu{' '}
           </Text>
-        </Card>
+        </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>Alert.alert(`we haven't provide this service currently`)}>
-        <Card style={globalStyle.cardPart}>
+        <TouchableOpacity onPress={()=>Alert.alert(`we haven't provide this service currently`)} style={{top:15}}>
+        <View style={[globalStyle.cardPart,{borderWidth:0.9,borderColor:'black'}]}>
           <Text style={globalStyle.titleWrite}>Buat Pertanyaan</Text>
           <Text style={globalStyle.commonText}>
             Silahkan bertanya kepada orang-orang, sehingga anda mendapatkan
             jawabannya.{' '}
           </Text>
           
-        </Card>
+        </View>
         </TouchableOpacity>
       </View>
 

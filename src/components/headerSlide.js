@@ -127,7 +127,7 @@ const HeaderSlide = ({navigation}) => {
               borderRadius: 4,
             }}>
             <MaterialCommunity
-              name="google-lensgoogle-photos"
+              name="google-lens"
               color={active === 1 ? '#FFF' : 'black'}
               size={21}
             />

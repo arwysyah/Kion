@@ -4,26 +4,20 @@ import {
   Text,
   SafeAreaView,
   FlatList,
-  Dimensions,
   Image,
   TouchableOpacity,
-  Alert,
-  ActivityIndicator,
 } from 'react-native';
-import {Card} from 'native-base';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
-import fireDB from '../../config/configs';
-import {globalStyle, black, width, height} from './styles';
+import moment from 'moment'
+import {globalStyle, black, width} from './styles';
 import PropTypes from 'prop-types';
-
+moment.locale('en')
 const spacing = 12;
 const SIZE = width * 0.62;
 const HEIGHT = SIZE - 90;
 
 const Articles = ({navigation, data, from, routes}) => {
-  const [pin, setPin] = React.useState(false);
-  const [dot, setDots] = React.useState(false);
+  
   return (
     <SafeAreaView>
       <FlatList
@@ -36,7 +30,7 @@ const Articles = ({navigation, data, from, routes}) => {
         decelerationRate={0}
         renderItem={({item, index}) => {
           return (
-            <View style={{height: HEIGHT+2, width: width}}>
+            <View style={{height: HEIGHT+3, width: width}}>
               <View style={globalStyle.cardContainer}>
                 <View
                   style={{
@@ -74,7 +68,7 @@ const Articles = ({navigation, data, from, routes}) => {
                       }>
                       <Text style={{color: 'black'}}>{item.username}</Text>
                       <Text style={{color: 'black', fontSize: 10}}>
-                        {new Date(item.createdAt).toString()}
+                      {moment(item.createdAt).format('LL')}
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -104,20 +98,20 @@ const Articles = ({navigation, data, from, routes}) => {
                         width: 90,
                         top: 6,
                       }}>
-                      <TouchableOpacity onPress={() => sendRequest()}>
+                      <TouchableOpacity onPress={() => handleArchived()}>
                         <MaterialCommunity
                           name="pin-outline"
                           size={20}
-                          color={pin === false ? 'grey' : 'black'}
+                          // color={pin === false ? 'grey' : 'black'}
                         />
                       </TouchableOpacity>
-                      <TouchableOpacity onPress={() => setDots(!dot)}>
+                      {/* <TouchableOpacity onPress={() => setDots(!dot)}>
                         <MaterialCommunity
                           name="dots-vertical"
                           size={20}
                           color={dot === false ? 'grey' : 'black'}
                         />
-                      </TouchableOpacity>
+                      </TouchableOpacity> */}
                     </View>
                   )}
                 </View>
