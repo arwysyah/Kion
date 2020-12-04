@@ -5,6 +5,8 @@ import {
   GET_POSTING_BY_ID,
   GET_POST,
   GET_ALL_USERS,
+  GET_OTHER_USERS,
+  GET_OTHER_USER_POST,
 } from './SringType';
 const initialState = {
   request: [],
@@ -13,6 +15,8 @@ const initialState = {
   postBYID: [],
   posts: [],
   allUsers: [],
+  otherUser: [],
+  otherUserPost:[]
 };
 
 const reducer = (state = initialState, action) => {
@@ -35,7 +39,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         allUsers: action.value,
       };
-
+    case GET_OTHER_USERS:
+      return {
+        ...state,
+        otherUser: action.value,
+      };
+      case GET_OTHER_USER_POST:
+        return {
+          ...state,
+          otherUserPost: action.value,
+        };
     default:
       return state;
   }

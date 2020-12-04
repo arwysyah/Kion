@@ -221,6 +221,14 @@ const globalStyle = StyleSheet.create({
     // padding: 10,
     backgroundColor: '#FFFFFF',
   },
+  secondContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: spacing * 1.2,
+
+    // left: -10,
+    // top: -7,
+  },
   profilImageBigger: {
     width: width / 3,
     height: width / 3,

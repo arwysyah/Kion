@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from 'react';
+import React, {useState, useMemo, useEffect} from 'react';
 import {
   View,
   Text,
@@ -12,15 +12,20 @@ import {
 } from 'react-native';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle, spacing, width, TOP, height} from '../components/styles';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import HeaderSlide from '../components/headerSlide';
 import BioProfile from '../components/BioProfile';
-export default function Profile({navigation}) {
+import {GET_POSTING_OTHER_USER} from '../redux/action';
+export default function ProfileById({navigation, route}) {
+  const {item} = route.params;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(GET_POSTING_OTHER_USER(item.uid));
+  }, []);
+  const {username} = item;
   const fetchDataUser = useSelector((state) => state);
-  const newData = fetchDataUser.userByID;
-  const articleData = fetchDataUser.postBYID;
+  const articleData = fetchDataUser.otherUserPost;
   const postingan = articleData.length;
-
   return (
     <SafeAreaView style={globalStyle.container}>
       <View
@@ -37,18 +42,13 @@ export default function Profile({navigation}) {
         </TouchableOpacity>
         <View>
           <Text style={[globalStyle.titleWrite, {justifyContent: 'center'}]}>
-            {newData.username}
+            {username}
           </Text>
         </View>
-        <TouchableOpacity
-          style={[globalStyle.commonIcon, {left: width - 50, top: spacing - 5}]}
-          onPress={() => navigation.navigate('EditProfile')}>
-          <MaterialCommunity name="fountain-pen" size={25} color="black" />
-        </TouchableOpacity>
       </View>
 
       <ScrollView style={{top: 30}} showsVerticalScrollIndicator={false}>
-        <BioProfile newData={newData} postingan={postingan} />
+        <BioProfile newData={item} postingan={postingan} />
         <HeaderSlide navigation={navigation} articleData={articleData} />
       </ScrollView>
       <View style={{height: spacing * 4}} />

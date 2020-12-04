@@ -89,7 +89,6 @@ const Home = ({navigation}) => {
       </View>
     );
   }
-  console.log(archived, 'ss');
   return (
     <SafeAreaView style={globalStyle.optionalContainer}>
       <View
@@ -128,7 +127,7 @@ const Home = ({navigation}) => {
           Populer
         </Text>
         <View style={{top: -(TOP * 4)}}>
-          <Parallax />
+          <Parallax navigation={navigation}/>
         </View>
 
         <View

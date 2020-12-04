@@ -9,6 +9,7 @@ import Profile from '../screen/Profile'
 import EditProfile from '../screen/EditProfile'
 import ActionSheet from '../screen/actionSheet'
 import Chat from '../screen/Chat'
+import ProfileById from '../screen/ProfileById'
 
 const Stack = createStackNavigator();
 const config = {
@@ -86,6 +87,17 @@ const HomeScreen = () => {
        <Stack.Screen
         name="Profile"
         component={Profile}
+        options={
+          ({headerShown: false},
+          {
+            ...TransitionPresets.SlideFromRightIOS,
+            gestureDirection: 'horizontal-inverted',
+          })
+        }
+      />
+        <Stack.Screen
+        name="ProfileById"
+        component={ProfileById}
         options={
           ({headerShown: false},
           {

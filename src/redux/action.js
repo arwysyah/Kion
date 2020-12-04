@@ -7,6 +7,8 @@ import {
   GET_POSTING_BY_ID,
   GET_POST,
   GET_ALL_USERS,
+  GET_OTHER_USERS,
+  GET_OTHER_USER_POST
 } from './SringType';
 
 export const SET_GET_INCOME = (requst) => {
@@ -43,10 +45,21 @@ export const SET_USER_BY_ID = (data) => {
     value: data,
   };
 };
-
+export const SET_OTHER_USER = (data) => {
+  return {
+    type: GET_OTHER_USERS,
+    value: data,
+  };
+};
 export const SET_USER_POSTING_BY_ID = (data) => {
   return {
     type: GET_POSTING_BY_ID,
+    value: data,
+  };
+};
+export const SET_USER_POSTING_OTHER_USER = (data) => {
+  return {
+    type: GET_OTHER_USER_POST,
     value: data,
   };
 };
@@ -74,6 +87,19 @@ export const GET_USER_BYID = (id) => {
       });
   };
 };
+export const GET_OTHER_USER = (id) => {
+  return function (dispatch) {
+    fireDB
+      .database()
+      .ref(`users/${id}`)
+      .on('value', function (snapshot) {
+        let data = snapshot.val() !== null ? snapshot.val() : '';
+        dispatch(SET_OTHER_USER(data));
+        // console.log('ddatat',data)
+
+      });
+  };
+};
 
 export const GET_POSTING_CURRENT_USER = (id) => {
   return function (dispatch) {
@@ -83,6 +109,17 @@ export const GET_POSTING_CURRENT_USER = (id) => {
       .on('value', function (snapshot) {
         let data = snapshot.val() !== null ? Object.values(snapshot.val()) : '';
         dispatch(SET_USER_POSTING_BY_ID(data));
+      });
+  };
+};
+export const GET_POSTING_OTHER_USER = (id) => {
+  return function (dispatch) {
+    fireDB
+      .database()
+      .ref(`posting/${id}`)
+      .on('value', function (snapshot) {
+        let data = snapshot.val() !== null ? Object.values(snapshot.val()) : '';
+        dispatch(SET_USER_POSTING_OTHER_USER(data));
       });
   };
 };

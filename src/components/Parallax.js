@@ -13,8 +13,9 @@ import {
 } from './styles';
 import newData from './data/data';
 import {useSelector} from 'react-redux';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function Parallax({}) {
+export default function Parallax({navigation}) {
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const populerUser = useSelector((state) => state.allUsers);
 
@@ -50,6 +51,9 @@ export default function Parallax({}) {
             outputRange: [-width * 0.7, 0, width * 0.7],
           });
           return (
+            <TouchableOpacity onPress={()=>navigation.navigate('ProfileById',{
+              item:item
+            })}>
             <View
               style={{
                 width: width,
@@ -154,6 +158,7 @@ export default function Parallax({}) {
                 />
               )}
             </View>
+            </TouchableOpacity>
           );
         }}
       />

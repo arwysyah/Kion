@@ -1,11 +1,11 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef,memo, useMemo, useCallback} from 'react';
 import {View, Text, TouchableOpacity, Animated,Image} from 'react-native';
 import {globalStyle, width, height,TOP} from './styles';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector} from 'react-redux';
 import Articles from '../components/articles';
 const AnimatedIcon = Animated.createAnimatedComponent(MaterialCommunity);
-const HeaderSlide = ({navigation}) => {
+const HeaderSlide = ({navigation,articleData}) => {
   const [active, setActive] = useState(0);
   const [xTabOne, setTabOne] = useState(0);
   const [xTabTwo, setTabTwo] = useState(0);
@@ -14,9 +14,7 @@ const HeaderSlide = ({navigation}) => {
   const translateXTabOne = useState(new Animated.Value(0))[0];
   const translateXTabTwo=useState(new Animated.Value(width))[0]
   const translateXTabThree=useState(new Animated.Value(width/2))[0]
-  const fetchDataUser = useSelector((state) => state);
-  const articleData = fetchDataUser.postBYID;
-  const handleSlide = (type) => {
+const handleSlide=(type)=> {
     Animated.spring(translateX, {
       toValue: type,
       duration: 100,
@@ -191,7 +189,7 @@ const HeaderSlide = ({navigation}) => {
                 },
               ],
             }}>
-            {articleData === '' ? (
+            {articleData==='' ? (
               <View>
                 <Image
                   source={require('../../assets/notfound.jpg')}
@@ -268,4 +266,4 @@ const HeaderSlide = ({navigation}) => {
   );
 };
 
-export default HeaderSlide;
+export default memo(HeaderSlide);
