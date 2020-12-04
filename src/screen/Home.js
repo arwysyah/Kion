@@ -28,7 +28,9 @@ import {
   white,
   ITEM_HEIGHT,
   backgroundColor,
+  BACKCOLOR,
 } from '../components/styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Parallax from '../components/Parallax';
 import HorizontalArticle from '../components/horizontalArticles';
 import Topic from './Topic';
@@ -39,6 +41,8 @@ import Topic from './Topic';
 const Home = ({navigation}) => {
   const uid = firebase.auth().currentUser.uid;
   const [loading, setLoading] = useState(false);
+  const [archived, setArchived] = useState([]);
+
   const topics = useState([
     'Technology',
     'Sains',
@@ -50,48 +54,52 @@ const Home = ({navigation}) => {
   const globalState = useSelector((state) => state);
 
   const articleData = globalState.posts;
-  // const getCarsSelector = createSelectorHook(globalState, (request) => request);
-  // const [text, setText] = React.useState('');
-  const scrollY = new Animated.Value(0);
-  // const [count, setCount] = useState(0);
-  const diffClamp = Animated.diffClamp(scrollY, 0, 90);
 
   const dispatch = useDispatch();
 
+  const getData = async () => {
+    try {
+      const newData = await AsyncStorage.getItem('PIN').then((req) =>
+        JSON.parse(req),
+      );
+      setArchived(newData);
+    } catch (e) {
+      // error reading value
+    }
+  };
   useEffect(() => {
-    setLoading(true)
-   let timer =  setTimeout(()=>{
+    // setLoading(true);
+    let timer = setTimeout(() => {
       dispatch(WATCHDATA());
       dispatch(GET_USER_BYID(uid));
       dispatch(GET_POSTING_CURRENT_USER(uid));
       dispatch(GET_ALL_POST());
-      dispatch(WATCH_ALL_USERS())
-      setLoading(false)
-    },2000)
+      dispatch(WATCH_ALL_USERS());
+      // setLoading(false);
+      getData();
+    }, 2000);
     return () => {
-      clearTimeout(timer)
-    }
+      clearTimeout(timer);
+    };
   }, []);
   if (loading === true) {
-    return <View style={{justifyContent:'center',alignItems:'center',alignContent:"center",alignSelf:'center',flex:1}}>
-      <ActivityIndicator size="large" color="red" 
-   />
-    </View>;
+    return (
+      <View style={globalStyle.loadingScreen}>
+        <ActivityIndicator size="large" color="red" />
+      </View>
+    );
   }
+  console.log(archived, 'ss');
   return (
     <SafeAreaView style={globalStyle.optionalContainer}>
-      {/* <LinearGradient colors={arrayColor} style={{flex: 1}}> */}
       <View
         style={{
           flexDirection: 'row',
 
           justifyContent: 'space-between',
           paddingHorizontal: 20,
-          backgroundColor: white,
+          backgroundColor: BACKCOLOR,
         }}>
-        {/* <TouchableOpacity onPress={() => setCount(count + 1)}>
-          <Text style={{fontSize: 30, color: 'white'}}>{count}</Text>
-        </TouchableOpacity> */}
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
           <MaterialCommunity
             name="account-tie"
@@ -114,17 +122,11 @@ const Home = ({navigation}) => {
 
       <Animated.ScrollView
         showsVerticalScrollIndicator={false}
-        onScroll={(e) => scrollY.setValue(e.nativeEvent.contentOffset.y)}>
+        // onScroll={(e) => scrollY.setValue(e.nativeEvent.contentOffset.y)}
+      >
         <Text style={{fontSize: 12, color: black, paddingLeft: 12}}>
           Populer
         </Text>
-
-        {/* <RoundTopAccount
-          data={articleData}
-
-          // translateY={translateY}
-        /> */}
-        {/* <TopAccount navigation={navigation} /> */}
         <View style={{top: -(TOP * 4)}}>
           <Parallax />
         </View>
@@ -133,7 +135,7 @@ const Home = ({navigation}) => {
           style={{
             top: -(TOP * 5),
             height: ITEM_HEIGHT * 1.2,
-            backgroundColor: backgroundColor,
+            backgroundColor: BACKCOLOR,
           }}>
           <View style={{height: 40}}>
             <Text style={[globalStyle.titleWrite, {paddingLeft: TOP}]}>
@@ -159,7 +161,7 @@ const Home = ({navigation}) => {
               routes={'Home'}
             />
           </View>
-          <View style={{marginTop: 20, backgroundColor: backgroundColor}}>
+          <View style={{marginTop: 20, backgroundColor: BACKCOLOR}}>
             <Articles
               data={articleData}
               navigation={navigation}
@@ -169,11 +171,28 @@ const Home = ({navigation}) => {
           <View style={{top: 10}}>
             <Topic data={topics} navigation={navigation} />
           </View>
+          {archived.length > 0 && (
+            <View>
+              <Text
+                style={{
+                  fontStyle: 'italic',
+                  fontWeight: 'bold',
+                  left: 20,
+                  fontSize: 20,
+                }}>
+                Archived
+              </Text>
+              <HorizontalArticle
+                data={archived}
+                navigation={navigation}
+                routes={'Home'}
+              />
+            </View>
+          )}
         </View>
       </Animated.ScrollView>
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({});
 export default Home;

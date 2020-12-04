@@ -8,7 +8,12 @@ import Story from '../screen/ContentScreen/Story';
 import Scholarship from '../screen/ContentScreen/Scholarship';
 import Internship from '../screen/ContentScreen/Internship';
 import All from '../screen/ContentScreen/All';
-import {TouchableWithoutFeedback, View, Image} from 'react-native';
+import {
+  TouchableWithoutFeedback,
+  View,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import {height, TOP, width, globalStyle} from '../components/styles';
 import MaterialCommunity from 'react-native-vector-icons/Ionicons';
 
@@ -17,32 +22,41 @@ const Tab = createMaterialTopTabNavigator();
 export default function TopButton({navigation}) {
   return (
     <>
-      <TouchableWithoutFeedback onPress={() => navigation.navigate('Detail')}>
-        <View
-          style={globalStyle.topButtonHeader}>
-          <View
-            style={globalStyle.smallLogo}>
-            <Image source={require('../../assets/logoButton.png')}
-            style={{height:30,width:30}} />
+      <View style={globalStyle.topButtonHeader}>
+        <TouchableOpacity
+          style={[globalStyle.backIconContainer, {height: 30, width: 30}]}
+          onPress={() => navigation.goBack()}>
+          <MaterialCommunity color="black" name="arrow-back" size={25} />
+        </TouchableOpacity>
+
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('Test')}>
+          <View style={[globalStyle.topButtonHeader, {left: 20}]}>
+            <View style={globalStyle.smallLogo}>
+              <Image
+                source={require('../../assets/logoButton.png')}
+                style={{height: 30, width: 30}}
+              />
+            </View>
+            <View
+              style={{
+                width: width * 0.6,
+                borderWidth: 0.5,
+                borderColor: 'grey',
+                height: TOP * 1.2,
+                backgroundColor: 'white',
+                borderRadius: 5,
+              }}
+            />
+            <MaterialCommunity
+              style={{left: 10}}
+              color="black"
+              name="search"
+              size={28}
+            />
           </View>
-          <View
-            style={{
-              width: width * 0.6,
-              borderWidth: 0.5,
-              borderColor: 'grey',
-              height: TOP * 1.2,
-              backgroundColor: 'white',
-              borderRadius: 5,
-            }}
-          />
-          <MaterialCommunity
-            style={{left: 10}}
-            color="black"
-            name="search"
-            size={28}
-          />
-        </View>
-      </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+      </View>
+
       <Tab.Navigator
         initialRouteName="All"
         backBehavior="All"

@@ -61,7 +61,7 @@ export default function Profile({navigation}) {
             <View
               style={[
                 globalStyle.profilImageBack,
-                {left: -5, borderColor: 'black', borderWidth: 0.5},
+                {left: -5, },
               ]}>
               {newData.profilImage === undefined ? (
                 <Text

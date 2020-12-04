@@ -12,15 +12,16 @@ const iconColor = '#999793';
 const white = '#ffffff';
 const arrayColor = ['#dde2eb', '#cacfca', '#dee3de', '#dde2eb'];
 const backgroundColor = '#cacfca';
-const ITEM_WIDTH = width/1.4*0.76
-const ITEM_HEIGHT = ITEM_WIDTH/1.4 * 1.47
+const ITEM_WIDTH = (width / 1.4) * 0.76;
+const ITEM_HEIGHT = (ITEM_WIDTH / 1.4) * 1.47;
+const BACKCOLOR = '#f0f5f2';
 const globalStyle = StyleSheet.create({
   container: {
-    backgroundColor: white,
+    backgroundColor: BACKCOLOR,
     flex: 1,
   },
-  optionalContainer:{
-    backgroundColor:backgroundColor,
+  optionalContainer: {
+    backgroundColor: BACKCOLOR,
     flex: 1,
   },
   add: {
@@ -29,8 +30,7 @@ const globalStyle = StyleSheet.create({
     height: ITEM_HEIGHT,
     alignItems: 'center',
     justifyContent: 'center',
-    alignItems:'center'
-
+    alignItems: 'center',
   },
   icon: {
     color: '#E0E5EC',
@@ -42,15 +42,15 @@ const globalStyle = StyleSheet.create({
     justifyContent: 'space-around',
     height: HEIGHT,
     // borderRadius: 8,
-    borderWidth:0.7,
-    borderColor:'#868a87'
+    borderWidth: 0.3,
+    borderColor: '#cfcfcf',
   },
   cardContainerPerCard: {
     backgroundColor: '#FFFFFF',
     opacity: 0.8,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    height: HEIGHT*2,
+    height: HEIGHT * 2,
     borderRadius: 8,
   },
   cardPart: {
@@ -100,6 +100,12 @@ const globalStyle = StyleSheet.create({
     top: spacing * 2.5,
     textAlign: 'center',
     justifyContent: 'center',
+  },
+  loadingScreen: {
+    justifyContent: 'center',
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
   backIconContainer: {
     position: 'absolute',
@@ -162,7 +168,7 @@ const globalStyle = StyleSheet.create({
     width,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor:white,
+    backgroundColor: BACKCOLOR,
     // padding: 10,
     // shadowColor: '#000',
     // shadowOffset: {
@@ -211,6 +217,7 @@ const globalStyle = StyleSheet.create({
     width: width / 3.8,
     height: width / 3.8,
     borderRadius: width / 7.6,
+    opacity:10,
     // padding: 10,
     backgroundColor: '#FFFFFF',
   },
@@ -221,7 +228,6 @@ const globalStyle = StyleSheet.create({
     padding: 10,
     top: 2,
     left: 2,
-
   },
   BackprofileImage: {
     width: width / 2.9,
@@ -245,25 +251,25 @@ const globalStyle = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
   },
-  commonButton:{
-              width: Dimensions.get('window').width - 250,
-              top: 20,
-              height: 45,
-              borderRadius: 20,
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-              backgroundColor: '#D23B4B',
+  commonButton: {
+    width: Dimensions.get('window').width - 250,
+    top: 20,
+    height: 45,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    backgroundColor: '#D23B4B',
 
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 3,
-              },
-              shadowOpacity: 0.27,
-              shadowRadius: 4.65,
-              elevation: 8,
-            },
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 8,
+  },
 
   modalContainer: {
     backgroundColor: 'white',
@@ -308,7 +314,7 @@ const globalStyle = StyleSheet.create({
   inputTitle: {
     color: black,
     fontSize: 15,
-    top:TOP*2
+    top: TOP * 2,
   },
   login: {
     color: 'green',
@@ -316,17 +322,15 @@ const globalStyle = StyleSheet.create({
     fontWeight: 'bold',
   },
   input: {
-  
     // borderBottomWidth: StyleSheet.hairlineWidth,
-    height: width*0.2,
-    top:TOP*2,
-    width: width-40,
+    height: width * 0.2,
+    top: TOP * 2,
+    width: width - 40,
     fontSize: 15,
     color: 'black',
     backgroundColor: '#FFFFFF',
     borderRadius: 8,
-    paddingVertical:10,
-    
+    paddingVertical: 10,
   },
   content: {
     marginLeft: 20,
@@ -376,23 +380,30 @@ const globalStyle = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  handlingImage:{
-    width:width/1.4,
-    height:width/1.4,
-    alignItems:'center',
-    alignSelf:"center",
-    borderRadius:10
+  handlingImage: {
+    width: width / 1.4,
+    height: width / 1.4,
+    alignItems: 'center',
+    alignSelf: 'center',
+    borderRadius: 10,
     // alignContent:'center'
   },
-  smallLogo:{height: 30, width: 30, backgroundColor: 'red', left: -10,borderRadius:30},
-  topButtonHeader:{
+  smallLogo: {
+    height: 30,
+    width: 30,
+    backgroundColor: 'red',
+    left: -10,
+    borderRadius: 30,
+  },
+  smallLogo2: {height: 35, width: 35, borderRadius: 35, alignSelf: 'center'},
+  topButtonHeader: {
     height: TOP * 2,
     paddingHorizontal: 30,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    backgroundColor:"#FFFFFF"
-  }
+    backgroundColor: '#FFFFFF',
+  },
 });
 
 export {
@@ -410,5 +421,6 @@ export {
   TOP,
   backgroundColor,
   ITEM_HEIGHT,
-  ITEM_WIDTH
+  ITEM_WIDTH,
+  BACKCOLOR,
 };

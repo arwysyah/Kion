@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {View, Text, FlatList, Image, Animated} from 'react-native';
+import {View, Text,Image, Animated} from 'react-native';
 import {
   globalStyle,
   width,
@@ -9,6 +9,7 @@ import {
   HEIGHT,
   spacing,
   backgroundColor,
+  BACKCOLOR,
 } from './styles';
 import newData from './data/data';
 import {useSelector} from 'react-redux';
@@ -54,8 +55,8 @@ export default function Parallax({}) {
                 width: width,
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: height / 1.7,
-                backgroundColor:backgroundColor
+                height: height / 1.8,
+                backgroundColor:'#f0f5f2'
               }}>
               <View
                 style={{
@@ -65,7 +66,7 @@ export default function Parallax({}) {
                   shadowRadius: 30,
                   shadowOpacity: 1,
 
-                  backgroundColor: 'white',
+                  backgroundColor: '#f0f5f2',
                   borderColor: '#FFFFFF',
                 }}>
                 <View
@@ -74,6 +75,7 @@ export default function Parallax({}) {
                     height: ITEM_HEIGHT,
                     overflow: 'hidden',
                     alignItems: 'center',
+                    // backgroundColor: '#FFFFFF',
                   }}>
                   {item.profilImage === undefined ? (
                     <View >
@@ -112,13 +114,14 @@ export default function Parallax({}) {
                   style={{
                     width: 60,
                     height: 60,
+                    // top:60,
                     borderRadius: 60,
                     position: 'absolute',
-                    bottom: HEIGHT - 50,
+                    bottom: HEIGHT - 90,
                     alignItems: 'center',
                     borderWidth: 5,
                     borderColor: '#FFFFFF',
-                    backgroundColor: 'white',
+                    backgroundColor: '#FFFFFF',
                   }}>
                   <Text
                     style={{
@@ -127,7 +130,8 @@ export default function Parallax({}) {
                       position: 'absolute',
                       textAlign: 'center',
                       left: 15,
-                      top: 5,
+                      
+                      bottom:HEIGHT-150
                     }}>
                     {item.fullName.charAt(0)}
                   </Text>
@@ -138,9 +142,10 @@ export default function Parallax({}) {
                   style={{
                     width: 60,
                     height: 60,
+                    // bottom,
                     borderRadius: 60,
                     position: 'absolute',
-                    bottom: HEIGHT - 50,
+                    bottom: HEIGHT - 90,
                     alignItems: 'center',
                     borderWidth: 5,
                     borderColor: '#FFFFFF',

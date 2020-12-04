@@ -6,6 +6,7 @@ const exSlide = () => {
     const [active,setActive]=useState(0)
     const [xTabOne,setTabOne]=useState(0)
     const [xTabTwo,setTabTwo]=useState(0)
+    const [xTabThree, setTabThree] = useState(0);
     const translateX=useRef(new Animated.Value(0)).current
 
     const handleSlide=(type)=>{

@@ -12,6 +12,7 @@ import Upload from '../screen/Upload';
 import Modal from '../screen/Modal';
 import {View} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 const getIsTabBarVisible = (route) => {
@@ -38,8 +39,9 @@ export default function BottomNavigation() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      backBehavior={'order'}
+      backBehavior='initialRoute'
       screenOptions={({route, navigation}) => ({
+        tabPress:getFocusedRouteNameFromRoute(navigation),
         tabBarVisible: getIsTabBarVisible(route),
         tabBarIcon: ({focused, size, color}) => {
           let iconName;
@@ -90,7 +92,6 @@ export default function BottomNavigation() {
           elevation: 7,
         },
         tabStyle: {height: 40},
-      
 
         // style: {
         //   height: 80,
@@ -134,9 +135,8 @@ export default function BottomNavigation() {
         }}
         component={Upload}
       />
-          <Tab.Screen name="Notification" component={Notification} />
+      <Tab.Screen name="Notification" component={Notification} />
       <Tab.Screen name="Challenge" component={Challenge} />
-  
     </Tab.Navigator>
   );
 }

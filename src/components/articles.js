@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, {memo, useState} from 'react';
 import {
   View,
   Text,
@@ -11,13 +11,28 @@ import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
 import moment from 'moment'
 import {globalStyle, black, width} from './styles';
 import PropTypes from 'prop-types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 moment.locale('en')
 const spacing = 12;
 const SIZE = width * 0.62;
 const HEIGHT = SIZE - 90;
 
 const Articles = ({navigation, data, from, routes}) => {
+  const [dataArchived,setDataArchived]=useState([])
   
+  async function handleArchived (value) {
+    try {
+      let newValue = []
+      setDataArchived([value,...dataArchived])
+      await AsyncStorage.setItem(
+        'PIN',
+        JSON.stringify([...dataArchived]),
+      );
+  
+    } catch (e) {
+      console.log(e)
+    }
+  }
   return (
     <SafeAreaView>
       <FlatList
@@ -40,8 +55,8 @@ const Articles = ({navigation, data, from, routes}) => {
                   }}>
                   <TouchableOpacity
                     onPress={() =>
-                      navigation.navigate('Test', {
-                        routes,
+                      navigation.navigate('Detail', {
+                        item,
                       })
                     }>
                     <Text style={{color: black}}>{item.category}</Text>
@@ -62,8 +77,8 @@ const Articles = ({navigation, data, from, routes}) => {
                   <View style={{top: spacing * 3}}>
                     <TouchableOpacity
                       onPress={() =>
-                        navigation.navigate('Test', {
-                          routes,
+                        navigation.navigate('Detail', {
+                          item,
                         })
                       }>
                       <Text style={{color: 'black'}}>{item.username}</Text>
@@ -77,8 +92,8 @@ const Articles = ({navigation, data, from, routes}) => {
                 <View style={{alignItems: 'center', top: 20, left: -20}}>
                   <TouchableOpacity
                     onPress={() =>
-                      navigation.navigate('Test', {
-                        routes,
+                      navigation.navigate('Detail', {
+                        item,
                       })
                     }>
                     <Image
@@ -98,20 +113,20 @@ const Articles = ({navigation, data, from, routes}) => {
                         width: 90,
                         top: 6,
                       }}>
-                      <TouchableOpacity onPress={() => handleArchived()}>
+                      <TouchableOpacity onPress={() => handleArchived(item)}>
                         <MaterialCommunity
                           name="pin-outline"
                           size={20}
                           // color={pin === false ? 'grey' : 'black'}
                         />
                       </TouchableOpacity>
-                      {/* <TouchableOpacity onPress={() => setDots(!dot)}>
+                      <TouchableOpacity>
                         <MaterialCommunity
                           name="dots-vertical"
                           size={20}
-                          color={dot === false ? 'grey' : 'black'}
+                          // color={dot === false ? 'grey' : 'black'}
                         />
-                      </TouchableOpacity> */}
+                      </TouchableOpacity>
                     </View>
                   )}
                 </View>

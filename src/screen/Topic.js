@@ -1,8 +1,8 @@
 import React, {memo} from 'react';
-import {View, Text, Image, FlatList, Animated, StyleSheet} from 'react-native';
+import {View, Text, Image, FlatList, Animated, StyleSheet, TouchableOpacity} from 'react-native';
 import topics from '../components/data/topicData';
 import { globalStyle } from '../components/styles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+
 const Topic = ({navigation}) => {
   return (
     <View>
@@ -18,8 +18,9 @@ const Topic = ({navigation}) => {
         renderItem={({item, index}) => {
           return (
             <View
-              style={styles.cardContainer}>
-                  <TouchableOpacity onPress={()=>navigation.navigate(item.nav)}>
+             >
+                  <TouchableOpacity onPress={()=>navigation.navigate(item.nav)}
+                   style={styles.cardContainer}>
               <View
                 style={styles.card}>
                 <Text style={globalStyle.textUsual}>
@@ -40,13 +41,27 @@ const styles=StyleSheet.create({
         width: 150,
         justifyContent: 'center',
         height: 70,
-        borderRadius:6
+        borderRadius:6,
+   
+        alignItems: 'center',
+
+        zIndex: 999,
+    
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 2,
+        elevation: 5,
       },cardContainer:{
         height: 100,
-        shadowColor: 'black',
+       
         // backgroundColor: 'red',
         paddingLeft: 20,
         alignItems: 'center',
+
       }
 })
 export default memo(Topic);

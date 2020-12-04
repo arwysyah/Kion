@@ -5,8 +5,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {CommonActions} from '@react-navigation/native';
 
 export default function Test({navigation, route}) {
-  const {item} = route.params;
-  console.log(item);
+ 
   return (
     <View style={globalStyle.container}>
       <TouchableOpacity onPress={() => navigation.goBack()}>

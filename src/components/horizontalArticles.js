@@ -58,13 +58,15 @@ export default function HorizontalArticle({navigation, data, from, routes}) {
                       backgroundColor: '#45484d',
                       height: 45,
                       top: -(HEIGHT - 80),
+                      width:'100%',
                      
                       justifyContent: 'center',
                     }}>
-                    <Text
+                    <Text 
+                    numberOfLines={1}
                     
                       style={[
-                        globalStyle.textUsual,
+                     
                         {color: 'white', textAlign: 'center'},
                       ]}
                       >

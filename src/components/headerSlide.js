@@ -13,6 +13,7 @@ const HeaderSlide = ({navigation}) => {
   const translateX = useState(new Animated.Value(0))[0];
   const translateXTabOne = useState(new Animated.Value(0))[0];
   const translateXTabTwo=useState(new Animated.Value(width))[0]
+  const translateXTabThree=useState(new Animated.Value(width/2))[0]
   const fetchDataUser = useSelector((state) => state);
   const articleData = fetchDataUser.postBYID;
   const handleSlide = (type) => {
@@ -33,12 +34,22 @@ const HeaderSlide = ({navigation}) => {
           duration: 100,
           useNativeDriver: true,
         }).start(),
+        Animated.spring(translateXTabThree, {
+          toValue:(width/2)/100,
+          duration: 100,
+          useNativeDriver: true,
+        }).start(),
         
       ]);
     }else{
       Animated.parallel([
         Animated.spring(translateXTabOne, {
           toValue:(width/100),
+          duration: 100,
+          useNativeDriver: true,
+        }).start(),
+        Animated.spring(translateXTabThree, {
+          toValue:(width/2)/100,
           duration: 100,
           useNativeDriver: true,
         }).start(),
@@ -70,7 +81,7 @@ const HeaderSlide = ({navigation}) => {
           <Animated.View
             style={{
               position: 'absolute',
-              width: (width * 0.95) / 2,
+              width: (width * 0.95) / 3,
               height: '100%',
               top: 0,
               left: 0,
@@ -121,10 +132,10 @@ const HeaderSlide = ({navigation}) => {
               alignItems: 'center',
               borderWidth: 0.7,
               borderColor: active===1 ?'#fc1943':'grey',
-              borderLeftWidth: 0,
-              borderTopLeftRadius: 0,
-              borderBottomLeftRadius: 0,
-              borderRadius: 4,
+              // borderLeftWidth: 0,
+              // borderTopLeftRadius: 0,
+              // borderBottomLeftRadius: 0,
+              // borderRadius: 4,
             }}>
             <MaterialCommunity
               name="google-lens"
@@ -140,10 +151,38 @@ const HeaderSlide = ({navigation}) => {
               Foto
             </Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            onLayout={(event) => setTabThree(event.nativeEvent.layout.x)}
+            onPress={() => handleChange(2, xTabThree)}
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderWidth: 0.7,
+              borderColor: active===2 ?'#fc1943':'grey',
+              borderLeftWidth: 0,
+              borderTopLeftRadius: 0,
+              borderBottomLeftRadius: 0,
+              borderRadius: 4,
+            }}>
+            <MaterialCommunity
+              name="google-photos"
+              color={active === 2 ? '#FFF' : 'black'}
+              size={21}
+            />
+            <Text
+              style={{
+                fontSize: 10,
+                color: active === 2 ? '#FFF' : 'black',
+                fontWeight: active === 2 ? 'bold' : 'normal',
+              }}>
+             List
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View>
-        {active === 0 ? (
+        {active === 0 ? 
           <Animated.View
             style={{
               transform: [
@@ -178,7 +217,9 @@ const HeaderSlide = ({navigation}) => {
               />
             )}
           </Animated.View>
-        ) : (
+        : 
+        active===2 ? 
+       
           <Animated.View
           style={{transform:[{
             translateX:translateXTabTwo
@@ -200,7 +241,28 @@ const HeaderSlide = ({navigation}) => {
               </Text>
             </View>
           </Animated.View>
-        )}
+        :
+        <Animated.View
+        style={{transform:[{
+          translateX:translateXTabThree
+        }]}}>
+          <View>
+            <Image
+              source={require('../../assets/datacentre.jpg')}
+              style={globalStyle.handlingImage}
+            />
+            <Text
+              style={{
+                textAlign: 'center',
+                fontSize: 22,
+                color: '#FFFFFF',
+                top: -TOP * 2.4,
+                fontWeight: 'bold',
+              }}>
+              Kamu belum memiliki {'\n'}postingan
+            </Text>
+          </View>
+        </Animated.View>}
       </View>
     </View>
   );
