@@ -7,12 +7,12 @@ import Challenge from '../screen/Challenge';
 import TopButton from '../navigations/TopButton';
 import UploadButton from '../components/uploadButton';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
-import gray from '../components/styles';
+import gray, {BACKCOLOR, width} from '../components/styles';
 import Upload from '../screen/Upload';
 import Modal from '../screen/Modal';
 import {View} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 const getIsTabBarVisible = (route) => {
@@ -39,9 +39,9 @@ export default function BottomNavigation() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      backBehavior='initialRoute'
+      backBehavior="initialRoute"
       screenOptions={({route, navigation}) => ({
-        tabPress:getFocusedRouteNameFromRoute(navigation),
+        tabPress: getFocusedRouteNameFromRoute(navigation),
         tabBarVisible: getIsTabBarVisible(route),
         tabBarIcon: ({focused, size, color}) => {
           let iconName;
@@ -73,14 +73,14 @@ export default function BottomNavigation() {
           backgroundColor: 'white',
 
           opacity: 1,
-          height: 50,
+          height: 48,
           justifyContent: 'center',
           alignItems: 'center',
           marginHorizontal: 30,
-          borderRadius: 18,
+          // borderRadius: 18,
           position: 'absolute',
           borderTopWidth: 0,
-          bottom: 3,
+          borderRadius: 18,
           shadowColor: '#000',
           shadowOffset: {
             width: 0,
@@ -118,7 +118,7 @@ export default function BottomNavigation() {
           tabBarIcon: ({color}) => (
             <View
               style={{
-                backgroundColor: '#51db51',
+                backgroundColor: BACKCOLOR,
 
                 top: 10,
                 opacity: 6,
@@ -128,6 +128,13 @@ export default function BottomNavigation() {
                 borderRadius: 34,
                 justifyContent: 'center',
                 alignItems: 'center',
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 3,
               }}>
               <FontAwesome name="plus" color="grey" size={20} />
             </View>

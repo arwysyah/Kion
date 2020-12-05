@@ -8,7 +8,9 @@ import {
   GET_POST,
   GET_ALL_USERS,
   GET_OTHER_USERS,
-  GET_OTHER_USER_POST
+  GET_OTHER_USER_POST,
+  GET_URI_PHOTO,
+  GET_GALLERY_PHOTO
 } from './SringType';
 
 export const SET_GET_INCOME = (requst) => {
@@ -25,6 +27,12 @@ export const SET_ALL_POST = (data) => {
     value: data,
   };
 };
+export const SET_GALLERY_PHOTO=(data)=>{
+  return{
+    type:GET_URI_PHOTO,
+    value:data
+  }
+}
 
 export const GETSIGNED_IN = (isSignedIn) => {
   return {
@@ -63,6 +71,12 @@ export const SET_USER_POSTING_OTHER_USER = (data) => {
     value: data,
   };
 };
+export const SET_FETCH_PHOTO=(data)=>{
+  return{
+    type:GET_GALLERY_PHOTO,
+    value:data
+  }
+}
 export const WATCHDATA = () => {
   return function (dispatch) {
     fireDB
@@ -169,6 +183,20 @@ export const GET_ALL_POST = () => {
       });
   };
 };
+export const GET_GALLERY_BY_ID = (id) => {
+  return function (dispatch) {
+    fireDB
+      .database()
+      .ref(`gallery/${id}`)
+      .on('value', function (snapshot) {
+        let data = snapshot.val() !== null ? Object.values(snapshot.val()) : '';
+        
+        dispatch(SET_FETCH_PHOTO(data))
+          
+       
+      });
+  };
+};
 export const WATCH_ALL_USERS = () => {
   return function (dispatch) {
     fireDB
@@ -180,3 +208,8 @@ export const WATCH_ALL_USERS = () => {
       });
   };
 };
+export const WATCH_URI =(urlPhoto)=>{
+  return (dispatch=>{
+    dispatch(urlPhoto)
+  })
+}

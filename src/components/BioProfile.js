@@ -37,7 +37,7 @@ const BioProfile = ({newData,postingan}) => {
                   headers: {Authorization: 'StRSUJDJASDIouwebqmwbj'},
                   priority: FastImage.priority.normal,
                 }}
-                resizeMode={FastImage.resizeMode.stretch}
+                resizeMode={FastImage.resizeMode.contain}
               />
             )}
 

@@ -57,7 +57,7 @@ const PhoneLogin = ({navigation, route}) => {
   function forgoPassword() {
     firebase
       .auth()
-      .sendPasswordResetEmail(userInfo.email)
+      .sendPasswordResetEmail(email)
       .then(function (user) {
         alert('Please check your email...');
       })

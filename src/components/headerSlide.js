@@ -2,10 +2,9 @@ import React, {useState, useRef,memo, useMemo, useCallback} from 'react';
 import {View, Text, TouchableOpacity, Animated,Image} from 'react-native';
 import {globalStyle, width, height,TOP} from './styles';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useSelector} from 'react-redux';
 import Articles from '../components/articles';
-const AnimatedIcon = Animated.createAnimatedComponent(MaterialCommunity);
-const HeaderSlide = ({navigation,articleData}) => {
+import Gallery from '../components/GalleryComponent'
+const HeaderSlide = ({navigation,articleData,gallery}) => {
   const [active, setActive] = useState(0);
   const [xTabOne, setTabOne] = useState(0);
   const [xTabTwo, setTabTwo] = useState(0);
@@ -83,7 +82,7 @@ const handleSlide=(type)=> {
               height: '100%',
               top: 0,
               left: 0,
-              backgroundColor: '#fc1943',
+              backgroundColor: '#5790f2',
               transform: [
                 {
                   translateX,
@@ -99,7 +98,7 @@ const handleSlide=(type)=> {
               justifyContent: 'center',
               alignItems: 'center',
               borderWidth: 0.7,
-              borderColor: active===0 ?'#fc1943':'grey',
+              borderColor: active===0 ?'#5790f2':'grey',
               borderRightWidth: 0,
               borderTopRightRadius: 0,
               borderBottomRightRadius: 0,
@@ -129,7 +128,7 @@ const handleSlide=(type)=> {
               justifyContent: 'center',
               alignItems: 'center',
               borderWidth: 0.7,
-              borderColor: active===1 ?'#fc1943':'grey',
+              borderColor: active===1 ?'#5790f2':'grey',
               // borderLeftWidth: 0,
               // borderTopLeftRadius: 0,
               // borderBottomLeftRadius: 0,
@@ -157,7 +156,7 @@ const handleSlide=(type)=> {
               justifyContent: 'center',
               alignItems: 'center',
               borderWidth: 0.7,
-              borderColor: active===2 ?'#fc1943':'grey',
+              borderColor: active===2 ?'#5790f2':'grey',
               borderLeftWidth: 0,
               borderTopLeftRadius: 0,
               borderBottomLeftRadius: 0,
@@ -244,22 +243,7 @@ const handleSlide=(type)=> {
         style={{transform:[{
           translateX:translateXTabThree
         }]}}>
-          <View>
-            <Image
-              source={require('../../assets/datacentre.jpg')}
-              style={globalStyle.handlingImage}
-            />
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 22,
-                color: '#FFFFFF',
-                top: -TOP * 2.4,
-                fontWeight: 'bold',
-              }}>
-              Kamu belum memiliki {'\n'}postingan
-            </Text>
-          </View>
+          <Gallery gallery={gallery}/>
         </Animated.View>}
       </View>
     </View>

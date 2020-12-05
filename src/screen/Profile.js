@@ -11,7 +11,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
-import {globalStyle, spacing, width, TOP, height} from '../components/styles';
+import {globalStyle, spacing, width} from '../components/styles';
 import {useSelector} from 'react-redux';
 import HeaderSlide from '../components/headerSlide';
 import BioProfile from '../components/BioProfile';
@@ -20,6 +20,7 @@ export default function Profile({navigation}) {
   const newData = fetchDataUser.userByID;
   const articleData = fetchDataUser.postBYID;
   const postingan = articleData.length;
+  const gallery=fetchDataUser.galleryData
 
   return (
     <SafeAreaView style={globalStyle.container}>
@@ -49,7 +50,19 @@ export default function Profile({navigation}) {
 
       <ScrollView style={{top: 30}} showsVerticalScrollIndicator={false}>
         <BioProfile newData={newData} postingan={postingan} />
-        <HeaderSlide navigation={navigation} articleData={articleData} />
+        <View style={{alignItems: 'center'}}>
+          <TouchableOpacity
+            style={{
+              width: width * 0.9,
+              backgroundColor: '#5790f2',
+              height: 30,
+              borderRadius: 7,
+              justifyContent: 'center',
+            }}>
+            <Text style={{textAlign: 'center', color: '#FFFFFF'}}>follow</Text>
+          </TouchableOpacity>
+        </View>
+        <HeaderSlide navigation={navigation} articleData={articleData} gallery={gallery} />
       </ScrollView>
       <View style={{height: spacing * 4}} />
     </SafeAreaView>

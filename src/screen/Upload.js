@@ -44,6 +44,15 @@ export default function Upload({navigation}) {
           
         </View>
         </TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('Camera',{from:'Upload'})} style={{top:30}}>
+        <View style={[globalStyle.cardPart,{borderWidth:0.7,borderColor:'black'}]}>
+          <Text style={globalStyle.titleWrite}>Unggah Foto</Text>
+          <Text style={globalStyle.commonText}>
+            Unggah foto anda dan jadikan profil anda lebih menarik.
+          </Text>
+          
+        </View>
+        </TouchableOpacity>
       </View>
 
     </SafeAreaView>

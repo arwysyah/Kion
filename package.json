@@ -28,6 +28,7 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-native": "^0.63.4",
+    "react-native-camera": "^3.40.0",
     "react-native-dotenv": "^2.4.2",
     "react-native-fast-image": "^8.3.4",
     "react-native-gesture-handler": "^1.9.0",

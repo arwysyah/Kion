@@ -18,6 +18,7 @@ import {
   GET_POSTING_CURRENT_USER,
   GET_ALL_POST,
   WATCH_ALL_USERS,
+  GET_GALLERY_BY_ID
 } from '../redux/action';
 import firebase from 'firebase';
 import {
@@ -25,9 +26,7 @@ import {
   black,
   spacing,
   TOP,
-  white,
   ITEM_HEIGHT,
-  backgroundColor,
   BACKCOLOR,
 } from '../components/styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -52,7 +51,7 @@ const Home = ({navigation}) => {
     'Internship',
   ]);
   const globalState = useSelector((state) => state);
-
+console.log(globalState.galleryData,'ss')
   const articleData = globalState.posts;
 
   const dispatch = useDispatch();
@@ -68,15 +67,17 @@ const Home = ({navigation}) => {
     }
   };
   useEffect(() => {
-    // setLoading(true);
+    setLoading(true);
     let timer = setTimeout(() => {
       dispatch(WATCHDATA());
       dispatch(GET_USER_BYID(uid));
       dispatch(GET_POSTING_CURRENT_USER(uid));
       dispatch(GET_ALL_POST());
       dispatch(WATCH_ALL_USERS());
-      // setLoading(false);
+      dispatch(GET_GALLERY_BY_ID(uid));
+      setLoading(false);
       getData();
+     
     }, 2000);
     return () => {
       clearTimeout(timer);
@@ -170,7 +171,7 @@ const Home = ({navigation}) => {
           <View style={{top: 10}}>
             <Topic data={topics} navigation={navigation} />
           </View>
-          {archived.length > 0 && (
+          {/* {archived.length > 0 && (
             <View>
               <Text
                 style={{
@@ -187,7 +188,7 @@ const Home = ({navigation}) => {
                 routes={'Home'}
               />
             </View>
-          )}
+          )} */}
         </View>
       </Animated.ScrollView>
     </SafeAreaView>

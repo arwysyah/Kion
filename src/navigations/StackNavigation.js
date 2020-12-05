@@ -10,6 +10,8 @@ import EditProfile from '../screen/EditProfile'
 import ActionSheet from '../screen/actionSheet'
 import Chat from '../screen/Chat'
 import ProfileById from '../screen/ProfileById'
+import Camera from '../screen/Camera'
+import GalleryPhoto from '../screen/GalleryPhoto'
 
 const Stack = createStackNavigator();
 const config = {
@@ -73,6 +75,18 @@ const HomeScreen = () => {
           })
         }
       />
+             <Stack.Screen
+        name="GalleryPhoto"
+        component={GalleryPhoto}
+        options={
+          ({headerShown: false},
+            {
+              ...TransitionPresets.SlideFromRightIOS,
+              gestureDirection: 'horizontal',
+            })
+        
+        }
+      />
            <Stack.Screen
         name="Action"
         component={ActionSheet}
@@ -94,6 +108,17 @@ const HomeScreen = () => {
             gestureDirection: 'horizontal-inverted',
           })
         }
+      />
+        <Stack.Screen
+        name="Camera"
+        component={Camera}
+        options={
+          ({headerShown: false},
+            {
+              ...TransitionPresets.ModalSlideFromBottomIOS,
+              gestureDirection: 'horizontal-inverted',
+            })
+          }
       />
         <Stack.Screen
         name="ProfileById"

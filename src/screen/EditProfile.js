@@ -11,11 +11,12 @@ import {
   TextInput,
   ActivityIndicator,
 } from 'react-native';
-import {globalStyle, spacing, TOP, width} from '../components/styles';
+import {globalStyle, spacing, TOP, width, height} from '../components/styles';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector} from 'react-redux';
 import Modal from 'react-native-modal';
 import firebase from 'firebase';
+
 export default function EditProfile({navigation}) {
   const [isModalVisible, setModalVisible] = useState(false);
   const [isModalCredVisible, setModalCredVisible] = useState(false);
@@ -303,27 +304,31 @@ export default function EditProfile({navigation}) {
         <Text style={globalStyle.titleWrite}>Edit Profile</Text>
       </View>
       <View style={{alignItems: 'center', top: TOP}}>
-        <View style={globalStyle.BackprofileImage}>
-          {userData.profilImage === undefined ? (
-            <Text
-              style={{
-                fontSize: 90,
-                color: 'black',
-                position: 'absolute',
-                textAlign: 'center',
-                left: 40,
-                top: 5,
-              }}>
-              {userData.username.charAt(0)}
-            </Text>
-          ) : (
-            <Image
-              source={{uri: userData.profilImage}}
-              style={globalStyle.profilImageBigger}
-              resizeMode="cover"
-            />
-          )}
-        </View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Camera', {from: 'EditProfile'})}>
+          <View style={globalStyle.BackprofileImage}>
+            {userData.profilImage === '' ||
+            userData.profilImage === undefined ? (
+              <Text
+                style={{
+                  fontSize: 90,
+                  color: 'black',
+                  position: 'absolute',
+                  textAlign: 'center',
+                  left: 40,
+                  top: 5,
+                }}>
+                {userData.username.charAt(0)}
+              </Text>
+            ) : (
+              <Image
+                source={{uri: userData.profilImage}}
+                style={globalStyle.profilImageBigger}
+                resizeMode="cover"
+              />
+            )}
+          </View>
+        </TouchableOpacity>
       </View>
       <View style={{top: TOP * 3}}>
         <TouchableOpacity
@@ -401,9 +406,7 @@ export default function EditProfile({navigation}) {
         <TouchableOpacity
           style={globalStyle.commonButton}
           onPress={handleLogout}>
-          <Text style={{fontSize: 18, color: 'white', fontWeight: 'bold'}}>
-            Log Out
-          </Text>
+          <Text style={globalStyle.textButton}>Log Out</Text>
         </TouchableOpacity>
       </View>
       <Modal isVisible={isModalVisible} onBackButtonPress={() => toggleModal()}>

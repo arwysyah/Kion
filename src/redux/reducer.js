@@ -7,6 +7,8 @@ import {
   GET_ALL_USERS,
   GET_OTHER_USERS,
   GET_OTHER_USER_POST,
+  GET_URI_PHOTO,
+  GET_GALLERY_PHOTO
 } from './SringType';
 const initialState = {
   request: [],
@@ -16,7 +18,9 @@ const initialState = {
   posts: [],
   allUsers: [],
   otherUser: [],
-  otherUserPost:[]
+  otherUserPost: [],
+  urlGaleryPhoto: '',
+  galleryData:[]
 };
 
 const reducer = (state = initialState, action) => {
@@ -44,11 +48,21 @@ const reducer = (state = initialState, action) => {
         ...state,
         otherUser: action.value,
       };
-      case GET_OTHER_USER_POST:
-        return {
+    case GET_OTHER_USER_POST:
+      return {
+        ...state,
+        otherUserPost: action.value,
+      };
+    case GET_URI_PHOTO:
+      return {
+        ...state,
+        urlGaleryPhoto: action.value,
+      };
+      case GET_GALLERY_PHOTO:
+        return{
           ...state,
-          otherUserPost: action.value,
-        };
+          galleryData:action.value
+        }
     default:
       return state;
   }

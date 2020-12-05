@@ -127,6 +127,27 @@ const globalStyle = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  closeIconContainer: {
+    position: 'absolute',
+    top: 8,
+
+    marginLeft: 8,
+    zIndex: 999,
+    width: 30,
+    height: 30,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
   commonIcon: {
     position: 'absolute',
 
@@ -217,7 +238,7 @@ const globalStyle = StyleSheet.create({
     width: width / 3.8,
     height: width / 3.8,
     borderRadius: width / 7.6,
-    opacity:10,
+    opacity: 10,
     // padding: 10,
     backgroundColor: '#FFFFFF',
   },
@@ -260,14 +281,14 @@ const globalStyle = StyleSheet.create({
     borderWidth: 1,
   },
   commonButton: {
-    width: Dimensions.get('window').width - 250,
+    width: width - 250,
     top: 20,
     height: 45,
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    backgroundColor: '#D23B4B',
+    backgroundColor: '#5790f2',
 
     shadowColor: '#000',
     shadowOffset: {
@@ -412,6 +433,19 @@ const globalStyle = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#FFFFFF',
   },
+  preview: {
+    flex: 1,
+    backgroundColor: 'black',
+  },
+  capture: {
+    // backgroundColor: '#fff',
+    borderRadius: 5,
+    padding: 15,
+    paddingHorizontal: 20,
+    alignSelf: 'center',
+    margin: 20,
+  },
+  textButton: {fontSize: 18, color: 'white', fontWeight: 'bold'},
 });
 
 export {
