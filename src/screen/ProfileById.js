@@ -6,6 +6,7 @@ import {
   ScrollView,
   SafeAreaView,
   ToastAndroid,
+  Alert,
 } from 'react-native';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle, spacing, width, TOP, height} from '../components/styles';
@@ -64,7 +65,7 @@ export default function ProfileById({navigation, route}) {
           createdAt: new Date().getTime(),
           status: 'true',
         })
-        .then(() => dispatch(WATCH_FOLLOWING(uid)))
+        // .then(() => dispatch(WATCH_FOLLOWING(uid)))
         .then(() => {
           ToastAndroid.show('Berhasil Mengikuti', ToastAndroid.SHORT);
         });
@@ -72,6 +73,18 @@ export default function ProfileById({navigation, route}) {
       console.log(error);
       alert('Maaf terjadi kesalahan');
     }
+  }
+
+  async function unfollow() {
+    let userRef = await firebase.database().ref(`/follow/${uid}`);
+    userRef
+      .remove()
+      .then(function () {
+        ToastAndroid.show('Berhasil berhenti mengikuti', ToastAndroid.SHORT);
+      })
+      .catch(function (error) {
+        Alert.alert('Remove failed: ' + error.message);
+      });
   }
   return (
     <SafeAreaView style={globalStyle.container}>
@@ -114,6 +127,7 @@ export default function ProfileById({navigation, route}) {
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
+                onPress={unfollow}
                 style={{
                   width: width * 0.9,
                   backgroundColor: '#FFFFFF',
