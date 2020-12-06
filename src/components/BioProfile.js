@@ -27,7 +27,7 @@ const BioProfile = ({newData,postingan}) => {
                   left: 30,
                   top: 5,
                 }}>
-                {fullName.charAt(0)}
+                A
               </Text>
             ) : (
               <FastImage

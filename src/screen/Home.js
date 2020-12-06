@@ -51,7 +51,6 @@ const Home = ({navigation}) => {
     'Internship',
   ]);
   const globalState = useSelector((state) => state);
-console.log(globalState.galleryData,'ss')
   const articleData = globalState.posts;
 
   const dispatch = useDispatch();

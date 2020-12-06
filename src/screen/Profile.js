@@ -2,11 +2,7 @@ import React, {useState, useMemo} from 'react';
 import {
   View,
   Text,
-  StyleSheet,
-  Dimensions,
-  Image,
   TouchableOpacity,
-  TextInput,
   ScrollView,
   SafeAreaView,
 } from 'react-native';
@@ -21,6 +17,7 @@ export default function Profile({navigation}) {
   const articleData = fetchDataUser.postBYID;
   const postingan = articleData.length;
   const gallery=fetchDataUser.galleryData
+
 
   return (
     <SafeAreaView style={globalStyle.container}>
@@ -50,18 +47,7 @@ export default function Profile({navigation}) {
 
       <ScrollView style={{top: 30}} showsVerticalScrollIndicator={false}>
         <BioProfile newData={newData} postingan={postingan} />
-        <View style={{alignItems: 'center'}}>
-          <TouchableOpacity
-            style={{
-              width: width * 0.9,
-              backgroundColor: '#5790f2',
-              height: 30,
-              borderRadius: 7,
-              justifyContent: 'center',
-            }}>
-            <Text style={{textAlign: 'center', color: '#FFFFFF'}}>follow</Text>
-          </TouchableOpacity>
-        </View>
+       
         <HeaderSlide navigation={navigation} articleData={articleData} gallery={gallery} />
       </ScrollView>
       <View style={{height: spacing * 4}} />

@@ -90,7 +90,7 @@ const ActionSheet = ({navigation, route}) => {
     if (title.length < 5) {
       alert('Anda harus memasukkan judul tulisan anda');
     }
-    else if(urlPhoto===''){
+    else if(photo===null){
 alert('anda harus memasukkan photo')
     } else 
     {

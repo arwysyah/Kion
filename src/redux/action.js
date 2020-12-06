@@ -10,7 +10,10 @@ import {
   GET_OTHER_USERS,
   GET_OTHER_USER_POST,
   GET_URI_PHOTO,
-  GET_GALLERY_PHOTO
+  GET_GALLERY_PHOTO,
+  GET_GALLERY_PHOTO_OTHER_USER,
+  GET_FOLLOWER_BY_ID,
+  GET_FOLLOWING_BY_ID
 } from './SringType';
 
 export const SET_GET_INCOME = (requst) => {
@@ -77,6 +80,26 @@ export const SET_FETCH_PHOTO=(data)=>{
     value:data
   }
 }
+export const SET_FETCH_PHOTO_OTHER_USER=(data)=>{
+  return{
+    type:GET_GALLERY_PHOTO_OTHER_USER,
+    value:data
+  }
+}
+export const SET_FOLLOWING = (guest) => {
+  //   console.log(params, 'paras');
+  return {
+    type: GET_FOLLOWING_BY_ID,
+    value: guest,
+  };
+};
+export const SET_FOLLOWER = (guest) => {
+  //   console.log(params, 'paras');
+  return {
+    type: GET_FOLLOWER_BY_ID,
+    value: guest,
+  };
+};
 export const WATCHDATA = () => {
   return function (dispatch) {
     fireDB
@@ -138,6 +161,7 @@ export const GET_POSTING_OTHER_USER = (id) => {
   };
 };
 
+
 export const GET_ALL_POST = () => {
   return function (dispatch) {
     fireDB
@@ -197,6 +221,20 @@ export const GET_GALLERY_BY_ID = (id) => {
       });
   };
 };
+export const GET_GALLERY_OTHER_BY_ID = (id) => {
+  return function (dispatch) {
+    fireDB
+      .database()
+      .ref(`gallery/${id}`)
+      .on('value', function (snapshot) {
+        let data = snapshot.val() !== null ? Object.values(snapshot.val()) : '';
+        
+        dispatch(SET_FETCH_PHOTO_OTHER_USER(data))
+          
+       
+      });
+  };
+};
 export const WATCH_ALL_USERS = () => {
   return function (dispatch) {
     fireDB
@@ -211,5 +249,24 @@ export const WATCH_ALL_USERS = () => {
 export const WATCH_URI =(urlPhoto)=>{
   return (dispatch=>{
     dispatch(urlPhoto)
+  })
+}
+export const WATCH_FOLLOWING=(id)=>{
+return function(dispatch){
+  fireDB.database()
+  .ref(`follow/${id}`)
+  .on('value',(snapshot)=>{
+  let data = snapshot.val() !== null ? Object.values(snapshot.val()):''
+  dispatch(SET_FOLLOWING(data))
+  })
+}
+}
+export const WATCH_FOLLOWER=(id)=>{
+  return (dispatch=>{
+    fireDB.database()
+    .ref(`follow/${id}`)
+    .on('value',(snapshot)=>{
+      // console.log(snapshot.val())
+    })
   })
 }

@@ -24,6 +24,8 @@ import RNFetchBlob from 'rn-fetch-blob';
 import PropTypes from 'prop-types';
 import firebase from 'firebase';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useSelector} from 'react-redux'
+
 
 const Blob = RNFetchBlob.polyfill.Blob;
 const fs = RNFetchBlob.fs;
@@ -51,6 +53,8 @@ const GalleryPhoto = ({navigation, route}) => {
   const [userPathName, setName] = useState('');
   const {uri} = route.params;
   const limit = 500;
+  const stateUser=useSelector(state=>state.userByID)
+const {username,fullName}=stateUser
 
   async function handleUploadGalleryPhoto() {
     if (information > 800) {
@@ -79,6 +83,8 @@ const GalleryPhoto = ({navigation, route}) => {
     try {
       ref.push({
         uid,
+        username,
+        fullName,
         image: url,
         information,
         createdAt: new Date().getTime(),

@@ -1,19 +1,20 @@
-import React, {useState, useRef,memo, useMemo, useCallback} from 'react';
-import {View, Text, TouchableOpacity, Animated,Image} from 'react-native';
-import {globalStyle, width, height,TOP} from './styles';
+import React, {useState, useRef, memo, useMemo, useCallback} from 'react';
+import {View, Text, TouchableOpacity, Animated, Image} from 'react-native';
+import {globalStyle, width, height, TOP} from './styles';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import Articles from '../components/articles';
-import Gallery from '../components/GalleryComponent'
-const HeaderSlide = ({navigation,articleData,gallery}) => {
+import Gallery from '../components/GalleryComponent';
+import PropTypes from 'prop-types';
+const HeaderSlide = ({navigation, articleData, gallery}) => {
   const [active, setActive] = useState(0);
   const [xTabOne, setTabOne] = useState(0);
   const [xTabTwo, setTabTwo] = useState(0);
   const [xTabThree, setTabThree] = useState(0);
   const translateX = useState(new Animated.Value(0))[0];
   const translateXTabOne = useState(new Animated.Value(0))[0];
-  const translateXTabTwo=useState(new Animated.Value(width))[0]
-  const translateXTabThree=useState(new Animated.Value(width/2))[0]
-const handleSlide=(type)=> {
+  const translateXTabTwo = useState(new Animated.Value(width))[0];
+  const translateXTabThree = useState(new Animated.Value(width / 2))[0];
+  const handleSlide = (type) => {
     Animated.spring(translateX, {
       toValue: type,
       duration: 100,
@@ -27,26 +28,25 @@ const handleSlide=(type)=> {
           useNativeDriver: true,
         }).start(),
         Animated.spring(translateXTabTwo, {
-          toValue:width/100,
+          toValue: width / 100,
           duration: 100,
           useNativeDriver: true,
         }).start(),
         Animated.spring(translateXTabThree, {
-          toValue:(width/2)/100,
+          toValue: width / 2 / 100,
           duration: 100,
           useNativeDriver: true,
         }).start(),
-        
       ]);
-    }else{
+    } else {
       Animated.parallel([
         Animated.spring(translateXTabOne, {
-          toValue:(width/100),
+          toValue: width / 100,
           duration: 100,
           useNativeDriver: true,
         }).start(),
         Animated.spring(translateXTabThree, {
-          toValue:(width/2)/100,
+          toValue: width / 2 / 100,
           duration: 100,
           useNativeDriver: true,
         }).start(),
@@ -55,7 +55,6 @@ const handleSlide=(type)=> {
           duration: 100,
           useNativeDriver: true,
         }).start(),
-        
       ]);
     }
   };
@@ -73,7 +72,7 @@ const handleSlide=(type)=> {
             marginBottom: 20,
             height: 36,
             position: 'relative',
-            backgroundColor:'white',
+            backgroundColor: 'white',
           }}>
           <Animated.View
             style={{
@@ -98,16 +97,14 @@ const handleSlide=(type)=> {
               justifyContent: 'center',
               alignItems: 'center',
               borderWidth: 0.7,
-              borderColor: active===0 ?'#5790f2':'grey',
+              borderColor: active === 0 ? '#5790f2' : 'grey',
               borderRightWidth: 0,
               borderTopRightRadius: 0,
               borderBottomRightRadius: 0,
               borderRadius: 4,
-          
             }}>
             <MaterialCommunity
               name="clipboard-list"
-            
               color={active === 0 ? '#FFF' : 'black'}
               size={21}
             />
@@ -117,7 +114,7 @@ const handleSlide=(type)=> {
                 color: active === 0 ? '#FFF' : 'black',
                 fontWeight: active === 0 ? 'bold' : 'normal',
               }}>
-              Posts
+              Article
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -128,7 +125,7 @@ const handleSlide=(type)=> {
               justifyContent: 'center',
               alignItems: 'center',
               borderWidth: 0.7,
-              borderColor: active===1 ?'#5790f2':'grey',
+              borderColor: active === 1 ? '#5790f2' : 'grey',
               // borderLeftWidth: 0,
               // borderTopLeftRadius: 0,
               // borderBottomLeftRadius: 0,
@@ -156,7 +153,7 @@ const handleSlide=(type)=> {
               justifyContent: 'center',
               alignItems: 'center',
               borderWidth: 0.7,
-              borderColor: active===2 ?'#5790f2':'grey',
+              borderColor: active === 2 ? '#5790f2' : 'grey',
               borderLeftWidth: 0,
               borderTopLeftRadius: 0,
               borderBottomLeftRadius: 0,
@@ -173,13 +170,13 @@ const handleSlide=(type)=> {
                 color: active === 2 ? '#FFF' : 'black',
                 fontWeight: active === 2 ? 'bold' : 'normal',
               }}>
-             List
+              Question
             </Text>
           </TouchableOpacity>
         </View>
       </View>
       <View>
-        {active === 0 ? 
+        {active === 0 ? (
           <Animated.View
             style={{
               transform: [
@@ -188,7 +185,7 @@ const handleSlide=(type)=> {
                 },
               ],
             }}>
-            {articleData==='' ? (
+            {articleData === '' ? (
               <View>
                 <Image
                   source={require('../../assets/notfound.jpg')}
@@ -214,13 +211,15 @@ const handleSlide=(type)=> {
               />
             )}
           </Animated.View>
-        : 
-        active===2 ? 
-       
+        ) : active === 2 ? (
           <Animated.View
-          style={{transform:[{
-            translateX:translateXTabTwo
-          }]}}>
+            style={{
+              transform: [
+                {
+                  translateX: translateXTabTwo,
+                },
+              ],
+            }}>
             <View>
               <Image
                 source={require('../../assets/notfound.jpg')}
@@ -238,16 +237,48 @@ const handleSlide=(type)=> {
               </Text>
             </View>
           </Animated.View>
-        :
-        <Animated.View
-        style={{transform:[{
-          translateX:translateXTabThree
-        }]}}>
-          <Gallery gallery={gallery}/>
-        </Animated.View>}
+        ) : (
+          <Animated.View
+            style={{
+              transform: [
+                {
+                  translateX: translateXTabThree,
+                },
+              ],
+            }}>
+            {gallery === ""? (
+              <View>
+                <Image
+                  source={require('../../assets/notfound.jpg')}
+                  style={globalStyle.handlingImage}
+                />
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    fontSize: 22,
+                    color: '#FFFFFF',
+                    top: -TOP * 2.4,
+                    fontWeight: 'bold',
+                  }}>
+                  Kamu belum memiliki {'\n'}Foto
+                </Text>
+              </View>
+            ) : (
+              <Gallery gallery={gallery} />
+            )}
+          </Animated.View>
+        )}
       </View>
     </View>
   );
 };
 
+HeaderSlide.PropTypes = {
+  gallery: PropTypes.object,
+  articleData: PropTypes.array,
+};
+HeaderSlide.defaultProps = {
+  gallery: [],
+  articleData: [],
+};
 export default memo(HeaderSlide);
