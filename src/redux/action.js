@@ -13,7 +13,8 @@ import {
   GET_GALLERY_PHOTO,
   GET_GALLERY_PHOTO_OTHER_USER,
   GET_FOLLOWER_BY_ID,
-  GET_FOLLOWING_BY_ID
+  GET_FOLLOWING_BY_ID,
+  GET_MAINTANACE
 } from './SringType';
 
 export const SET_GET_INCOME = (requst) => {
@@ -21,6 +22,13 @@ export const SET_GET_INCOME = (requst) => {
   return {
     type: GET_INCOME,
     value: requst,
+  };
+};
+export const SET_MAINTANCE = (data) => {
+  //   console.log(params, 'paras');
+  return {
+    type: GET_MAINTANACE,
+    value: data,
   };
 };
 export const SET_ALL_POST = (data) => {
@@ -269,4 +277,15 @@ export const WATCH_FOLLOWER=(id)=>{
       // console.log(snapshot.val())
     })
   })
+}
+export const GET_MAINTANCE_VALUE=()=>{
+  return function (dispatch){
+    fireDB.database()
+    .ref(`maintanace/`)
+    .on('value',(snapshot)=>{
+     let data = snapshot.val()['-MNrrx5LGEH0axMVlK1A']
+      dispatch(SET_MAINTANCE(data.maintenance))
+    })
+  }
+
 }

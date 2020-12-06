@@ -75,6 +75,7 @@ const HomeScreen = () => {
           })
         }
       />
+   
              <Stack.Screen
         name="GalleryPhoto"
         component={GalleryPhoto}

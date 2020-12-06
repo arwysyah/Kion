@@ -9,21 +9,22 @@ import {
   StyleSheet,
   Easing,
 } from 'react-native';
+import {
+  GET_MAINTANCE_VALUE
+} from '../redux/action';
 import {version as app_version} from './../../package.json';
 import { globalStyle, spacing } from '../components/styles';
 import firebase from 'firebase'
 import {useSelector, useDispatch} from 'react-redux'
-import {dispatchSignedIn} from '../redux/action'
-import {
-  GoogleSignin,
- 
-} from '@react-native-community/google-signin';
 // import { TouchableOpacity } from 'react-native-gesture-handler'
 const {height, width} = Dimensions.get('window');
 const SIZE = height / 32;
 export default function SplashScreen({navigation}) {
+  const globalState = useSelector((state) => state);
+  const main = globalState.maintenance;
   const moveLeft = useRef(new Animated.Value(0)).current;
   const moveRight = useRef(new Animated.Value(0)).current;
+  const dispatch=useDispatch()
   const opacity = useState(new Animated.Value(0))[0];
   const [hide, setHide] = useState(false);
   const [isLoginScreenPresented,setIsSignedIn]=useState(false)
@@ -58,6 +59,7 @@ export default function SplashScreen({navigation}) {
           duration: 1000,
           useNativeDriver: true,
         }).start();
+        dispatch(GET_MAINTANCE_VALUE())
     }, 1800);
   }, []);
 
@@ -114,7 +116,17 @@ export default function SplashScreen({navigation}) {
   };
 
   return (
+    <>
+ {main=='true'?
+    <View style={[globalStyle.container,{justifyContent:'center'}]}>
+    <Image
+      style={{width, height: height / 2}}
+      source={require('../../assets/maintenance.png')}
+    />
+  </View>:
     <View style={styles.container}>
+    
+    
       <View style={{flexDirection: 'row', flex: 1}}>
         <Animated.View style={[drawerOne]} />
         <Animated.View style={[drawerTwo]} />
@@ -153,6 +165,8 @@ export default function SplashScreen({navigation}) {
     
       </View>
     </View>
+    }
+    </>
   );
 }
 const styles = StyleSheet.create({

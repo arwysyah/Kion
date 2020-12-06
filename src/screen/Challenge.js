@@ -51,7 +51,7 @@ const Challange = ({navigation}) => {
         </TouchableOpacity>
         <View>
           <Text style={[globalStyle.titleWrite, {justifyContent: 'center'}]}>
-            Challange
+            Pilih Tantangan
           </Text>
         </View>
       </View>
@@ -100,10 +100,12 @@ const Challange = ({navigation}) => {
                   justifyContent: 'center',
                   borderRadius: 10,
                 }}>
+                  <TouchableOpacity onPress={()=>navigation.navigate('Compete',{topic:_.topic})}>
                 <Text
                   style={[globalStyle.titleTextName, {textAlign: 'center'}]}>
                   {_.topic}
                 </Text>
+                </TouchableOpacity>
               </View>
             </View>
           );

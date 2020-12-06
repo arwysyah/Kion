@@ -11,12 +11,14 @@ import {
   Animated,
 } from 'react-native';
 import newData from './data/data';
+import { globalStyle } from './styles';
+import PropTypes from 'prop-types'
 const {height, width} = Dimensions.get('window');
 const spacing = 10;
 const SIZE = width * 0.62;
 const Spacer = (width - SIZE) / 2;
 const BACKDROPHEIGHT = height * 0.6;
-const TopAccount = ({navigation}) => {
+const TopAccount = ({navigation,topic}) => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const data = [{id: 29}, ...newData, {id: 22}];
 
@@ -62,15 +64,30 @@ const TopAccount = ({navigation}) => {
                     transform: [{translateY}],
                   }}>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate('Detail')}>
-                    <Image
-                      source={item.image}
+                    onPress={() => alert('maaf fitur belum tersedia')}>
+                    <View
+                     
                       style={{
-                        width: SIZE - 90,
+                        width: SIZE - 70,
                         height: SIZE + 20,
                         borderRadius: 30,
+                        backgroundColor:'white',
+                        borderRadius:10,
+                        shadowColor: '#000',
+                        shadowOffset: {
+                          width: 0,
+                          height: 3,
+                        },
+                        shadowOpacity: 0.27,
+                        shadowRadius: 4.65,
+                        elevation: 8,
                       }}
-                    />
+                    >
+                    <Text style={[globalStyle.titleTextName]}> Level {index}</Text>
+                   <View style={{justifyContent:'center',top:(SIZE + 20)/5}}>
+                   <Text style={[globalStyle.titleTextName]}> {topic}</Text>
+                   </View>
+                      </View>
                   </TouchableOpacity>
                 </Animated.View>
               </View>
@@ -93,4 +110,7 @@ const styles = StyleSheet.create({
     // backgroundColor:"black"
   },
 });
+TopAccount.propTypes={
+  topic:PropTypes.string
+}
 export default memo(TopAccount);

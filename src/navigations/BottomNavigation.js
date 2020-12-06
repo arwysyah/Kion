@@ -3,7 +3,7 @@ import {TransitionPresets} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from './StackNavigation';
 import Notification from '../screen/Notification';
-import Challenge from '../screen/Challenge';
+import ChallengeNavigation from '../navigations/ChallangeNavigation'
 import TopButton from '../navigations/TopButton';
 import UploadButton from '../components/uploadButton';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -143,7 +143,7 @@ export default function BottomNavigation() {
         component={Upload}
       />
       <Tab.Screen name="Notification" component={Notification} />
-      <Tab.Screen name="Challenge" component={Challenge} />
+      <Tab.Screen name="Challenge" component={ChallengeNavigation} />
     </Tab.Navigator>
   );
 }

@@ -11,7 +11,8 @@ import {
   GET_GALLERY_PHOTO,
   GET_GALLERY_PHOTO_OTHER_USER,
   GET_FOLLOWING_BY_ID,
-  GET_FOLLOWER_BY_ID
+  GET_FOLLOWER_BY_ID,
+  GET_MAINTANACE
 } from './SringType';
 const initialState = {
   request: [],
@@ -26,7 +27,8 @@ const initialState = {
   galleryData:[],
   galleryOtherUser:[],
   following:[],
-  follower:[]
+  follower:[],
+  maintenance:''
 };
 
 const reducer = (state = initialState, action) => {
@@ -84,6 +86,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 follower:action.value
               }
+              case GET_MAINTANACE:
+                return{
+                  ...state,
+                  maintenance:action.value
+                }
     default:
       return state;
   }
