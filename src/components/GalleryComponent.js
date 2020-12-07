@@ -8,20 +8,19 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {globalStyle, width, height} from './styles';
-import {useSelector} from 'react-redux'
+import {useSelector} from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Gallery = ({navigation, route, gallery}) => {
   const image = useSelector((state) => state.userByID);
-const{profilImage,username}=image
+  const {profilImage, username} = image;
   const [heightText, setHightText] = useState(false);
   const NUM_OF_LINES = 2;
   const [array, setArray] = useState([]);
 
   const onTextLayout = (e) => {
     setHightText(e.nativeEvent.lines.length > NUM_OF_LINES);
-    console.log(e.nativeEvent.lines);
   };
 
   const handleChoose = (index) => {
@@ -45,24 +44,36 @@ const{profilImage,username}=image
                 width: width,
               }}
               key={id}>
-                <View style={{justifyContent:'space-around',flexDirection:'row',width:100,alignItems:'center'}}>
-                <FastImage
+              <View
                 style={{
-                  height: 40,
-                  width: 40,
-                  paddingHorizontal: 20,
-                  borderRadius:40
-                }}
-                source={{
-                  uri: profilImage,
-                  headers: {Authorization: 'StRSUJDJASDIouwebqmwbj'},
-                  priority: FastImage.priority.normal,
-                }}
-                resizeMode={FastImage.resizeMode.cover}
-              />
-              <Text>{username}</Text>
+                  justifyContent: 'space-around',
+                  flexDirection: 'row',
+                  width: 100,
+                  alignItems: 'center',
+                }}>
+                <FastImage
+                  style={{
+                    height: 40,
+                    width: 40,
+                    paddingHorizontal: 20,
+                    borderRadius: 40,
+                  }}
+                  source={{
+                    uri: profilImage,
+                    headers: {Authorization: 'StRSUJDJASDIouwebqmwbj'},
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.cover}
+                />
+                <Text
+                  style={[
+                    globalStyle.commonText,
+                    {color: 'black', fontWeight: 'bold'},
+                  ]}>
+                  {username} .
+                </Text>
               </View>
-              <View style={{height:10}}/>
+              <View style={{height: 10}} />
               <FastImage
                 style={{
                   height: height / 3,
@@ -92,17 +103,22 @@ const{profilImage,username}=image
                   flexDirection: 'row',
                   justifyContent: 'space-around',
                   width: width / 4.3,
-                  left: -10,
+                  left: -5,
                   top: 3,
                 }}>
                 <MaterialCommunity
                   name="heart-outline"
-                  size={25}
+                  size={22}
                   color="black"
                 />
                 <MaterialCommunity
                   name="comment-outline"
-                  size={25}
+                  size={22}
+                  color="black"
+                />
+                <MaterialCommunity
+                  name="dots-horizontal"
+                  size={22}
                   color="black"
                 />
               </View>
@@ -113,8 +129,8 @@ const{profilImage,username}=image
                   flexDirection: 'row',
                   justifyContent: 'flex-start',
                   paddingHorizontal: 20,
-                  left: -10,
-                  width: width,
+                  left: -20,
+                  width: width*0.94,
                   top: 4,
                   //  justifyContent:'center'
                 }}>
@@ -135,7 +151,7 @@ const{profilImage,username}=image
             </View>
           );
         })}
-        <View style={{height:40}}/>
+        <View style={{height: 40}} />
       </ScrollView>
     </SafeAreaView>
   );

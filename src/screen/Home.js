@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet,
   SafeAreaView,
   Animated,
   ActivityIndicator,
@@ -19,7 +18,6 @@ import {
   GET_ALL_POST,
   WATCH_ALL_USERS,
   GET_GALLERY_BY_ID,
-  GET_MAINTANCE_VALUE
 } from '../redux/action';
 import firebase from 'firebase';
 import {
@@ -169,27 +167,10 @@ const Home = ({navigation}) => {
               routes={'Home'}
             />
           </View>
-          <View style={{top: 10}}>
+          {/* <View style={{top: 10}}>
             <Topic data={topics} navigation={navigation} />
-          </View>
-          {/* {archived.length > 0 && (
-            <View>
-              <Text
-                style={{
-                  fontStyle: 'italic',
-                  fontWeight: 'bold',
-                  left: 20,
-                  fontSize: 20,
-                }}>
-                Archived
-              </Text>
-              <HorizontalArticle
-                data={archived}
-                navigation={navigation}
-                routes={'Home'}
-              />
-            </View>
-          )} */}
+          </View> */}
+         
         </View>
       </Animated.ScrollView>
     </SafeAreaView>

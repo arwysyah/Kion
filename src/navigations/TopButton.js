@@ -13,15 +13,18 @@ import {
   View,
   Image,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import {height, TOP, width, globalStyle} from '../components/styles';
 import MaterialCommunity from 'react-native-vector-icons/Ionicons';
+
+import HeaderContent from '../components/HeaderContent';
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function TopButton({navigation}) {
   return (
-    <>
+    <SafeAreaView style={globalStyle.container}>
       <View style={globalStyle.topButtonHeader}>
         <TouchableOpacity
           style={[globalStyle.backIconContainer, {height: 30, width: 30}]}
@@ -56,45 +59,11 @@ export default function TopButton({navigation}) {
           </View>
         </TouchableWithoutFeedback>
       </View>
+      <View style={{flex:1}}>
+        <HeaderContent navigation={navigation}/>
+      </View>
 
-      <Tab.Navigator
-        initialRouteName="All"
-        backBehavior="All"
-        // tabBarOptions={
-        //   ({
-        //     style: {
-        //       backgroundColor: '#2b2929',
-        //     },
-        //   },
-        //   {
-        //     lazy: true,
-        //     scrollEnabled: true,
-        //   })
-        // }
-
-        scrollEnabled={true}
-        springConfig={{
-          restSpeedThreshold: 60,
-        }}
-        tabBarOptions={
-          ({
-            labelStyle: {fontSize: 12, color: 'grey'},
-            tabStyle: {width: 110},
-            style: {backgroundColor: 'white'},
-          },
-          {
-            lazy: true,
-            scrollEnabled: true,
-          })
-        }>
-        <Tab.Screen name="Semua" component={All} />
-        <Tab.Screen name="Universitas" component={University} />
-        <Tab.Screen name="Cerita" component={Story} />
-        <Tab.Screen name="Teknologi" component={Technology} />
-        <Tab.Screen name="Sains" component={Science} />
-        <Tab.Screen name="Beasiswa" component={Scholarship} />
-        <Tab.Screen name="Internship" component={Internship} />
-      </Tab.Navigator>
-    </>
+    
+    </SafeAreaView>
   );
 }
